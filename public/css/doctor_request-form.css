@@ -1,0 +1,140 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f9fafb;
+  color: #333;
+}
+
+/* Ensure sidebar + main content layout */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Match layout with sidebar */
+.main-content {
+  flex: 1;
+  background: #f9fafb;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+/* Optional inner wrapper for spacing */
+.request-page {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+.form-header {
+  background: linear-gradient(to right, #1A5F7A, #2C98A0);
+  color: white;
+  padding: 24px 30px;
+  border-radius: 12px 12px 0 0;
+}
+
+.form-header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.form-header p {
+  margin-top: 6px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.milk-request-form {
+  background: white;
+  padding: 30px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.form-section {
+  margin-bottom: 28px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+}
+
+.form-section h2 {
+  font-size: 18px;
+  color: #1A5F7A;
+  margin-bottom: 12px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #1A5F7A;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 95, 122, 0.2);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 32px; /* space between columns */
+  row-gap: 20px;   /* space between stacked rows */
+}
+
+
+
+.required {
+  color: #dc2626;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-cancel,
+.btn-submit {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-cancel {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn-cancel:hover {
+  background: #d1d5db;
+}
+
+.btn-submit {
+  background: #1A5F7A;
+  color: white;
+}
+
+.btn-submit:hover {
+  background: #164d63;
+}

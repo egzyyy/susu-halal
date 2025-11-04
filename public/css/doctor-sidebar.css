@@ -1,45 +1,68 @@
 /* Sidebar Only */
 .sidebar {
   width: 260px;
-  background: #ffffff;
-  border-right: 1px solid #e5e7eb;
+  background: #1A5F7A; /* Your chosen main color */
+  border-right: 1px solid #13485c; /* darker border tone for contrast */
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  color: #f0f9ff; /* lighter text for readability */
 }
 
+/* Logo Section */
 .sidebar .logo {
-  font-size: 18px;
-  font-weight: bold;
-  color: #2563eb;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
+/* Section Titles */
 .sidebar-section h4 {
   margin-bottom: 8px;
-  font-size: 14px;
-  color: #6b7280;
+  font-size: 13px;
+  color: #b9e6f2; /* softer blue tone */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+/* Links */
 .sidebar-section ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .sidebar-section li {
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
 .sidebar-section a {
   text-decoration: none;
-  color: #374151;
-  padding: 8px 12px;
-  border-radius: 6px;
+  color: #e6f3f7; /* lighter text color */
+  padding: 10px 12px;
+  border-radius: 8px;
   display: block;
+  transition: background 0.2s, color 0.2s;
 }
 
+/* Active and Hover State */
 .sidebar-section li.active a,
 .sidebar-section a:hover {
-  background: #e0f2fe;
-  color: #0ea5e9;
+  background: #ffffff;
+  color: #1A5F7A;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: Slight divider between sections */
+.sidebar-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+.sidebar-section:first-of-type {
+  border-top: none;
 }

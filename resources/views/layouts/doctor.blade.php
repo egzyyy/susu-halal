@@ -7,19 +7,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Doctor Dashboard')</title>
   <link rel="stylesheet" href="{{ asset('css/doctor-sidebar.css') }}">
+  <!-- Font Awesome CDN -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  integrity="sha512-xh6O/z3OJU5yExlqQxFJZrVfdkY3ZzA5C4lX2pB2VVDzE1d1ZVnVNQ6mvdx4+hIY1Y1DOfZ1f2k+LhFhSkk5Xg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
 </head>
 <body>
   <div class="container">
     <aside class="sidebar">
       <div class="logo">
-        <h2>🍼 Barakah Milk Bank</h2>
+        <h2>Barakah Milk Bank</h2>
       </div>
 
       <div class="sidebar-section">
         <h4>Doctor</h4>
         <ul>
           <li><a href="#">Dashboard</a></li>
-          <li><a href="#">User Management</a></li>
+          <li class="{{ request()->routeIs('doctor.milk-request-form') ? 'active' : '' }}">
+      <a href="{{ route('doctor.milk-request-form') }}">Request Milk Form</a>
+    </li>
           <li><a href="#">Reports</a></li>
         </ul>
       </div>
@@ -30,7 +41,9 @@
           <li><a href="#">Request</a></li>
           <li><a href="#">Recipient</a></li>
           <li><a href="#">Settings</a></li>
-          <li class="active"><a href="#">Milk Records</a></li>
+          <li class="{{ request()->routeIs('doctor.list-milk-request') ? 'active' : '' }}">
+      <a href="{{ route('doctor.list-milk-request') }}">Request List</a>
+    </li>
         </ul>
       </div>
 

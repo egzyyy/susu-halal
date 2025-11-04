@@ -26,7 +26,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/doctor/milk-request', function () {
     return view('doctor.doctor_milk-request');
-});
+})->name('doctor.list-milk-request');
 
 Route::get('/doctor/test', function () {
     return view('doctor.doctor_test');
@@ -35,6 +35,11 @@ Route::get('/doctor/test', function () {
 Route::get('/doctor/prescribe-milk', function () {
     return view('doctor.doctor_prescribe-milk');
 });
+
+Route::get('/doctor/milk-request/create', function () {
+    return view('doctor.doctor_milk-request-form');
+})->name('doctor.milk-request-form');
+
 
 
 
