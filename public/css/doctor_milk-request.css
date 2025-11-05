@@ -36,12 +36,46 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
+/* Header alignment */
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Add Request Button */
+.btn-add {
+  background-color: #1A5F7A;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-add:hover {
+  background-color: #164d63;
+  transform: translateY(-1px);
+}
+
+.btn-add i {
+  font-size: 14px;
+}
+
 
 .search-input {
   border: 1px solid #d1d5db;
@@ -60,6 +94,7 @@ body {
   padding: 12px 16px;
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
 }
 
 .records-table th {
@@ -98,14 +133,42 @@ body {
   color: #075985;
 }
 
-/* Buttons */
-.btn-view, .btn-delete {
+/* Action Buttons - Fixed for straight alignment */
+.actions {
+  display: inline-block; /* Change from flex to inline-block */
+}
+
+.actions button {
   background: none;
   border: none;
   cursor: pointer;
   font-size: 16px;
+  padding: 6px 4px; /* Reduce horizontal padding */
+  border-radius: 6px;
+  transition: background 0.2s;
+  margin-right: 4px; /* Smaller margin */
 }
 
-.btn-delete {
-  color: #dc2626;
+.actions button:first-child {
+  padding-left: 0; /* Remove left padding from first button */
+  margin-left: 0;
 }
+
+.actions button:last-child {
+  margin-right: 0;
+}
+
+.actions .btn-view i { color: #2563eb; }
+.actions .btn-delete i { color: #dc2626; }
+.actions .btn-more i { color: #6b7280; }
+
+.actions button:hover {
+  background: #f3f4f6;
+}
+
+/* Give some bottom padding inside the Actions cell */
+.records-table td.actions {
+  padding-bottom: 16px; /* Adds vertical space inside the cell */
+  padding-top: 30px;    /* Optional, to center icons vertically */
+}
+

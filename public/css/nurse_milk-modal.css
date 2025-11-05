@@ -1,0 +1,232 @@
+/* ========== Modal Styles ========== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  align-items: flex-end; /* move content to bottom */
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  width: 80%;
+  height: auto;
+  max-height: 95vh;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: slideUp 0.3s ease-out;
+}
+
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #57A6A1 0%, #1A5F7A 100%);
+  padding: 24px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modal-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 30px;
+  max-height: calc(90vh - 100px);
+  overflow-y: auto;
+}
+
+/* ========== Patient Profile ========== */
+.patient-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #57A6A1 0%, #1A5F7A 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 6px rgba(26, 95, 122, 0.2);
+}
+
+.profile-icon i {
+  font-size: 40px;
+  color: white;
+}
+
+.profile-id {
+  background: #f0f9ff;
+  color: #1A5F7A;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* ========== Form Styles ========== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-group .required {
+  color: #dc2626;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f9fafb;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.form-group input[readonly] {
+  cursor: not-allowed;
+}
+
+.form-group input:not([readonly]):focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #57A6A1;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(87, 166, 161, 0.1);
+}
+
+.form-group select {
+  cursor: pointer;
+  background: white;
+  color: #374151;
+}
+
+/* ========== Allocate Button ========== */
+.btn-allocate {
+  width: 100%;
+  background: linear-gradient(135deg, #57A6A1 0%, #1A5F7A 100%);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(26, 95, 122, 0.2);
+}
+
+.btn-allocate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(26, 95, 122, 0.3);
+}
+
+.btn-allocate:active {
+  transform: translateY(0);
+}
+
+/* ========== Scrollbar Styling ========== */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #57A6A1;
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #1A5F7A;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-header {
+    padding: 20px;
+  }
+}
