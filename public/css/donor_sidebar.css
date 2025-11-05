@@ -1,0 +1,68 @@
+/* Sidebar Only */
+.sidebar {
+  width: 260px;
+  background: #8B4513; /* Main color for Donor */
+  border-right: 1px solid #5C2E0B; /* darker border tone for contrast */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff4e6; /* light cream text for warmth */
+}
+
+/* Logo Section */
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Section Titles */
+.sidebar-section h4 {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #ffd8a8; /* soft golden tone */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Links */
+.sidebar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-section li {
+  margin: 6px 0;
+}
+
+.sidebar-section a {
+  text-decoration: none;
+  color: #ffeedd; /* light beige text */
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: block;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Active and Hover State */
+.sidebar-section li.active a,
+.sidebar-section a:hover {
+  background: #ffffff;
+  color: #8B4513;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Optional: Divider Between Sections */
+.sidebar-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 10px;
+}
+
+.sidebar-section:first-of-type {
+  border-top: none;
+}

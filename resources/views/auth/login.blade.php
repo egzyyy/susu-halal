@@ -61,7 +61,6 @@
                 </p>
             </div>
 
-            <!-- Features List -->
             <div class="space-y-4 mt-8">
                 <div class="flex items-center space-x-3 p-4 rounded-2xl glass-effect shadow-sm">
                     <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -98,7 +97,6 @@
         <!-- Right Side - Login Form -->
         <div class="w-full max-w-md mx-auto">
             <div class="glass-effect rounded-3xl shadow-2xl p-8 space-y-6">
-                <!-- Header -->
                 <div class="text-center space-y-2">
                     <div class="lg:hidden w-16 h-16 mx-auto bg-gradient-to-br from-[#1a5f7a] to-[#57cc99] rounded-2xl flex items-center justify-center shadow-lg">
                         <i class="fas fa-baby-carriage text-white text-2xl"></i>
@@ -107,7 +105,6 @@
                     <p class="text-gray-600">Sign in to your account</p>
                 </div>
 
-                <!-- Session Status -->
                 @if(session('status'))
                 <div class="p-4 rounded-2xl bg-green-50 border border-green-200 flex items-center space-x-3">
                     <i class="fas fa-check-circle text-green-600"></i>
@@ -118,34 +115,33 @@
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
-                    <!-- Email Field -->
+                    <!-- Username Field -->
                     <div class="space-y-2">
-                        <label for="email" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
-                            <i class="fas fa-envelope text-blue-500 text-sm"></i>
-                            <span>Email Address</span>
+                        <label for="username" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+                            <i class="fas fa-user text-blue-500 text-sm"></i>
+                            <span>Username</span>
                         </label>
                         <div class="relative">
                             <input 
-                                id="email" 
-                                name="email" 
-                                type="email" 
-                                value="{{ old('email') }}"
+                                id="username" 
+                                name="username" 
+                                type="text" 
+                                value="{{ old('username') }}"
                                 required 
                                 autofocus 
-                                autocomplete="email"
+                                autocomplete="username"
                                 class="w-full px-4 py-3 pl-11 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/80 backdrop-blur-sm"
-                                placeholder="Enter your email"
+                                placeholder="Enter your username"
                             >
                             <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         </div>
-                        @error('email')
+                        @error('username')
                             <div class="flex items-center space-x-2 text-red-600 text-sm mt-1">
                                 <i class="fas fa-exclamation-circle"></i>
                                 <span>{{ $message }}</span>
                             </div>
                         @enderror
                     </div>
-
 
                     <!-- Password Field -->
                     <div class="space-y-2">
@@ -176,49 +172,44 @@
                         @enderror
                     </div>
 
-                    <!-- Dropdown Field 
-                    <div class="space-y-2">
-                        <label for="role" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
-                            <i class="fas fa-user-tag text-blue-500 text-sm"></i>
-                            <span>Select Role</span>
-                        </label>
+                    <!-- Role Dropdown -->
+<div class="space-y-2">
+  <label for="role" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+    <i class="fas fa-user-tag text-blue-500 text-sm"></i>
+    <span>Role</span>
+  </label>
+  <div class="relative">
+    <select 
+      id="role" 
+      name="role"
+      required
+      class="w-full px-4 py-3 pl-11 border border-gray-300 rounded-2xl bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none"
+    >
+      <option value="" disabled selected>Select your role</option>
+      <option value="hmmc_admin">HMMC Admin</option>
+      <option value="nurse">Nurse</option>
+      <option value="pediatrician">Pediatrician</option>
+      <option value="lab_technician">Lab Technician</option>
+      <option value="shariah_advisor">Shariah Advisor</option>
+      <option value="parent">Parent</option>
+      <option value="donor">Donor</option>
+    </select>
+    <i class="fas fa-user-tag absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+    <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+  </div>
+  @error('role')
+    <div class="flex items-center space-x-2 text-red-600 text-sm mt-1">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>{{ $message }}</span>
+    </div>
+  @enderror
+</div>
 
-                        <div class="relative">
-                            <select 
-                                id="role" 
-                                name="role" 
-                                required
-                                class="w-full px-4 py-3 pl-11 pr-10 border border-gray-300 rounded-2xl bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all duration-200"
-                            >
-                                <option value="" disabled selected>Select your role</option>
-                                <option value="donor">Donor</option>
-                                <option value="nurse">Nurse / HMB Technician</option>
-                                <option value="admin">Administrator</option>
-                            </select>
 
-                            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
-                            <i class="fas fa-id-badge absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        </div>
-
-                        @error('role')
-                            <div class="flex items-center space-x-2 text-red-600 text-sm mt-1">
-                                <i class="fas fa-exclamation-circle"></i>
-                                <span>{{ $message }}</span>
-                            </div>
-                        @enderror
-                    </div>
-                            -->
-                            
-                    <!-- Remember Me & Forgot Password -->
                     <div class="flex items-center justify-between">
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <div class="relative">
-                                <input 
-                                    id="remember_me" 
-                                    name="remember" 
-                                    type="checkbox" 
-                                    class="sr-only"
-                                >
+                                <input id="remember_me" name="remember" type="checkbox" class="sr-only">
                                 <div class="w-5 h-5 border-2 border-gray-300 rounded-md flex items-center justify-center transition-all duration-200">
                                     <i class="fas fa-check text-white text-xs opacity-0 transition-opacity duration-200"></i>
                                 </div>
@@ -233,7 +224,6 @@
                         @endif
                     </div>
 
-                    <!-- Submit Button -->
                     <button 
                         type="submit" 
                         class="w-full bg-gradient-to-r from-[#1a5f7a] to-[#57cc99] text-white py-3 px-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:ring-4 focus:ring-blue-200 focus:outline-none"
@@ -245,7 +235,6 @@
                     </button>
                 </form>
 
-                <!-- Register Link -->
                 <div class="text-center">
                     <p class="text-gray-600">
                         Don't have an account?
@@ -256,7 +245,6 @@
                 </div>
             </div>
 
-            <!-- Footer Links -->
             <div class="text-center mt-6 space-y-2">
                 <div class="flex justify-center space-x-6 text-sm text-gray-500">
                     <a href="#" class="hover:text-gray-700 transition-colors">Privacy Policy</a>
@@ -269,23 +257,19 @@
     </div>
 
     <script>
-        // Password toggle functionality
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const toggleIcon = document.getElementById('password-toggle');
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
+                toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
             } else {
                 passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
+                toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         }
 
-        // Remember me checkbox styling
         document.getElementById('remember_me').addEventListener('change', function() {
             const checkIcon = this.nextElementSibling.querySelector('i');
             if (this.checked) {
@@ -299,18 +283,11 @@
             }
         });
 
-        // Add floating animation to form elements on focus
         document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.classList.add('transform', 'scale-105');
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.classList.remove('transform', 'scale-105');
-            });
+            input.addEventListener('focus', () => input.parentElement.classList.add('transform', 'scale-105'));
+            input.addEventListener('blur', () => input.parentElement.classList.remove('transform', 'scale-105'));
         });
 
-        // Add loading state to submit button
         document.querySelector('form').addEventListener('submit', function(e) {
             const button = this.querySelector('button[type="submit"]');
             button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Signing In...</span>';

@@ -39,7 +39,7 @@
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody> 
         <tr>
           <td><strong>P001</strong><br>Sarah Ahmad Binti Fauzi</td>
           <td>A101</td>

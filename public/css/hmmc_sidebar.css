@@ -1,0 +1,80 @@
+/* Sidebar Base */
+.sidebar {
+  width: 260px;
+  background: #7D2ED1; /* Main HMMC Admin color */
+  border-right: 1px solid #5e20a3; /* darker tone for contrast */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #f5ebff; /* light lavender text for readability */
+}
+
+/* Logo Section */
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Section Titles */
+.sidebar-section h4 {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #e2c9ff; /* softer purple tone for headers */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Links */
+.sidebar-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-section li {
+  margin: 6px 0;
+}
+
+.sidebar-section a {
+  text-decoration: none;
+  color: #f5ebff; /* light text */
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: block;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hover and Active */
+.sidebar-section li.active a,
+.sidebar-section a:hover {
+  background: #ffffff;
+  color: #7D2ED1;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.25);
+}
+
+/* Divider Between Sections */
+.sidebar-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 10px;
+}
+
+.sidebar-section:first-of-type {
+  border-top: none;
+}
+
+/* Optional subtle gradient for a more premium look */
+.sidebar {
+  background: linear-gradient(180deg, #7D2ED1 0%, #6521b2 100%);
+}
+
+.sidebar-section a:hover {
+  background: #ffffff;
+  color: #7D2ED1;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(125, 46, 209, 0.4);
+}
