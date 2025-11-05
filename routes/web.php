@@ -35,6 +35,10 @@ Route::get('/donor/profile', function () {
     return view('donor.donor_profile');
 })->name('donor.profile');
 
+Route::get('/donor/edit-profile', function () {
+    return view('donor.donor_edit-profile');
+})->name('donor.edit-profile');
+
 
 // Milk Request Module
 
@@ -80,3 +84,24 @@ Route::get('/nurse/milk-process', function () {
     return view('nurse_milk-process-record');
 })->name('milk.process');
 
+// Appoinment Module
+
+Route::get('/donor/appointments', function () {
+    return view('donor.donor_appointments');
+})->name('donor.appointments');
+
+Route::get('/donor/appointment-form', function () {
+    return view('donor.donor_appointment-form');
+})->name('donor.appointment-form');
+
+Route::get('/donor/confirm-appointment', function () {
+    return view('donor.donor_confirm-appointment');
+})->name('donor.confirm-appointment');
+
+Route::get('/doctor/list-of-donor-appointments', function () {
+    return view('doctor.doctor_list-of-donor-appointments');
+})->name('doctor.list-of-donor-appointments');
+
+Route::get('/donor/my-appointments', function () {
+    return view('donor.donor_my-appointments');
+})->name('donor.my-appointments');

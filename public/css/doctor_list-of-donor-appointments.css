@@ -1,0 +1,322 @@
+/* General Layout - Ensures content appears beside sidebar */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f9fafb;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Main Content - Positions content to the right of sidebar */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  background: #f9fafb;
+}
+
+/* Appointments Record Page */
+.appointments-record-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* Appointments Section */
+.appointments-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-icon {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 0;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab:hover {
+  color: #0f172a;
+}
+
+.tab.active {
+  color: #0891b2;
+  border-bottom-color: #0891b2;
+}
+
+.badge {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tab.active .badge {
+  background: #ecfeff;
+  color: #0891b2;
+}
+
+/* Table */
+.table-container {
+  overflow-x: auto;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.records-table thead {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.records-table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.records-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #334155;
+}
+
+.records-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* Status Badges */
+.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.confirmed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status.verified {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+/* Action Buttons - Fixed for straight alignment */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  color: #94a3b8;
+}
+
+.actions .btn-more {
+  padding: 6px 8px;
+}
+
+.actions .btn-more:hover {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Confirm Button in Actions */
+.actions .btn-confirm {
+  background: #0891b2;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.actions .btn-confirm:hover {
+  background: #0e7490;
+}
+
+/* Individual Action Button Icons */
+.actions .btn-view i { 
+  color: #2563eb; 
+}
+
+.actions .btn-delete i { 
+  color: #dc2626; 
+}
+
+.actions .btn-more i { 
+  color: #94a3b8; 
+}
+
+.actions button:hover {
+  background: #f3f4f6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px;
+  }
+
+  .appointments-section {
+    padding: 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .table-container {
+    overflow-x: scroll;
+  }
+
+  .records-table {
+    min-width: 700px;
+  }
+
+  .actions {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+}
+
+/* Hover Effects */
+.btn-icon:active,
+.tab:active,
+.actions button:active {
+  transform: scale(0.98);
+}
+
+/* Focus States for Accessibility */
+.btn-icon:focus,
+.tab:focus,
+.actions button:focus {
+  outline: 2px solid #0891b2;
+  outline-offset: 2px;
+}
+
+/* Empty State (if needed) */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin: 0;
+}
