@@ -9,9 +9,10 @@
     <div class="main-content">
         <div class="page-header">
             <h1>My Profile</h1>
-            <button class="btn-edit-profile">
-                <i class="fas fa-edit"></i> Edit Profile
-            </button>
+            <a href="{{ route('donor.edit-profile') }}" class="btn-edit-profile">
+    <i class="fas fa-edit"></i> Edit Profile
+</a>
+
         </div>
 
         <div class="profile-layout">
