@@ -48,6 +48,23 @@
   transition: background 0.2s, color 0.2s;
 }
 
+/* Icon styling inside sidebar links */
+.sidebar-section a i {
+  margin-right: 10px;
+  font-size: 14px;
+  width: 18px; /* keeps icons aligned vertically */
+  text-align: center;
+  color: #ffd8a8; /* soft golden tone for icons */
+  transition: color 0.2s;
+}
+
+/* When hovering or active, match icon color to text */
+.sidebar-section li.active a i,
+.sidebar-section a:hover i {
+  color: #8B4513; /* matches hover text color */
+}
+
+
 /* Active and Hover State */
 .sidebar-section li.active a,
 .sidebar-section a:hover {
@@ -66,3 +83,5 @@
 .sidebar-section:first-of-type {
   border-top: none;
 }
+
+

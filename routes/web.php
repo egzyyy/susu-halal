@@ -105,3 +105,19 @@ Route::get('/doctor/list-of-donor-appointments', function () {
 Route::get('/donor/my-appointments', function () {
     return view('donor.donor_my-appointments');
 })->name('donor.my-appointments');
+
+Route::get('/doctor/donor-appointment-record', function () {
+    return view('doctor.doctor_donor-appointment-record');
+})->name('doctor.donor-appointment-record');
+
+Route::get('/donor/pumping-kit-form', function () {
+    return view('donor.donor_pumping-kit-form');
+})->name('donor.pumping-kit-form');
+
+Route::get('/donor/confirm-pumping-kit-form', function () {
+    return view('donor.donor_confirm-pumping-kit-form');
+})->name('donor.confirm-pumping-kit-form');
+
+Route::get('/doctor/donor-candidate-list', function () {
+    return view('doctor.doctor_donor-candidates');
+})->name('doctor.donor-candidate-list');
