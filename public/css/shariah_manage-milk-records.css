@@ -1,0 +1,291 @@
+/* General Layout */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f9fafb;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Main Content - positioned to the right of sidebar */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  margin-left: auto; /* Ensures content is on the right */
+}
+
+/* Page Header */
+.page-header h1 {
+  margin-bottom: 4px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.page-header p {
+  color: #6b7280;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+/* Table Controls */
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-filter {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-search, .btn-filter, .btn-more-options {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.btn-more-options {
+  padding: 8px 12px;
+}
+
+.btn-search:hover, .btn-filter:hover, .btn-more-options:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.btn-review {
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-review:hover {
+  background: #15803d;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Table Styles */
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.records-table thead {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.records-table th {
+  text-align: left;
+  padding: 14px 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.records-table tbody tr {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.15s;
+}
+
+.records-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.records-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.records-table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #374151;
+  vertical-align: middle;
+}
+
+/* Donor Info */
+.donor-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.donor-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.donor-name {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.donor-details {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-labelling { 
+  background: #dbeafe; 
+  color: #1e40af; 
+}
+
+.status-storaging { 
+  background: #e0e7ff; 
+  color: #4338ca; 
+}
+
+.status-screening { 
+  background: #fef3c7; 
+  color: #92400e; 
+}
+
+.status-dispatching { 
+  background: #fce7f3; 
+  color: #9f1239; 
+}
+
+.status-approved { 
+  background: #d1fae5; 
+  color: #065f46; 
+}
+
+.status-pending { 
+  background: #fed7aa; 
+  color: #92400e; 
+}
+
+.status-rejected { 
+  background: #fee2e2; 
+  color: #991b1b; 
+}
+
+/* Date Styling */
+.date {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.date.green { 
+  color: #16a34a; 
+}
+
+.date.red { 
+  color: #dc2626; 
+}
+
+/* Action Buttons - Fixed for straight alignment */
+.actions {
+  display: inline-block;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  margin-right: 4px;
+}
+
+.actions button:first-child {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.actions button:last-child {
+  margin-right: 0;
+}
+
+.actions .btn-view i { 
+  color: #2563eb; 
+}
+
+.actions .btn-delete i { 
+  color: #dc2626; 
+}
+
+.actions .btn-more i { 
+  color: #6b7280; 
+}
+
+.actions button:hover {
+  background: #f3f4f6;
+}
+
+/* Give some bottom padding inside the Actions cell */
+.records-table td.actions {
+  padding-bottom: 16px;
+  padding-top: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 30px;
+  }
+  
+  .records-table th,
+  .records-table td {
+    padding: 12px 16px;
+  }
+}

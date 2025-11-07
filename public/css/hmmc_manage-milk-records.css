@@ -1,0 +1,284 @@
+/* General Layout */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f9fafb;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.page-header h1 {
+  margin-bottom: 4px;
+  font-size: 26px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.page-header p {
+  color: #6b7280;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+/* Table Controls */
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-filter {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-search,
+.btn-filter {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-search:hover,
+.btn-filter:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.btn-more-options {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.btn-more-options:hover {
+  background: #f9fafb;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Table Styling */
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.records-table thead {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.records-table th {
+  text-align: left;
+  padding: 16px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.records-table tbody tr {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.2s;
+}
+
+.records-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.records-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.records-table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Donor Info */
+.donor-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.donor-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.donor-name {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2px;
+}
+
+.donor-details {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-labelling {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-storaging {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.status-screening {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-dispatching {
+  background: #fce7f3;
+  color: #9f1239;
+}
+
+.status-approved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-pending {
+  background: #fed7aa;
+  color: #92400e;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Action Buttons - Fixed for straight alignment */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  margin-right: 4px;
+}
+
+.actions button:first-child {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.actions button:last-child {
+  margin-right: 0;
+}
+
+.actions .btn-view i {
+  color: #2563eb;
+}
+
+.actions .btn-delete i {
+  color: #dc2626;
+}
+
+.actions .btn-more i {
+  color: #6b7280;
+}
+
+.actions button:hover {
+  background: #f3f4f6;
+}
+
+/* Give some bottom padding inside the Actions cell */
+.records-table td.actions {
+  padding: 16px 20px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 24px;
+  }
+  
+  .records-table th,
+  .records-table td {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .records-table {
+    min-width: 900px;
+  }
+}

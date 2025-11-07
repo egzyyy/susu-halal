@@ -84,6 +84,34 @@ Route::get('/nurse/milk-process', function () {
     return view('nurse_milk-process-record');
 })->name('milk.process');
 
+Route::get('/hmmc/manage-milk-records', function () {
+    return view('hmmc.hmmc_manage-milk-records');
+})->name('hmmc.manage-milk-records');
+
+Route::get('/shariah/manage-milk-records', function () {
+    return view('shariah.shariah_manage-milk-records');
+})->name('shariah.manage-milk-records');
+
+Route::get('/nurse/manage-milk-records', function () {
+    return view('nurse.nurse_manage-milk-records');
+})->name('nurse.manage-milk-records');
+
+Route::get('/labtech/manage-milk-records', function () {
+    return view('labtech.labtech_manage-milk-records');
+})->name('labtech.manage-milk-records');
+
+Route::get('/labtech/process-milk', function () {
+    return view('labtech.labtech_process-milk');
+})->name('labtech.process-milk');
+
+Route::get('/shariah/view-milk-processing', function () {
+    return view('shariah.shariah_view-milk-processing');
+})->name('shariah.view-milk-processing');
+
+Route::get('/nurse/view-milk-processing', function () {
+    return view('nurse.nurse_view-milk-processing');
+})->name('nurse.view-milk-processing');
+
 // Appoinment Module
 
 Route::get('/donor/appointments', function () {

@@ -1,13 +1,13 @@
 /* Sidebar Only */
 .sidebar {
   width: 260px;
-  background: #1A5F7A; /* Your chosen main color */
-  border-right: 1px solid #13485c; /* darker border tone for contrast */
+  background: #2A9D8F; /* Main Shariah Advisor color */
+  border-right: 1px solid #238377; /* slightly darker tone for depth */
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: #f0f9ff; /* lighter text for readability */
+  color: #e9f9f7; /* soft light for readability */
 }
 
 /* Logo Section */
@@ -23,7 +23,7 @@
 .sidebar-section h4 {
   margin-bottom: 8px;
   font-size: 13px;
-  color: #b9e6f2; /* softer blue tone */
+  color: #b6f2e8; /* soft mint tone */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -41,7 +41,7 @@
 
 .sidebar-section a {
   text-decoration: none;
-  color: #e6f3f7; /* lighter text color */
+  color: #e6f7f4; /* light text */
   padding: 10px 12px;
   border-radius: 8px;
   display: block;
@@ -52,15 +52,14 @@
 .sidebar-section li.active a,
 .sidebar-section a:hover {
   background: #ffffff;
-  color: #1A5F7A;
+  color: #2A9D8F;
   font-weight: 600;
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
 }
 
-
-/* Optional: Slight divider between sections */
+/* Divider between sections */
 .sidebar-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-top: 10px;
 }
 
@@ -70,6 +69,5 @@
 
 /* Icon Spacing */
 .sidebar-section a i {
-    /* Adds 8 pixels of space to the right of every icon */
-    margin-right: 8px; 
+  margin-right: 8px;
 }

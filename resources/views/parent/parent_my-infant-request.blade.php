@@ -41,6 +41,7 @@
                             <th>Date Requested</th>
                             <th>Date Time to Allocate</th>
                             <th>Status</th>
+                            <th>Milk Kinship</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -52,7 +53,8 @@
                                 'volume' => '250ml',
                                 'date_requested' => 'May 15, 2024',
                                 'date_allocate' => 'May 15, 2024 • 09:45 AM',
-                                'status' => 'waiting'
+                                'status' => 'waiting',
+                                'milk_kinship' => 'yes'
                             ],
                             [
                                 'request_id' => 'REQ-002',
@@ -60,7 +62,8 @@
                                 'volume' => '250ml',
                                 'date_requested' => 'May 15, 2024',
                                 'date_allocate' => 'May 15, 2024 • 09:45 AM',
-                                'status' => 'approved'
+                                'status' => 'approved',
+                                'milk_kinship' => 'no'
                             ],
                             [
                                 'request_id' => 'REQ-003',
@@ -68,7 +71,8 @@
                                 'volume' => '250ml',
                                 'date_requested' => 'May 15, 2024',
                                 'date_allocate' => 'May 15, 2024 • 09:45 AM',
-                                'status' => 'allocated'
+                                'status' => 'allocated',
+                                'milk_kinship' => 'no'
                             ],
                             [
                                 'request_id' => 'REQ-004',
@@ -76,7 +80,8 @@
                                 'volume' => '250ml',
                                 'date_requested' => 'May 15, 2024',
                                 'date_allocate' => 'May 15, 2024 • 09:45 AM',
-                                'status' => 'canceled'
+                                'status' => 'canceled',
+                                'milk_kinship' => 'yes'
                             ]
                         ] as $request)
                             <tr>
@@ -90,14 +95,18 @@
                                         {{ ucfirst($request['status']) }}
                                     </span>
                                 </td>
+                                <td data-label="Milk Kinship">
+                                    <span class="kinship-badge {{ $request['milk_kinship'] }}">
+                                        {{ ucfirst($request['milk_kinship']) }}
+                                    </span>
+                                </td>
                                 <td class="actions" data-label="Actions">
-    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-    @if($request['status'] === 'waiting' || $request['status'] === 'approved')
-        <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
-    @endif
-    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
-</td>
-
+                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+                                    @if($request['status'] === 'waiting' || $request['status'] === 'approved')
+                                        <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                    @endif
+                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -20,41 +20,42 @@
 <body>
   <div class="container">
     <aside class="sidebar">
-      <div class="logo">
-        <h2>HMMC</h2>
-      </div>
+  <div class="logo">
+    <img src="{{ asset('images/hmmc_logo_clear.png') }}" alt="HALIMATUSSAADIA Mother's Milk Centre Logo" style="width: 270px; height: auto;">
+  </div>
 
-      <div class="sidebar-section">
-        <h4>Nurse</h4>
-        <ul>
-          <li><a href="#">Dashboard</a></li>
-          <li class="{{ request()->routeIs('doctor.milk-request-form') ? 'active' : '' }}">
-      <a href="{{ route('doctor.milk-request-form') }}">Request Milk Form</a>
-    </li>
-          <li><a href="#">Reports</a></li>
-        </ul>
-      </div>
+  <div class="sidebar-section">
+    <h4>NURSE</h4>
+    <ul>
+      <li><a href="#"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+      <li class="{{ request()->routeIs('doctor.milk-request-form') ? 'active' : '' }}">
+        <a href="{{ route('doctor.milk-request-form') }}"><i class="fa-solid fa-droplet"></i> Request Milk Form</a>
+      </li>
+      <li><a href="#"><i class="fa-solid fa-chart-line"></i> Reports</a></li>
+    </ul>
+  </div>
 
-      <div class="sidebar-section">
-        <h4>Management</h4>
-        <ul>
-          <li><a href="#">Request</a></li>
-          <li><a href="#">Recipient</a></li>
-          <li><a href="#">Settings</a></li>
-          <li class="{{ request()->routeIs('doctor.list-milk-request') ? 'active' : '' }}">
-      <a href="{{ route('doctor.list-milk-request') }}">Request List</a>
-    </li>
-        </ul>
-      </div>
+  <div class="sidebar-section">
+    <h4>Management</h4>
+    <ul>
+      <li><a href="#"><i class="fa-solid fa-file-lines"></i> Request</a></li>
+      <li><a href="#"><i class="fa-solid fa-baby"></i> Recipient</a></li>
+      <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+      <li class="{{ request()->routeIs('doctor.list-milk-request') ? 'active' : '' }}">
+        <a href="{{ route('doctor.list-milk-request') }}"><i class="fa-solid fa-list"></i> Request List</a>
+      </li>
+    </ul>
+  </div>
 
-      <div class="sidebar-section">
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="#">Audit Logs</a></li>
-          <li><a href="#">Activity Monitor</a></li>
-        </ul>
-      </div>
-    </aside>
+  <div class="sidebar-section">
+    <h4>Explore</h4>
+    <ul>
+      <li><a href="#"><i class="fa-solid fa-book"></i> Audit Logs</a></li>
+      <li><a href="#"><i class="fa-solid fa-chart-simple"></i> Activity Monitor</a></li>
+    </ul>
+  </div>
+</aside>
+
 
     <main class="main-content">
       @yield('content')

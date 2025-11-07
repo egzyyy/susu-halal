@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Doctor Dashboard')</title>
-  <link rel="stylesheet" href="{{ asset('css/hmmc_sidebar.css') }}">
+  <title>@yield('title', 'Lab Technician Dashboard')</title>
+  <link rel="stylesheet" href="{{ asset('css/labtech_sidebar.css') }}">
   <!-- Font Awesome CDN -->
 <link
   rel="stylesheet"
@@ -25,7 +25,7 @@
   </div>
 
   <div class="sidebar-section">
-    <h4>HMMC</h4>
+    <h4>LAB TECHNICIAN</h4>
     <ul>
       <li><a href="#"><i class="fa-solid fa-house"></i> Dashboard</a></li>
       <li class="{{ request()->routeIs('doctor.milk-request-form') ? 'active' : '' }}">

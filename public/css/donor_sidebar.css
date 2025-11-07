@@ -74,14 +74,20 @@
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
 }
 
-/* Optional: Divider Between Sections */
+/* Optional: Slight divider between sections */
 .sidebar-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 10px;
 }
 
 .sidebar-section:first-of-type {
   border-top: none;
+}
+
+/* Icon Spacing */
+.sidebar-section a i {
+    /* Adds 8 pixels of space to the right of every icon */
+    margin-right: 8px; 
 }
 
 
