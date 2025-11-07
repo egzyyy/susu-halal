@@ -19,11 +19,11 @@
             <div class="appointment-cards">
                 <div class="appointment-card">
                     <h3>Milk Donation</h3>
-                    <button class="btn-book">Book Appointment</button>
+                     <a href="{{ route('donor.appointment-form') }}" class="btn-book">Book Appointment</a>
                 </div>
                 <div class="appointment-card">
                     <h3>Pumping Kit</h3>
-                    <button class="btn-book">Book Appointment</button>
+                     <a href="{{ route('donor.pumping-kit-form') }}" class="btn-book">Book Appointment</a>
                 </div>
             </div>
 

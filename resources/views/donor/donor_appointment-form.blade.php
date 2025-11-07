@@ -103,7 +103,8 @@
       <!-- Form Actions -->
       <div class="form-actions">
         <button type="button" class="btn-cancel" onclick="window.history.back()">Cancel</button>
-        <button type="submit" class="btn-submit">Submit Appointment</button>
+        <a href="{{ route('donor.confirm-appointment') }}" class="btn-submit">Continue</a>
+
       </div>
     </form>
   </div>

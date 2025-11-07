@@ -48,10 +48,11 @@
     <i class="fas fa-edit"></i>
     <span>Edit</span>
 </a>
-                <button type="submit" class="btn-confirm">
-                    <span>Confirm</span>
-                    <i class="fas fa-check"></i>
-                </button>
+                <button type="button" class="btn-confirm" onclick="window.location.href='{{ route('donor.appointments') }}'">
+    <span>Confirm</span>
+    <i class="fas fa-check"></i>
+</button>
+
             </div>
         </div>
     </div>

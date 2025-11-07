@@ -28,6 +28,7 @@
     <h4>Donor</h4>
     <ul>
       <li><a href="#"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+      <li><a href="{{ route('donor.profile') }}"><i class="fa-solid fa-house"></i> Profile</a></li>
       <li class="{{ request()->routeIs('doctor.milk-request-form') ? 'active' : '' }}">
         <a href="{{ route('doctor.milk-request-form') }}"><i class="fa-solid fa-droplet"></i> Request Milk Form</a>
       </li>
@@ -38,6 +39,7 @@
   <div class="sidebar-section">
     <h4>Management</h4>
     <ul>
+      <li><a href="{{ route('donor.appointments') }}"><i class="fa-solid fa-file-lines"></i> My Appointments</a></li>
       <li><a href="#"><i class="fa-solid fa-file-lines"></i> Request</a></li>
       <li><a href="#"><i class="fa-solid fa-baby"></i> Recipient</a></li>
       <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>

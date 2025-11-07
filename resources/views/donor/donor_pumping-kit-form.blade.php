@@ -15,7 +15,7 @@
         <div class="form-card">
             <h2>Book Your Pumping Kit</h2>
             
-            <form action="" method="POST">
+            <form action="{{ route('donor.confirm-pumping-kit-form') }}" method="GET">
                 @csrf
                 
                 <div class="form-row">

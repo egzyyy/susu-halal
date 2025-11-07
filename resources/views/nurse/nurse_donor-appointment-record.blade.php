@@ -1,10 +1,10 @@
-@extends('layouts.doctor')
+@extends('layouts.nurse')
 
-@section('title', 'Donor Appointment Record')
+@section('title', 'Nurse Appointment Record')
 
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="{{ asset('css/doctor_donor-appointment-record.css') }}">
+<link rel="stylesheet" href="{{ asset('css/nurse_donor-appointment-record.css') }}">
 
 <div class="container">
   <div class="main-content">
