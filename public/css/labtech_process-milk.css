@@ -257,25 +257,82 @@ body {
 /* ===== Data Table Container ===== */
 .data-table-container {
   margin: 30px auto;
-  max-width: 800px;
+  max-width: 900px;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   border: 1px solid #e2e8f0;
 }
 
 .table-header-info {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  padding: 12px 20px;
+  padding: 16px 24px;
   border-bottom: 2px solid #0ea5e9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .animals-selected {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: #1e293b;
   display: inline-block;
+}
+
+/* ===== Beautiful Add Row Button ===== */
+.btn-add-row {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-add-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-add-row:hover::before {
+  left: 100%;
+}
+
+.btn-add-row:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0891b2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.45);
+}
+
+.btn-add-row:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+}
+
+.btn-add-row i {
+  font-size: 16px;
+}
+
+.btn-add-row span {
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 /* ===== Data Table Styling ===== */
@@ -290,7 +347,7 @@ body {
 }
 
 .data-table thead th {
-  padding: 14px 16px;
+  padding: 14px 12px;
   font-size: 13px;
   font-weight: 700;
   color: #475569;
@@ -306,7 +363,6 @@ body {
 
 .data-table tbody tr:hover {
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  transform: scale(1.01);
 }
 
 .data-table tbody tr:last-child {
@@ -314,10 +370,27 @@ body {
 }
 
 .data-table tbody td {
-  padding: 14px 16px;
+  padding: 14px 12px;
   font-size: 14px;
   color: #334155;
   font-weight: 500;
+}
+
+.data-table tbody td[contenteditable="true"] {
+  cursor: text;
+  position: relative;
+}
+
+.data-table tbody td[contenteditable="true"]:focus {
+  outline: 2px solid #0ea5e9;
+  outline-offset: -2px;
+  background: #f0f9ff;
+}
+
+.data-table tbody td[contenteditable="true"]:empty:before {
+  content: "Click to edit";
+  color: #94a3b8;
+  font-style: italic;
 }
 
 .data-table tbody td:first-child {
@@ -330,6 +403,52 @@ body {
   color: #1e293b;
 }
 
+/* ===== Action Buttons - Fixed for straight alignment ===== */
+.actions {
+  display: inline-block;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  margin-right: 4px;
+}
+
+.actions button:first-child {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.actions button:last-child {
+  margin-right: 0;
+}
+
+.actions .btn-view i { 
+  color: #2563eb; 
+}
+
+.actions .btn-delete-row i { 
+  color: #dc2626; 
+}
+
+.actions .btn-more i { 
+  color: #6b7280; 
+}
+
+.actions button:hover {
+  background: #f3f4f6;
+}
+
+.data-table td.actions {
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
 /* ===== Navigation Buttons ===== */
 .button-row {
   display: flex;
@@ -337,7 +456,7 @@ body {
   align-items: center;
   margin-top: 30px;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -356,6 +475,7 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   font-size: 15px;
+  text-decoration: none;
 }
 
 .btn-next:hover {
@@ -387,67 +507,6 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-color: #cbd5e1;
-}
-
-/* ===== Action Buttons ===== */
-.actions {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-}
-
-.actions button {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 2px solid #e2e8f0;
-  cursor: pointer;
-  font-size: 16px;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.actions .btn-view i { 
-  color: #3b82f6;
-}
-
-.actions .btn-delete i { 
-  color: #ef4444;
-}
-
-.actions .btn-more i { 
-  color: #64748b;
-}
-
-.actions button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.actions .btn-view:hover {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  border-color: #3b82f6;
-}
-
-.actions .btn-delete:hover {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  border-color: #ef4444;
-}
-
-.actions .btn-more:hover {
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-  border-color: #64748b;
-}
-
-/* Records Table Actions Cell */
-.records-table td.actions {
-  padding: 16px;
-  vertical-align: middle;
 }
 
 /* ===== Scrollbar Styling ===== */
@@ -501,5 +560,16 @@ body {
   .data-table thead th,
   .data-table tbody td {
     padding: 10px 8px;
+  }
+
+  .table-header-info {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .btn-add-row {
+    width: 100%;
+    justify-content: center;
   }
 }
