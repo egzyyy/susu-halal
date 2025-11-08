@@ -49,7 +49,7 @@
                             <th>Candidate ID</th>
                             <th>Full Name</th>
                             <th>Email Address</th>
-                            <th>Status</th>
+                            <th>Eligible Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

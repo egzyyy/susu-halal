@@ -92,6 +92,22 @@ body {
   margin-bottom: 24px;
 }
 
+.form-grid-spacer {
+  height: 0;
+  margin-bottom: 0;
+}
+
+.form-grid-full {
+  display: block;
+  margin-bottom: 24px;
+}
+
+.form-column-full {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .form-column {
   display: flex;
   flex-direction: column;
@@ -183,33 +199,88 @@ select.form-control {
   padding-right: 40px;
 }
 
-/* Radio Group */
+/* Radio Group - Updated for better styling */
 .radio-group {
   display: flex;
-  gap: 24px;
+  gap: 16px;
   margin-top: 8px;
 }
 
-.radio-label {
+.radio-option {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
-  font-size: 14px;
-  color: #334155;
+  padding: 12px 20px;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 0;
 }
 
-.radio-label input[type="radio"] {
+.radio-option:hover {
+  border-color: #0891b2;
+  background: #f0f9ff;
+}
+
+.radio-option input[type="radio"] {
   width: 18px;
   height: 18px;
   cursor: pointer;
   accent-color: #0891b2;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.radio-option input[type="radio"]:checked + .radio-text {
+  color: #0891b2;
+  font-weight: 600;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+  border-color: #0891b2;
+  background: #f0f9ff;
+}
+
+.radio-text {
+  font-size: 14px;
+  color: #334155;
+  transition: all 0.2s;
+  user-select: none;
 }
 
 /* Textarea */
 textarea.form-control {
   resize: vertical;
   min-height: 120px;
+}
+
+/* Location Section - Full Width Below Radio Buttons */
+.location-section {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.location-content {
+  max-width: 100%;
+}
+
+.section-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.location-input {
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Form Actions */
@@ -250,6 +321,8 @@ textarea.form-control {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn-submit:hover {
@@ -278,6 +351,11 @@ textarea.form-control {
   .form-grid {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 12px;
   }
 
   .form-actions {

@@ -47,6 +47,7 @@
                     <table class="records-table">
                         <thead>
                             <tr>
+                                <th>REFERENCE ID</th>
                                 <th>DATE</th>
                                 <th>AMOUNT</th>
                                 <th>STATUS</th>
@@ -57,6 +58,7 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td><span class="ref-id">MDN-2025-015</span></td>
                                 <td>15.5.2025</td>
                                 <td>1000 ml</td>
                                 <td><span class="status verified">Verified</span></td>
@@ -65,10 +67,11 @@
                                 <td class="actions">
                                     <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
                                     <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
-                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
+                                    <button class="btn-calendar" title="Calendar"><i class="fas fa-calendar-alt"></i></button>
                                 </td>
                             </tr>
                             <tr>
+                                <td><span class="ref-id">MDN-2025-015</span></td>
                                 <td>21.5.2025</td>
                                 <td>1000 ml</td>
                                 <td><span class="status pending">Pending</span></td>
@@ -77,7 +80,7 @@
                                 <td class="actions">
                                     <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
                                     <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
-                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
+                                      <button class="btn-calendar" title="Calendar"><i class="fas fa-calendar-alt"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -105,6 +108,7 @@
                     <table class="records-table">
                         <thead>
                             <tr>
+                                <th>REFERENCE ID</th>
                                 <th>DATE</th>
                                 <th>AMOUNT</th>
                                 <th>STATUS</th>

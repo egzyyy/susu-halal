@@ -35,10 +35,16 @@
                     </div>
                 </div>
 
-                <div class="form-group full-width">
-                    <label for="preferred_location">Preferred Location</label>
-                    <input type="text" id="preferred_location" name="preferred_location" placeholder="Enter preferred location" required>
-                </div>
+                <div class="form-group">
+                        <label for="preferred_location">Preferred Location</label>
+                        <select id="preferred_location" name="preferred_location" required>
+                            <option value="">Select location</option>
+                             <option value="main_foyer">Main Foyer</option>
+            <option value="front_counter">Front Counter</option>
+            <option value="reception">Reception Area</option>
+            <option value="milk_bank">Milk Bank Office</option>
+                        </select>
+                    </div>
 
                 <div class="form-actions">
                     <button type="submit" class="btn-continue">

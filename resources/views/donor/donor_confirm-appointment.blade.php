@@ -97,10 +97,10 @@
         <button type="button" class="btn-back" onclick="window.history.back()">
           <i class="fas fa-arrow-left"></i> Back to Edit
         </button>
-        <a href="{{ route('donor.appointments') }}" class="btn-submit">Continue</a>
-        <button type="submit" class="btn-confirm">
+        
+                <a href="{{ route('donor.appointments') }}" class="btn-confirm">
           <i class="fas fa-check-circle"></i> Confirm Appointment
-        </button>
+        </a>
       </div>
     </form>
   </div>

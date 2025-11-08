@@ -53,6 +53,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  text-decoration: none;
 }
 
 .btn-book:hover {
@@ -122,6 +123,12 @@ body {
   width: 100%;
   border-collapse: collapse;
 }
+.ref-id {
+    font-weight: 600;
+    color: #1f2937; /* Darker text for visibility */
+    font-size: 13px;
+    display: block; /* Ensures it takes up the full cell width */
+}
 
 .records-table th,
 .records-table td {
@@ -159,7 +166,7 @@ body {
 
 .actions .btn-view i { color: #2563eb; }
 .actions .btn-delete i { color: #dc2626; }
-.actions .btn-more i { color: #6b7280; }
+.actions .btn-calendar i { color: #6b7280; }
 
 /* Responsive */
 @media (max-width: 768px) {
