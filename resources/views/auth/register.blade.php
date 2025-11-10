@@ -648,194 +648,112 @@
             </div>
 
             <div class="glass-effect rounded-3xl shadow-2xl p-8 space-y-6">
-                <div class="text-center space-y-2 pb-4 border-b border-gray-200">
-                    <h2 class="text-3xl font-bold gradient-text">Weekly Availability</h2>
-                    <p class="text-gray-600">Select the days you are available, then choose your preferred time slots for each day.</p>
-                </div>
+  <div class="text-center space-y-2 pb-4 border-b border-gray-200">
+    <h2 class="text-3xl font-bold gradient-text">Weekly Availability</h2>
+    <p class="text-gray-600">
+      Select the date you’re available, and your day will appear automatically.
+    </p>
+  </div>
 
-                <form id="availabilityForm" class="space-y-6">
-                    
-                    <div class="space-y-3 p-4 border rounded-2xl bg-gray-50">
-                        <label class="flex items-center space-x-2 text-lg font-semibold text-gray-800">
-                            <i class="fas fa-calendar-week text-indigo-600"></i>
-                            <span>Select Available Days <span class="text-red-500">*</span></span>
-                        </label>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Monday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Monday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Monday</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Tuesday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Tuesday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Tuesday</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Wednesday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Wednesday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Wednesday</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Thursday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Thursday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Thursday</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Friday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Friday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Friday</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Saturday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Saturday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Saturday</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="availableDays[]" value="Sunday" class="form-checkbox text-indigo-600 h-5 w-5 rounded" onchange="toggleTimeSlots('Sunday', this.checked)">
-                                <span class="ml-2 text-sm font-medium text-gray-700">Sunday</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="MondayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-blue-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Monday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-blue-500 transition cursor-pointer">
-                                <input type="checkbox" name="MondayTime[]" value="9am-11am" class="form-checkbox text-blue-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">9:00 AM - 11:00 AM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-blue-500 transition cursor-pointer">
-                                <input type="checkbox" name="MondayTime[]" value="11am-1pm" class="form-checkbox text-blue-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">11:00 AM - 1:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-blue-500 transition cursor-pointer">
-                                <input type="checkbox" name="MondayTime[]" value="2pm-4pm" class="form-checkbox text-blue-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">2:00 PM - 4:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="TuesdayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-green-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Tuesday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-green-500 transition cursor-pointer">
-                                <input type="checkbox" name="TuesdayTime[]" value="9am-11am" class="form-checkbox text-green-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">9:00 AM - 11:00 AM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-green-500 transition cursor-pointer">
-                                <input type="checkbox" name="TuesdayTime[]" value="11am-1pm" class="form-checkbox text-green-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">11:00 AM - 1:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-green-500 transition cursor-pointer">
-                                <input type="checkbox" name="TuesdayTime[]" value="4pm-6pm" class="form-checkbox text-green-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">4:00 PM - 6:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="WednesdayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-yellow-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Wednesday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-yellow-500 transition cursor-pointer">
-                                <input type="checkbox" name="WednesdayTime[]" value="9am-11am" class="form-checkbox text-yellow-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">9:00 AM - 11:00 AM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-yellow-500 transition cursor-pointer">
-                                <input type="checkbox" name="WednesdayTime[]" value="2pm-4pm" class="form-checkbox text-yellow-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">2:00 PM - 4:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
+  <form id="availabilityForm" class="space-y-6">
+    <div class="space-y-3 p-4 border rounded-2xl bg-gray-50">
+      <label
+        class="flex items-center space-x-2 text-lg font-semibold text-gray-800"
+      >
+        <i class="fas fa-calendar text-indigo-600"></i>
+        <span>Select Available Date <span class="text-red-500">*</span></span>
+      </label>
 
-                    <div id="ThursdayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-red-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Thursday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-red-500 transition cursor-pointer">
-                                <input type="checkbox" name="ThursdayTime[]" value="11am-1pm" class="form-checkbox text-red-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">11:00 AM - 1:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-red-500 transition cursor-pointer">
-                                <input type="checkbox" name="ThursdayTime[]" value="4pm-6pm" class="form-checkbox text-red-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">4:00 PM - 6:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="FridayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-purple-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Friday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-purple-500 transition cursor-pointer">
-                                <input type="checkbox" name="FridayTime[]" value="9am-11am" class="form-checkbox text-purple-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">9:00 AM - 11:00 AM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-purple-500 transition cursor-pointer">
-                                <input type="checkbox" name="FridayTime[]" value="11am-1pm" class="form-checkbox text-purple-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">11:00 AM - 1:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="SaturdayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-indigo-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Saturday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="SaturdayTime[]" value="9am-11am" class="form-checkbox text-indigo-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">9:00 AM - 11:00 AM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="SaturdayTime[]" value="11am-1pm" class="form-checkbox text-indigo-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">11:00 AM - 1:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="SaturdayTime[]" value="2pm-4pm" class="form-checkbox text-indigo-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">2:00 PM - 4:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer">
-                                <input type="checkbox" name="SaturdayTime[]" value="4pm-6pm" class="form-checkbox text-indigo-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">4:00 PM - 6:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
+      <!-- Modern date picker -->
+      <div class="relative">
+        <input
+          type="date"
+          id="availableDate"
+          name="availableDate"
+          class="w-full p-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-indigo-200 focus:border-indigo-400 transition-all duration-200 bg-white shadow-sm"
+          required
+        />
+        <div
+          id="dayDisplay"
+          class="mt-3 text-indigo-700 font-semibold text-center text-lg hidden"
+        ></div>
+      </div>
+    </div>
 
-                    <div id="SundayTimeSlots" class="space-y-3 p-4 border rounded-2xl bg-pink-50 hidden">
-                        <h3 class="font-semibold text-gray-800">Sunday Times:</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-pink-500 transition cursor-pointer">
-                                <input type="checkbox" name="SundayTime[]" value="9am-11am" class="form-checkbox text-pink-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">9:00 AM - 11:00 AM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-pink-500 transition cursor-pointer">
-                                <input type="checkbox" name="SundayTime[]" value="11am-1pm" class="form-checkbox text-pink-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">11:00 AM - 1:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-pink-500 transition cursor-pointer">
-                                <input type="checkbox" name="SundayTime[]" value="2pm-4pm" class="form-checkbox text-pink-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">2:00 PM - 4:00 PM</span>
-                            </label>
-                            <label class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-pink-500 transition cursor-pointer">
-                                <input type="checkbox" name="SundayTime[]" value="4pm-6pm" class="form-checkbox text-pink-600 h-5 w-5 rounded">
-                                <span class="ml-2 text-sm font-medium text-gray-700">4:00 PM - 6:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 pt-4">
-                        <button 
-                            type="button"
-                            onclick="goBackToHealthLifestyle()"
-                            class="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-2xl font-semibold hover:bg-gray-200 transition-all duration-200 focus:ring-4 focus:ring-gray-200 focus:outline-none"
-                        >
-                            <span class="flex items-center justify-center space-x-2">
-                                <i class="fas fa-arrow-left"></i>
-                                <span>Back</span>
-                            </span>
-                        </button>
-                        <button 
-                            type="submit" 
-                            class="flex-1 bg-gradient-to-r from-[#1a5f7a] to-[#57cc99] text-white py-3 px-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:ring-4 focus:ring-blue-200 focus:outline-none"
-                        >
-                            <span class="flex items-center justify-center space-x-2">
-                                <span>Next</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
+    <!-- Example: show dynamic time slots after date selection -->
+    <div
+      id="timeSlotsContainer"
+      class="space-y-3 p-4 border rounded-2xl bg-indigo-50 hidden"
+    >
+      <h3 class="font-semibold text-gray-800" id="selectedDayTitle"></h3>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <label
+          class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer"
+        >
+          <input
+            type="checkbox"
+            name="timeSlot[]"
+            value="9am-11am"
+            class="form-checkbox text-indigo-600 h-5 w-5 rounded"
+          />
+          <span class="ml-2 text-sm font-medium text-gray-700"
+            >9:00 AM - 11:00 AM</span
+          >
+        </label>
+        <label
+          class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer"
+        >
+          <input
+            type="checkbox"
+            name="timeSlot[]"
+            value="11am-1pm"
+            class="form-checkbox text-indigo-600 h-5 w-5 rounded"
+          />
+          <span class="ml-2 text-sm font-medium text-gray-700"
+            >11:00 AM - 1:00 PM</span
+          >
+        </label>
+        <label
+          class="inline-flex items-center p-2 bg-white rounded-xl shadow-sm hover:ring-2 hover:ring-indigo-500 transition cursor-pointer"
+        >
+          <input
+            type="checkbox"
+            name="timeSlot[]"
+            value="2pm-4pm"
+            class="form-checkbox text-indigo-600 h-5 w-5 rounded"
+          />
+          <span class="ml-2 text-sm font-medium text-gray-700"
+            >2:00 PM - 4:00 PM</span
+          >
+        </label>
+      </div>
+    </div>
+
+    <div class="flex gap-4 pt-4">
+      <button
+        type="button"
+        onclick="goBackToHealthLifestyle()"
+        class="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-2xl font-semibold hover:bg-gray-200 transition-all duration-200 focus:ring-4 focus:ring-gray-200 focus:outline-none"
+      >
+        <span class="flex items-center justify-center space-x-2">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back</span>
+        </span>
+      </button>
+
+      <button
+        type="submit"
+        class="flex-1 bg-gradient-to-r from-[#1a5f7a] to-[#57cc99] text-white py-3 px-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:ring-4 focus:ring-blue-200 focus:outline-none"
+      >
+        <span class="flex items-center justify-center space-x-2">
+          <span>Next</span>
+          <i class="fas fa-arrow-right"></i>
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+
 
             <div class="text-center mt-6 space-y-2">
                 <div class="flex justify-center space-x-6 text-sm text-gray-500">
@@ -1010,16 +928,16 @@
             e.preventDefault();
             
             // Basic validation: Check if at least one day or time slot is selected (can be improved)
-            const availableDays = document.querySelectorAll('input[name="availableDays[]"]:checked').length;
-            const selectedTimes = document.querySelectorAll('#donorAvailabilityPage input[type="checkbox"]:checked').length;
-            
-            if (selectedTimes === 0 && availableDays > 0) {
-                alert("Please select at least one time slot for the days you marked as available.");
-                return;
+            const dateSelected = document.getElementById("availableDate").value;
+            const selectedTimes = document.querySelectorAll('#timeSlotsContainer input[type="checkbox"]:checked').length;
+
+            if (!dateSelected) {
+            alert("Please select an available date.");
+            return;
             }
-            if (availableDays === 0) {
-                 alert("Please select at least one available day and time slot.");
-                return;
+            if (selectedTimes === 0) {
+            alert("Please select at least one time slot.");
+            return;
             }
 
             document.getElementById('donorAvailabilityPage').classList.add('hidden');
@@ -1027,6 +945,30 @@
             window.scrollTo(0, 0);
         });
 
+            const dateInput = document.getElementById("availableDate");
+            const dayDisplay = document.getElementById("dayDisplay");
+            const timeSlotsContainer = document.getElementById("timeSlotsContainer");
+            const selectedDayTitle = document.getElementById("selectedDayTitle");
+
+            dateInput.addEventListener("change", function () {
+                const dateValue = this.value;
+                if (dateValue) {
+                const selectedDate = new Date(dateValue + "T00:00:00");
+                const options = { weekday: "long" };
+                const dayName = selectedDate.toLocaleDateString("en-US", options);
+
+                // Show day name
+                dayDisplay.textContent = `You selected: ${dayName}`;
+                dayDisplay.classList.remove("hidden");
+
+                // Show corresponding time slots
+                timeSlotsContainer.classList.remove("hidden");
+                selectedDayTitle.textContent = `${dayName} Time Slots:`;
+                } else {
+                dayDisplay.classList.add("hidden");
+                timeSlotsContainer.classList.add("hidden");
+                }
+            });
         // Removed goToDonorList and donorListPage as requested.
         
     </script>

@@ -237,9 +237,8 @@
 
                 <div class="text-center">
                     <p class="text-gray-600">
-                        Don't have an account?
                         <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
-                            Sign up now
+                            Become a donor?
                         </a>
                     </p>
                 </div>

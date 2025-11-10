@@ -98,36 +98,86 @@
             max-width: 700px;
             margin: 0 auto;
         }
+
+        nav ul li a:hover {
+        background-color: rgba(26, 95, 122, 0.1);
+        color: var(--primary) !important;
+        transform: translateY(-2px);
+        }
+        
+        nav ul li a[href*="/dashboard"]:hover,
+        nav ul li a[href*="login"]:hover {
+            background-color: rgba(26, 95, 122, 0.15);
+        }
+        
+        nav ul li a[href*="register"]:hover {
+            background-color: rgba(87, 204, 153, 0.15);
+            color: var(--secondary) !important;
+        }
     </style>
     @stack('styles')
 </head>
  
 <body>
 
-<nav style="background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000;">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
-        <a href="{{ url('/') }}" style="display: flex; align-items: center;">
-    <img src="{{ asset('images/hmmc_logo_clear.png') }}" 
-         alt="HALIMATUSSAADIA Mother's Milk Centre Logo" 
-         style="width: 200px; height: auto;">
-</a>
+    <nav style="background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <a href="{{ url('/') }}" style="display: flex; align-items: center;">
+                <img src="{{ asset('images/hmmc_logo_clear.png') }}" 
+                    alt="HALIMATUSSAADIA Mother's Milk Centre Logo" 
+                    style="width: 200px; height: auto;">
+            </a>
 
+            <ul style="display: flex; list-style: none; gap: 25px; margin: 0;">
+                <li>
+                    <a href="{{ url('/') }}" 
+                    style="text-decoration: none; color: var(--dark); font-weight: 500; padding: 8px 12px; border-radius: 4px; transition: var(--transition);">
+                    Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#services" 
+                    style="text-decoration: none; color: var(--dark); font-weight: 500; padding: 8px 12px; border-radius: 4px; transition: var(--transition);">
+                    Services
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" 
+                    style="text-decoration: none; color: var(--dark); font-weight: 500; padding: 8px 12px; border-radius: 4px; transition: var(--transition);">
+                    About
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" 
+                    style="text-decoration: none; color: var(--dark); font-weight: 500; padding: 8px 12px; border-radius: 4px; transition: var(--transition);">
+                    Contact
+                    </a>
+                </li>
 
-        <ul style="display: flex; list-style: none; gap: 25px; margin: 0;">
-            <li><a href="{{ url('/') }}" style="text-decoration: none; color: var(--dark); font-weight: 500;">Home</a></li>
-            <li><a href="#services" style="text-decoration: none; color: var(--dark); font-weight: 500;">Services</a></li>
-            <li><a href="#about" style="text-decoration: none; color: var(--dark); font-weight: 500;">About</a></li>
-            <li><a href="#contact" style="text-decoration: none; color: var(--dark); font-weight: 500;">Contact</a></li>
-
-            @auth
-                <li><a href="{{ url('/dashboard') }}" style="text-decoration: none; color: var(--primary); font-weight: 600;">Dashboard</a></li>
-            @else
-                <li><a href="{{ route('login') }}" style="text-decoration: none; color: var(--primary); font-weight: 600;">Login</a></li>
-                <li><a href="{{ route('register') }}" style="text-decoration: none; color: var(--secondary); font-weight: 600;">Register</a></li>
-            @endauth
-        </ul>
-    </div>
-</nav>
+                @auth
+                    <li>
+                        <a href="{{ url('/dashboard') }}" 
+                        style="text-decoration: none; color: var(--primary); font-weight: 600; padding: 8px 16px; border-radius: 4px; transition: var(--transition);">
+                        Dashboard
+                        </a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('register') }}" 
+                        style="text-decoration: none; color: var(--secondary); font-weight: 600; padding: 8px 16px; border-radius: 4px; transition: var(--transition);">
+                        Become A Donor
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('login') }}" 
+                        style="text-decoration: none; color: var(--primary); font-weight: 600; padding: 8px 16px; border-radius: 4px; transition: var(--transition);">
+                        Login
+                        </a>
+                    </li>
+                @endauth
+            </ul>
+        </div>
+    </nav>
     <!-- Header -->
     <header style="background: linear-gradient(rgba(26, 95, 122, 0.9), rgba(26, 95, 122, 0.9)), url('https://images.unsplash.com/photo-1512295767273-ac109ac3ac1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: var(--white); padding: 100px 0; text-align: center;">
         <div class="container">
