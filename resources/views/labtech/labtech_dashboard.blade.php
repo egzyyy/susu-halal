@@ -14,16 +14,7 @@
                 <h1>Welcome, {{ auth()->user()->name ?? 'Lab Technician' }}</h1>
                 <p class="muted">Shariah-compliant Human Milk Bank • Laboratory Dashboard</p>
             </div>
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-file-export"></i>
-                    Export Report
-                </button>
-                <button class="btn-primary">
-                    <i class="fas fa-vial"></i>
-                    New Record
-                </button>
-            </div>
+
         </div>
     </div>
 

@@ -140,7 +140,7 @@
         <!-- Recent Milk Requests -->
         <div class="card users-card">
             <div class="card-header">
-                <h2>Recent Milk Requests</h2>
+                <h2>My Infant's Milk Requests</h2>
                 <a href="{{ route('parent.my-infant-request') }}" class="view-all">
                     View All Requests
                     <i class="fas fa-arrow-right"></i>

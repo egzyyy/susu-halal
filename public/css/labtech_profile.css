@@ -470,3 +470,248 @@ body {
     gap: 12px;
   }
 }
+
+/* Specialization & Qualifications Styles */
+.qualifications {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.qualification-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    gap: 12px;
+}
+
+.qualification-item:hover {
+    background: #ffffff;
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.qualification-item i {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Different icon colors based on qualification type */
+.qualification-item i.fa-graduation-cap {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.qualification-item i.fa-certificate {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.qualification-item i.fa-award {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.qualification-item i.fa-star {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.qualification-item span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+    line-height: 1.4;
+}
+
+/* Optional: Add verification badges */
+.qualification-item.verified::after {
+    content: "✓";
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.qualification-item.pending::after {
+    content: "⏳";
+    margin-left: auto;
+    font-size: 12px;
+    color: #ffc107;
+}
+
+/* Compact version for smaller spaces */
+.qualifications.compact {
+    gap: 8px;
+}
+
+.qualifications.compact .qualification-item {
+    padding: 12px;
+}
+
+.qualifications.compact .qualification-item span {
+    font-size: 13px;
+}
+
+/* Grid layout for multiple columns */
+.qualifications.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.qualifications.grid .qualification-item {
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 16px;
+}
+
+.qualifications.grid .qualification-item i {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.qualifications.grid .qualification-item span {
+    font-size: 13px;
+}
+
+/* With description style */
+.qualification-item.with-description {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.qualification-item.with-description .qualification-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.qualification-item.with-description .qualification-details {
+    font-size: 12px;
+    color: #6c757d;
+    margin-left: 32px;
+    line-height: 1.4;
+}
+
+/* Status indicators */
+.qualification-status {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.qualification-status.verified {
+    background: #d4edda;
+    color: #155724;
+}
+
+.qualification-status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.qualification-status.expired {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Animation for qualification items */
+@keyframes slideInQualification {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.qualification-item {
+    animation: slideInQualification 0.3s ease-out;
+}
+
+.qualification-item:nth-child(1) { animation-delay: 0.1s; }
+.qualification-item:nth-child(2) { animation-delay: 0.2s; }
+.qualification-item:nth-child(3) { animation-delay: 0.3s; }
+.qualification-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .qualifications.grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .qualification-item {
+        padding: 14px;
+    }
+    
+    .qualification-item span {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qualification-item {
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .qualification-item i {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+    
+    .qualification-item span {
+        font-size: 12px;
+    }
+    
+    .qualifications.grid .qualification-item {
+        padding: 16px 12px;
+    }
+    
+    .qualifications.grid .qualification-item i {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .qualification-item {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+    }
+    
+    .qualification-item:hover {
+        transform: none !important;
+    }
+}

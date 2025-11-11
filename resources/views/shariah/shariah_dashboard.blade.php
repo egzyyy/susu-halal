@@ -1,6 +1,6 @@
 @extends('layouts.shariah')
 
-@section('title', 'Shariah Dashboard')
+@section('title', 'Shariah Advisor Dashboard')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/shariah_dashboard.css') }}">
@@ -10,17 +10,7 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1>Welcome, Shariah Advisor</h1>
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-file-export"></i>
-                    Export
-                </button>
-                <button class="btn-primary">
-                    <i class="fas fa-plus"></i>
-                    Add New User
-                </button>
-            </div>
+            <h1>Welcome, {{ auth()->user()->name ?? 'Shariah Advisor' }}</h1>
         </div>
     </div>
 
@@ -28,122 +18,121 @@
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-header">
-                <span class="stat-label">Total Users</span>
+                <span class="stat-label">Pending Approvals</span>
                 <div class="stat-icon blue">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-clipboard-check"></i>
                 </div>
             </div>
-            <div class="stat-value">248</div>
-            <div class="stat-change positive">
-                <i class="fas fa-arrow-up"></i>
-                12% from last month
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-header">
-                <span class="stat-label">Active Donors</span>
-                <div class="stat-icon green">
-                    <i class="fas fa-check"></i>
-                </div>
-            </div>
-            <div class="stat-value">195</div>
-            <div class="stat-change positive">
-                <i class="fas fa-arrow-up"></i>
-                8% from last month
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-header">
-                <span class="stat-label">Total Donations</span>
-                <div class="stat-icon orange">
-                    <i class="fas fa-hand-holding-heart"></i>
-                </div>
-            </div>
-            <div class="stat-value">2,847</div>
-            <div class="stat-change negative">
-                <i class="fas fa-arrow-down"></i>
-                20% from last month
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-header">
-                <span class="stat-label">System Alerts</span>
-                <div class="stat-icon red">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-            </div>
-            <div class="stat-value">41</div>
+            <div class="stat-value">{{ $pendingApprovals ?? 15 }}</div>
             <div class="stat-change warning">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ $approvalsChange ?? '5 new today' }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-label">Milk Kinship Cases</span>
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-file-user"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $kinshipCases ?? 42 }}</div>
+            <div class="stat-change positive">
                 <i class="fas fa-arrow-up"></i>
-                3 news today
+                {{ $kinshipChange ?? '8%' }} from last month
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-label">Compliance Reviews</span>
+                <div class="stat-icon orange">
+                    <i class="fas fa-scale-balanced"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $complianceReviews ?? 28 }}</div>
+            <div class="stat-change positive">
+                <i class="fas fa-check-circle"></i>
+                {{ $complianceChange ?? '95% compliant' }}
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-label">Fatwa Issued</span>
+                <div class="stat-icon red">
+                    <i class="fas fa-scroll"></i>
+                </div>
+            </div>
+            <div class="stat-value">{{ $fatwaIssued ?? 7 }}</div>
+            <div class="stat-change positive">
+                <i class="fas fa-pen-fancy"></i>
+                {{ $fatwaChange ?? '2 this month' }}
             </div>
         </div>
     </div>
 
     <!-- Main Content Grid -->
     <div class="content-grid">
-        <!-- Donations Statistics -->
+        <!-- Compliance Monitoring -->
         <div class="card donations-card">
             <div class="card-header">
-                <h2>Donations Statistics</h2>
-                <a href="#" class="view-report">
-                    View Report
+                <h2>Compliance Monitoring</h2>
+                <a href="{{ route('shariah.view-milk-processing') }}" class="view-report">
+                    View Details
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
-            <div class="chart-placeholder">
-                <i class="fas fa-chart-line"></i>
-                <p>Monthly Donation Volume Chart</p>
+            <div class="chart-body" style="height: 400px; position: relative;">
+                <canvas id="milkVolumeChart"></canvas>
             </div>
         </div>
 
-        <!-- Quick Stats -->
+        <!-- Quick Actions -->
         <div class="card quick-stats-card">
-            <h2>Quick Stats</h2>
+            <h2>Quick Actions</h2>
             <div class="quick-stats-list">
-                <div class="quick-stat-item">
+                <a href="{{ route('shariah.infant-request') }}" class="quick-stat-item">
                     <div class="quick-stat-info">
-                        <div class="quick-stat-value">10</div>
-                        <div class="quick-stat-label">New Donors This Week</div>
+                        <div class="quick-stat-value"><i class="fas fa-baby"></i></div>
+                        <div class="quick-stat-label">Review Requests</div>
                     </div>
-                    <span class="quick-stat-badge positive">+10</span>
-                </div>
-                <div class="quick-stat-item">
+                    <span class="quick-stat-badge primary">Review</span>
+                </a>
+                <a href="{{ route('shariah.manage-milk-records') }}" class="quick-stat-item">
                     <div class="quick-stat-info">
-                        <div class="quick-stat-value">12</div>
-                        <div class="quick-stat-label">Milk Requests</div>
+                        <div class="quick-stat-value"><i class="fas fa-database"></i></div>
+                        <div class="quick-stat-label">Manage Records</div>
                     </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
-                <div class="quick-stat-item">
+                    <span class="quick-stat-badge primary">Manage</span>
+                </a>
+                <a href="{{ route('shariah.view-milk-processing') }}" class="quick-stat-item">
                     <div class="quick-stat-info">
-                        <div class="quick-stat-value">10</div>
-                        <div class="quick-stat-label">Pending Approvals</div>
+                        <div class="quick-stat-value"><i class="fas fa-industry"></i></div>
+                        <div class="quick-stat-label">Processing Audit</div>
                     </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
-                <div class="quick-stat-item">
+                    <span class="quick-stat-badge primary">Audit</span>
+                </a>
+                <a href="{{ route('shariah.edit-profile') }}" class="quick-stat-item">
                     <div class="quick-stat-info">
-                        <div class="quick-stat-value">10</div>
-                        <div class="quick-stat-label">Active Campaigns</div>
+                        <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
+                        <div class="quick-stat-label">Update Profile</div>
                     </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
+                    <span class="quick-stat-badge primary">Edit</span>
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Bottom Grid -->
     <div class="bottom-grid">
-        <!-- Recent User Registrations -->
+        <!-- Pending Approvals -->
         <div class="card users-card">
             <div class="card-header">
-                <h2>Recent User Registrations</h2>
-                <a href="#" class="view-all">
-                    View All Users
+                <h2>Pending Shariah Approvals</h2>
+                <a href="{{ route('shariah.infant-request') }}" class="view-all">
+                    View All Cases
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -151,10 +140,11 @@
                 <table class="users-table">
                     <thead>
                         <tr>
-                            <th>USER</th>
-                            <th>ROLE</th>
+                            <th>CASE ID</th>
+                            <th>REQUEST TYPE</th>
+                            <th>APPLICANT</th>
                             <th>STATUS</th>
-                            <th>REGISTRATION DATE</th>
+                            <th>PRIORITY</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -162,77 +152,77 @@
                         <tr>
                             <td>
                                 <div class="user-info">
-                                    <div class="user-avatar teal">SA</div>
+                                    <div class="user-avatar teal">MK</div>
                                     <div>
-                                        <div class="user-name">Sarah Ahmad</div>
-                                        <div class="user-email">sarah.ahmad2@email.com</div>
+                                        <div class="user-name">#MK-2024-015</div>
+                                        <div class="user-email">Milk Kinship Review</div>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge badge-donor">Donor</span></td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>May 15, 2024</td>
+                            <td><span class="badge badge-donor">Kinship</span></td>
+                            <td>Fatima Al-Mansoor</td>
+                            <td><span class="badge badge-pending">Under Review</span></td>
+                            <td><span class="badge badge-high">High</span></td>
                             <td class="actions">
-                                <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-gavel"></i></button>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="user-info">
-                                    <div class="user-avatar blue">NJ</div>
+                                    <div class="user-avatar blue">DR</div>
                                     <div>
-                                        <div class="user-name">Nurse Jamila</div>
-                                        <div class="user-email">n.jamila@email.com</div>
+                                        <div class="user-name">#DR-2024-042</div>
+                                        <div class="user-email">Donor Registration</div>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge badge-nurse">Nurse</span></td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>May 14, 2024</td>
+                            <td><span class="badge badge-nurse">Screening</span></td>
+                            <td>Aisha Rahman</td>
+                            <td><span class="badge badge-pending">Awaiting Fatwa</span></td>
+                            <td><span class="badge badge-medium">Medium</span></td>
                             <td class="actions">
-                               <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-gavel"></i></button>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="user-info">
-                                    <div class="user-avatar dark-teal">AS</div>
+                                    <div class="user-avatar dark-teal">MR</div>
                                     <div>
-                                        <div class="user-name">Ahmed Al-Sayed</div>
-                                        <div class="user-email">a.alsayed@email.com</div>
+                                        <div class="user-name">#MR-2024-128</div>
+                                        <div class="user-email">Milk Request</div>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge badge-advisor">Shariah Advisor</span></td>
-                            <td><span class="badge badge-pending">Pending</span></td>
-                            <td>May 12, 2024</td>
+                            <td><span class="badge badge-advisor">Compliance</span></td>
+                            <td>Mohammed Hassan</td>
+                            <td><span class="badge badge-active">Approved</span></td>
+                            <td><span class="badge badge-low">Low</span></td>
                             <td class="actions">
-                               <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-file-download"></i></button>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="user-info">
-                                    <div class="user-avatar pink">FK</div>
+                                    <div class="user-avatar pink">MP</div>
                                     <div>
-                                        <div class="user-name">Fatima Khan</div>
-                                        <div class="user-email">f.khan@email.com</div>
+                                        <div class="user-name">#MP-2024-056</div>
+                                        <div class="user-email">Processing Audit</div>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge badge-donor">Donor</span></td>
-                            <td><span class="badge badge-inactive">Inactive</span></td>
-                            <td>May 10, 2024</td>
+                            <td><span class="badge badge-donor">Audit</span></td>
+                            <td>North Branch Facility</td>
+                            <td><span class="badge badge-pending">In Progress</span></td>
+                            <td><span class="badge badge-high">High</span></td>
                             <td class="actions">
-                               <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-clipboard-check"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -240,28 +230,38 @@
             </div>
         </div>
 
-        <!-- Recent Activity -->
+        <!-- Recent Shariah Activity -->
         <div class="card activity-card">
-            <h2>Recent Activity</h2>
+            <h2>Recent Shariah Activity</h2>
             <div class="activity-list">
                 <div class="activity-item">
                     <div class="activity-icon blue">
-                        <i class="fas fa-user-plus"></i>
+                        <i class="fas fa-gavel"></i>
                     </div>
                     <div class="activity-content">
-                        <div class="activity-title">New User Registration</div>
-                        <div class="activity-description">Sarah Ahmad registered as a donor</div>
-                        <div class="activity-time">3 hours ago</div>
+                        <div class="activity-title">Fatwa Issued</div>
+                        <div class="activity-description">New ruling on milk kinship guidelines</div>
+                        <div class="activity-time">2 hours ago</div>
                     </div>
                 </div>
                 <div class="activity-item">
                     <div class="activity-icon green">
-                        <i class="fas fa-hand-holding-heart"></i>
+                        <i class="fas fa-check-double"></i>
                     </div>
                     <div class="activity-content">
-                        <div class="activity-title">Milk Donation Processed</div>
-                        <div class="activity-description">250ml donation from Fatima Khan</div>
-                        <div class="activity-time">4 hours ago</div>
+                        <div class="activity-title">Case Approved</div>
+                        <div class="activity-description">Milk kinship case #MK-2024-012 approved</div>
+                        <div class="activity-time">1 day ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon orange">
+                        <i class="fas fa-scale-balanced"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Compliance Review</div>
+                        <div class="activity-description">Monthly compliance audit completed</div>
+                        <div class="activity-time">2 days ago</div>
                     </div>
                 </div>
                 <div class="activity-item">
@@ -269,23 +269,117 @@
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
                     <div class="activity-content">
-                        <div class="activity-title">System Alert</div>
-                        <div class="activity-description">Email service is currently offline</div>
-                        <div class="activity-time">6 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-sync"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">System Update</div>
-                        <div class="activity-description">Security patch applied successfully</div>
-                        <div class="activity-time">1 day ago</div>
+                        <div class="activity-title">Attention Required</div>
+                        <div class="activity-description">Urgent review needed for case #DR-2024-038</div>
+                        <div class="activity-time">3 days ago</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('milkVolumeChart');
+
+// gradient fill for blue line
+const gradientBlue = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+gradientBlue.addColorStop(0, 'rgba(75, 156, 211, 0.5)');
+gradientBlue.addColorStop(1, 'rgba(75, 156, 211, 0.05)');
+
+// gradient fill for green line
+const gradientGreen = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+gradientGreen.addColorStop(0, 'rgba(72, 187, 120, 0.4)');
+gradientGreen.addColorStop(1, 'rgba(72, 187, 120, 0.05)');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [
+            {
+                label: 'Reviewed Milk',
+                data: [30, 40, 35, 56, 78, 67, 34],
+                borderColor: '#4B9CD3',
+                backgroundColor: gradientBlue,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointBackgroundColor: '#4B9CD3',
+                pointHoverRadius: 7,
+            },
+            {
+                label: 'Fatwa Issued',
+                data: [8, 12, 13, 14, 16, 18, 20],
+                borderColor: '#48BB78',
+                backgroundColor: gradientGreen,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointBackgroundColor: '#48BB78',
+                pointHoverRadius: 7,
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+            mode: 'index',
+            intersect: false
+        },
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    color: '#444',
+                    boxWidth: 12,
+                    boxHeight: 12,
+                    padding: 15,
+                    font: { size: 13 }
+                }
+            },
+            tooltip: {
+                usePointStyle: true,
+                backgroundColor: '#fff',
+                titleColor: '#111',
+                bodyColor: '#333',
+                borderColor: '#E2E8F0',
+                borderWidth: 1,
+                padding: 10,
+                displayColors: true,
+                boxPadding: 5,
+                callbacks: {
+                    label: function(context) {
+                        return `${context.dataset.label}: ${context.formattedValue}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: '#f1f5f9' },
+                ticks: { color: '#555', stepSize: 500 }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#555' }
+            }
+        },
+        animations: {
+            tension: {
+                duration: 2000,
+                easing: 'easeOutElastic',
+                from: 0.5,
+                to: 0.4,
+                loop: false
+            }
+        }
+    }
+});
+</script>
+
 @endsection

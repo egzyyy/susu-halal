@@ -470,3 +470,418 @@ body {
     gap: 12px;
   }
 }
+
+/* Upcoming Schedule Styles */
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    gap: 16px;
+}
+
+.schedule-item:hover {
+    background: #ffffff;
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.schedule-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    padding: 8px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.schedule-time .time {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.schedule-time .date {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.schedule-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.schedule-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.schedule-location {
+    font-size: 13px;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.schedule-location::before {
+    content: "📍";
+    font-size: 12px;
+}
+
+.schedule-status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 100px;
+}
+
+/* Status Badge Variations */
+.status-badge.upcoming {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.mandatory {
+    background: #fff3e0;
+    color: #f57c00;
+    border: 1px solid #ffe0b2;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .schedule-time {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .schedule-time .time {
+        font-size: 15px;
+    }
+    
+    .schedule-status {
+        align-self: flex-end;
+        min-width: auto;
+    }
+    
+    .schedule-details {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-item {
+        padding: 12px;
+    }
+    
+    .schedule-title {
+        font-size: 14px;
+    }
+    
+    .schedule-location {
+        font-size: 12px;
+    }
+    
+    .status-badge.upcoming,
+    .status-badge.mandatory {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+}
+
+/* Animation for new schedule items */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Specialization & Qualifications Styles */
+.qualifications {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.qualification-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    gap: 12px;
+}
+
+.qualification-item:hover {
+    background: #ffffff;
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.qualification-item i {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Different icon colors based on qualification type */
+.qualification-item i.fa-graduation-cap {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.qualification-item i.fa-certificate {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.qualification-item i.fa-award {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.qualification-item i.fa-star {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.qualification-item span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+    line-height: 1.4;
+}
+
+/* Optional: Add verification badges */
+.qualification-item.verified::after {
+    content: "✓";
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.qualification-item.pending::after {
+    content: "⏳";
+    margin-left: auto;
+    font-size: 12px;
+    color: #ffc107;
+}
+
+/* Compact version for smaller spaces */
+.qualifications.compact {
+    gap: 8px;
+}
+
+.qualifications.compact .qualification-item {
+    padding: 12px;
+}
+
+.qualifications.compact .qualification-item span {
+    font-size: 13px;
+}
+
+/* Grid layout for multiple columns */
+.qualifications.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.qualifications.grid .qualification-item {
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 16px;
+}
+
+.qualifications.grid .qualification-item i {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.qualifications.grid .qualification-item span {
+    font-size: 13px;
+}
+
+/* With description style */
+.qualification-item.with-description {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.qualification-item.with-description .qualification-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.qualification-item.with-description .qualification-details {
+    font-size: 12px;
+    color: #6c757d;
+    margin-left: 32px;
+    line-height: 1.4;
+}
+
+/* Status indicators */
+.qualification-status {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.qualification-status.verified {
+    background: #d4edda;
+    color: #155724;
+}
+
+.qualification-status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.qualification-status.expired {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Animation for qualification items */
+@keyframes slideInQualification {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.qualification-item {
+    animation: slideInQualification 0.3s ease-out;
+}
+
+.qualification-item:nth-child(1) { animation-delay: 0.1s; }
+.qualification-item:nth-child(2) { animation-delay: 0.2s; }
+.qualification-item:nth-child(3) { animation-delay: 0.3s; }
+.qualification-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .qualifications.grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .qualification-item {
+        padding: 14px;
+    }
+    
+    .qualification-item span {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qualification-item {
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .qualification-item i {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+    
+    .qualification-item span {
+        font-size: 12px;
+    }
+    
+    .qualifications.grid .qualification-item {
+        padding: 16px 12px;
+    }
+    
+    .qualifications.grid .qualification-item i {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .qualification-item {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+    }
+    
+    .qualification-item:hover {
+        transform: none !important;
+    }
+}
+

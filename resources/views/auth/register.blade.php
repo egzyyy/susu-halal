@@ -157,7 +157,7 @@
                 </form>
                 <div class="text-center">
                     <p class="text-gray-600">
-                        Already have an account?
+                        Already become a donor?
                         <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
                             Sign in
                         </a>

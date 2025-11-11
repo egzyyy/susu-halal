@@ -14,16 +14,6 @@
                 <h1>Welcome, {{ auth()->user()->name ?? 'Doctor' }}</h1>
                 <p class="muted">Shariah-compliant Human Milk Bank • Doctor dashboard</p>
             </div>
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-file-export"></i>
-                    Export
-                </button>
-                <button class="btn-primary">
-                    <i class="fas fa-prescription"></i>
-                    New Prescription
-                </button>
-            </div>
         </div>
     </div>
 

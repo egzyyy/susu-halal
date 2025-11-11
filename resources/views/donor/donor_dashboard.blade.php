@@ -11,16 +11,6 @@
     <div class="page-header">
         <div class="header-content">
             <h1>Welcome, Donor</h1>
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-file-export"></i>
-                    Export Records
-                </button>
-                <a href="{{ route('donor.appointment-form') }}" class="btn-primary">
-                    <i class="fas fa-calendar-plus"></i>
-                    New Appointment
-                </a>
-            </div>
         </div>
     </div>
 

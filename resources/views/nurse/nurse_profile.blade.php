@@ -17,20 +17,20 @@
             <div class="profile-sidebar">
                 <div class="profile-card">
                     <div class="profile-avatar">
-                        <div class="avatar-circle">SA</div>
+                        <div class="avatar-circle">NJ</div>
                     </div>
-                    <h2 class="profile-name">Aqila Asyikin</h2>
-                    <p class="profile-role">Nurse</p>
+                    <h2 class="profile-name">Nurse Jamila</h2>
+                    <p class="profile-role">Registered Nurse</p>
                     <p class="profile-registered">Registered since January 2024</p>
                     
                     <div class="profile-stats">
                         <div class="stat-item">
-                            <div class="stat-value">18</div>
-                            <div class="stat-label">DONATIONS</div>
+                            <div class="stat-value">{{ $patientsScreened ?? 156 }}</div>
+                            <div class="stat-label">PATIENTS SCREENED</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">4.2L</div>
-                            <div class="stat-label">TOTAL MILK</div>
+                            <div class="stat-value">{{ $donationsProcessed ?? 284 }}</div>
+                            <div class="stat-label">DONATIONS PROCESSED</div>
                         </div>
                     </div>
                 </div>
@@ -39,23 +39,23 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon blue">
-                            <i class="fas fa-hand-holding-heart"></i>
+                            <i class="fas fa-user-md"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">TOTAL DONATIONS</div>
-                            <div class="stat-number">18</div>
-                            <div class="stat-change positive">↑ 2 this month</div>
+                            <div class="stat-title">PATIENTS SCREENED</div>
+                            <div class="stat-number">{{ $patientsScreened ?? 156 }}</div>
+                            <div class="stat-change positive">↑ 12 this month</div>
                         </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-icon green">
-                            <i class="fas fa-droplet"></i>
+                            <i class="fas fa-hand-holding-medical"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">TOTAL MILK DONATED</div>
-                            <div class="stat-number">4.2L</div>
-                            <div class="stat-change positive">↑ 0.5L this month</div>
+                            <div class="stat-title">DONATIONS PROCESSED</div>
+                            <div class="stat-number">{{ $donationsProcessed ?? 284 }}</div>
+                            <div class="stat-change positive">↑ 8 this month</div>
                         </div>
                     </div>
 
@@ -64,9 +64,9 @@
                             <i class="fas fa-baby"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">BABIES HELPED</div>
-                            <div class="stat-number">12</div>
-                            <div class="stat-change current">Helping 3 currently</div>
+                            <div class="stat-title">INFANTS ASSISTED</div>
+                            <div class="stat-number">{{ $infantsAssisted ?? 89 }}</div>
+                            <div class="stat-change current">Helping 5 currently</div>
                         </div>
                     </div>
 
@@ -75,9 +75,9 @@
                             <i class="fas fa-award"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">DONOR LEVEL</div>
-                            <div class="stat-number">Gold</div>
-                            <div class="stat-change">Next: Platinum at 5L</div>
+                            <div class="stat-title">NURSE LEVEL</div>
+                            <div class="stat-number">Senior Nurse</div>
+                            <div class="stat-change">2 years experience</div>
                         </div>
                     </div>
                 </div>
@@ -87,49 +87,74 @@
             <div class="profile-content">
                 <div class="profile-section">
                     <div class="section-header">
-                        <h3>Personal Information</h3>
+                        <h3>Professional Information</h3>
                         <a href="{{ route('nurse.edit-profile') }}" class="btn-edit">
-    Edit Profile
-</a>
+                            Edit Profile
+                        </a>
                     </div>
                     
                     <div class="info-grid">
                         <div class="info-item">
                             <label>FULL NAME</label>
-                            <p>Aqila Asyikin</p>
+                            <p>Nurse Jamila</p>
                         </div>
                         <div class="info-item">
                             <label>EMAIL</label>
-                            <p>aqilaasyikin@email.com</p>
+                            <p>n.jamila@email.com</p>
                         </div>
                         <div class="info-item">
                             <label>PHONE</label>
-                            <p>011-1341231</p>
+                            <p>011-23456789</p>
                         </div>
                         <div class="info-item">
-                            <label>DATE OF BIRTH</label>
-                            <p>March 15, 1990</p>
+                            <label>EMPLOYEE ID</label>
+                            <p>NUR-2024-015</p>
                         </div>
                         <div class="info-item">
-                            <label>ADDRESS</label>
-                            <p>123 Green Street, Medina City</p>
+                            <label>DEPARTMENT</label>
+                            <p>Milk Bank & Lactation Services</p>
+                        </div>
+                        <div class="info-item">
+                            <label>SHIFT</label>
+                            <p>Morning Shift (8:00 AM - 4:00 PM)</p>
+                        </div>
+                        <div class="info-item">
+                            <label>LICENSE NUMBER</label>
+                            <p>RN-789456123</p>
                         </div>
                         <div class="info-item">
                             <label>EMERGENCY CONTACT</label>
-                            <p>Ali Ahmad (Spouse) +1 (555) 987-6543</p>
+                            <p>Ahmed Rahman (Spouse) +1 (555) 987-6543</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="profile-section">
-                    <h3>Specialization Background</h3>
-                    <p class="specialization-text">Information about specialization will be displayed here.</p>
+                    <h3>Specialization & Qualifications</h3>
+                    <div class="qualifications">
+                        <div class="qualification-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Bachelor of Science in Nursing</span>
+                        </div>
+                        <div class="qualification-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certified Lactation Consultant</span>
+                        </div>
+                        <div class="qualification-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Pediatric Nursing Certification</span>
+                        </div>
+                        <div class="qualification-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Milk Bank Operations Specialist</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Recent Donations -->
+                <!-- Recent Nursing Activities -->
                 <div class="profile-section">
                     <div class="section-header">
-                        <h3>Recent Donations</h3>
+                        <h3>Recent Nursing Activities</h3>
                         <div class="section-actions">
                             <button class="btn-icon"><i class="fas fa-search"></i> Search</button>
                             <button class="btn-icon"><i class="fas fa-filter"></i> Filter</button>
@@ -138,80 +163,80 @@
                     </div>
 
                     <div class="tabs">
-                        <button class="tab active">All Donations <span class="badge">18</span></button>
-                        <button class="tab">This Month <span class="badge">2</span></button>
-                        <button class="tab">Pending <span class="badge">1</span></button>
+                        <button class="tab active">All Activities <span class="badge">{{ $totalActivities ?? 45 }}</span></button>
+                        <button class="tab">Today <span class="badge">{{ $todayActivities ?? 8 }}</span></button>
+                        <button class="tab">Pending <span class="badge">{{ $pendingActivities ?? 3 }}</span></button>
                     </div>
 
                     <table class="records-table">
                         <thead>
                             <tr>
-                                <th>DATE</th>
-                                <th>AMOUNT</th>
+                                <th>DATE & TIME</th>
+                                <th>ACTIVITY TYPE</th>
+                                <th>PATIENT/DONOR</th>
                                 <th>STATUS</th>
-                                <th>RECIPIENT</th>
                                 <th>LOCATION</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>May 15, 2024</td>
-                                <td>250ml</td>
+                                <td>May 15, 2024<br><small>10:00 AM</small></td>
+                                <td>Donor Screening</td>
+                                <td>Sarah Ahmad</td>
                                 <td><span class="status-badge completed">Completed</span></td>
+                                <td>Main Center</td>
+                                <td class="actions">
+                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>May 15, 2024<br><small>11:30 AM</small></td>
+                                <td>Milk Processing</td>
+                                <td>Batch #MB-2024-128</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>Processing Lab</td>
+                                <td class="actions">
+                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>May 15, 2024<br><small>2:00 PM</small></td>
+                                <td>Infant Assessment</td>
                                 <td>Baby Girl (3 months)</td>
+                                <td><span class="status-badge processing">In Progress</span></td>
+                                <td>Pediatric Ward</td>
+                                <td class="actions">
+                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>May 14, 2024<br><small>9:15 AM</small></td>
+                                <td>Milk Allocation</td>
+                                <td>NICU Request</td>
+                                <td><span class="status-badge completed">Completed</span></td>
                                 <td>Main Center</td>
                                 <td class="actions">
                                     <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                    <button class="btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
                                     <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>May 8, 2024</td>
-                                <td>300ml</td>
+                                <td>May 14, 2024<br><small>3:45 PM</small></td>
+                                <td>Donor Education</td>
+                                <td>New Donor Group</td>
                                 <td><span class="status-badge completed">Completed</span></td>
-                                <td>Baby Boy (2 months)</td>
-                                <td>North Branch</td>
+                                <td>Education Room</td>
                                 <td class="actions">
                                     <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
-                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>May 1, 2024</td>
-                                <td>200ml</td>
-                                <td><span class="status-badge processing">Processing</span></td>
-                                <td>-</td>
-                                <td>Main Center</td>
-                                <td class="actions">
-                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
-                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>April 24, 2024</td>
-                                <td>350ml</td>
-                                <td><span class="status-badge completed">Completed</span></td>
-                                <td>Baby Girl (4 months)</td>
-                                <td>Main Center</td>
-                                <td class="actions">
-                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
-                                    <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>April 18, 2024</td>
-                                <td>275ml</td>
-                                <td><span class="status-badge completed">Completed</span></td>
-                                <td>Baby Boy (1 month)</td>
-                                <td>South Branch</td>
-                                <td class="actions">
-                                    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                    <button class="btn-edit" title="Edit"><i class="fas fa-edit"></i></button>
                                     <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
                                 </td>
                             </tr>

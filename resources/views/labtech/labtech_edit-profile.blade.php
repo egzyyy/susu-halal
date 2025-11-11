@@ -11,36 +11,36 @@
             <!-- Left Sidebar -->
             <div class="profile-sidebar-card">
                 <div class="profile-avatar-section">
-                    <div class="profile-avatar">SA</div>
+                    <div class="profile-avatar">LT</div>
                     <button class="avatar-edit-btn" title="Edit Avatar">
                         <i class="fas fa-camera"></i>
                     </button>
                 </div>
                 
-                <h2 class="profile-name">Aqila Asyikin</h2>
-                <span class="profile-badge">Lab Technician</span>
+                <h2 class="profile-name">Lab Tech Rania</h2>
+                <span class="profile-badge">Laboratory Technician</span>
                 <p class="profile-member">Registered since January 2024</p>
                 
                 <div class="profile-stats">
                     <div class="stat-item">
-                        <div class="stat-value">18</div>
-                        <div class="stat-label">DONATIONS</div>
+                        <div class="stat-value">{{ $samplesTested ?? 342 }}</div>
+                        <div class="stat-label">SAMPLES TESTED</div>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item">
-                        <div class="stat-value">4.2L</div>
-                        <div class="stat-label">TOTAL MILK</div>
+                        <div class="stat-value">{{ $batchesProcessed ?? 128 }}</div>
+                        <div class="stat-label">BATCHES PROCESSED</div>
                     </div>
                 </div>
 
                 <div class="health-status-card">
                     <div class="health-icon">
-                        <i class="fas fa-user-md"></i>
+                        <i class="fas fa-vial"></i>
                     </div>
                     <div class="health-content">
                         <div class="health-title">Professional Status:</div>
-                        <div class="health-value">Verified</div>
-                        <div class="health-date">License verified: April 28, 2024</div>
+                        <div class="health-value">Active</div>
+                        <div class="health-date">Certified until: Dec 2024</div>
                     </div>
                 </div>
             </div>
@@ -57,27 +57,27 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="fullName">Full Name <span class="required">*</span></label>
-                                <input type="text" id="fullName" value="Aqila Asyikin" class="form-control">
+                                <input type="text" id="fullName" value="Lab Tech Rania" class="form-control">
                             </div>
                             
                             <div class="form-group">
                                 <label for="email">Email Address <span class="required">*</span></label>
-                                <input type="email" id="email" value="aqilaasyikin@email.com" class="form-control">
+                                <input type="email" id="email" value="r.technician@email.com" class="form-control">
                             </div>
                             
                             <div class="form-group">
                                 <label for="phone">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="phone" value="011-1341231" class="form-control">
+                                <input type="tel" id="phone" value="011-45678901" class="form-control">
                             </div>
                             
                             <div class="form-group">
-                                <label for="dob">Date of Birth <span class="required">*</span></label>
-                                <input type="date" id="dob" value="1990-03-15" class="form-control">
+                                <label for="employeeId">Employee ID <span class="required">*</span></label>
+                                <input type="text" id="employeeId" value="LT-2024-078" class="form-control" readonly>
                             </div>
                             
                             <div class="form-group full-width">
                                 <label for="address">Address <span class="required">*</span></label>
-                                <textarea id="address" class="form-control" rows="2">123 Green Street, Medina City</textarea>
+                                <textarea id="address" class="form-control" rows="2">456 Science Street, Medina City</textarea>
                             </div>
                         </div>
                     </div>
@@ -90,85 +90,93 @@
                         
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="licenseNumber">Medical License Number <span class="required">*</span></label>
-                                <input type="text" id="licenseNumber" value="MD-2024-12345" class="form-control">
+                                <label for="licenseNumber">Laboratory License Number <span class="required">*</span></label>
+                                <input type="text" id="licenseNumber" value="MLT-456789123" class="form-control">
                             </div>
                             
                             <div class="form-group">
-                                <label for="yearsOfPractice">Years of Practice <span class="required">*</span></label>
-                                <input type="number" id="yearsOfPractice" value="10" class="form-control">
+                                <label for="yearsOfExperience">Years of Experience <span class="required">*</span></label>
+                                <input type="number" id="yearsOfExperience" value="5" class="form-control">
                             </div>
                             
                             <div class="form-group">
-                                <label for="clinicHospital">Clinic/Hospital Affiliation</label>
-                                <input type="text" id="clinicHospital" value="Medina Medical Center" class="form-control">
+                                <label for="laboratory">Laboratory <span class="required">*</span></label>
+                                <select id="laboratory" class="form-control">
+                                    <option value="quality-control" selected>Quality Control Lab</option>
+                                    <option value="microbiology">Microbiology Lab</option>
+                                    <option value="chemistry">Chemistry Lab</option>
+                                    <option value="hematology">Hematology Lab</option>
+                                    <option value="molecular">Molecular Biology Lab</option>
+                                </select>
                             </div>
                             
                             <div class="form-group">
-                                <label for="position">Position/Title</label>
-                                <input type="text" id="position" value="Shariah Committee Member" class="form-control">
+                                <label for="position">Position/Title <span class="required">*</span></label>
+                                <select id="position" class="form-control">
+                                    <option value="technician">Laboratory Technician</option>
+                                    <option value="senior-technician" selected>Senior Technician</option>
+                                    <option value="supervisor">Lab Supervisor</option>
+                                    <option value="manager">Lab Manager</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Specialization Background -->
+                    <!-- Qualifications & Certifications -->
                     <div class="form-section">
                         <h3 class="section-title">
-                            <i class="fas fa-graduation-cap"></i> Specialization Background
+                            <i class="fas fa-graduation-cap"></i> Qualifications & Certifications
                         </h3>
                         
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="specialization">Primary Specialization <span class="required">*</span></label>
-                                <select id="specialization" class="form-control">
-                                    <option value="">Select specialization</option>
-                                    <option value="pediatrics">Pediatrics</option>
-                                    <option value="obstetrics">Obstetrics & Gynecology</option>
-                                    <option value="lactation" selected>Lactation Consultant</option>
-                                    <option value="nutrition">Nutrition & Dietetics</option>
-                                    <option value="neonatology">Neonatology</option>
-                                    <option value="family">Family Medicine</option>
-                                    <option value="shariah">Shariah Committee</option>
-                                    <option value="other">Other</option>
+                                <label for="education">Highest Degree <span class="required">*</span></label>
+                                <select id="education" class="form-control">
+                                    <option value="diploma">Diploma in Medical Laboratory</option>
+                                    <option value="associate">Associate Degree</option>
+                                    <option value="bachelor" selected>Bachelor of Medical Laboratory Science</option>
+                                    <option value="master">Master's Degree</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
-                                <label for="secondarySpecialization">Secondary Specialization</label>
-                                <select id="secondarySpecialization" class="form-control">
-                                    <option value="">Select specialization (optional)</option>
-                                    <option value="pediatrics">Pediatrics</option>
-                                    <option value="obstetrics">Obstetrics & Gynecology</option>
-                                    <option value="lactation">Lactation Consultant</option>
-                                    <option value="nutrition">Nutrition & Dietetics</option>
-                                    <option value="neonatology">Neonatology</option>
-                                    <option value="family">Family Medicine</option>
-                                    <option value="shariah" selected>Shariah Committee</option>
-                                    <option value="other">Other</option>
+                                <label for="specialization">Laboratory Specialization</label>
+                                <select id="specialization" class="form-control">
+                                    <option value="microbiology">Microbiology</option>
+                                    <option value="chemistry" selected>Clinical Chemistry</option>
+                                    <option value="hematology">Hematology</option>
+                                    <option value="immunology">Immunology</option>
+                                    <option value="molecular">Molecular Biology</option>
                                 </select>
                             </div>
                             
                             <div class="form-group full-width">
-                                <label for="qualifications">Qualifications & Certifications <span class="required">*</span></label>
-                                <textarea id="qualifications" class="form-control" rows="3" placeholder="List your degrees, certifications, and professional qualifications...">MBBS, MD Pediatrics
-International Board Certified Lactation Consultant (IBCLC)
-Shariah Healthcare Ethics Certification</textarea>
-                                <small class="form-helper">Include degrees, board certifications, and relevant training</small>
+                                <label for="certifications">Professional Certifications</label>
+                                <textarea id="certifications" class="form-control" rows="3" placeholder="List your professional certifications...">Medical Laboratory Technician (MLT)
+Clinical Laboratory Improvement Amendments (CLIA)
+Food Safety and Handling Certification
+Milk Banking Laboratory Specialist</textarea>
+                                <small class="form-helper">Include all relevant laboratory certifications</small>
                             </div>
                             
                             <div class="form-group full-width">
-                                <label for="expertise">Areas of Expertise <span class="required">*</span></label>
-                                <textarea id="expertise" class="form-control" rows="3" placeholder="Describe your specific areas of expertise...">Breastfeeding support and lactation management
-Islamic guidelines for milk donation and wet-nursing
-Maternal and infant nutrition counseling
-Shariah compliance in healthcare practices</textarea>
-                                <small class="form-helper">Describe your specialized knowledge and experience</small>
+                                <label for="technicalSkills">Technical Skills & Expertise</label>
+                                <textarea id="technicalSkills" class="form-control" rows="3" placeholder="Describe your technical skills and expertise...">Microbiological testing and analysis
+Chemical composition analysis
+Equipment operation and maintenance
+Quality control procedures
+Safety protocol implementation
+Data recording and reporting</textarea>
+                                <small class="form-helper">List your key technical skills and laboratory expertise</small>
                             </div>
                             
                             <div class="form-group full-width">
-                                <label for="biography">Professional Biography</label>
-                                <textarea id="biography" class="form-control" rows="4" placeholder="Write a brief professional biography...">Dr. Aqila Asyikin is a dedicated member of the Shariah Committee with over 10 years of experience in integrating Islamic healthcare principles with modern medical practices. She specializes in ensuring that milk donation programs comply with Islamic guidelines while maintaining the highest standards of care.</textarea>
-                                <small class="form-helper">This will be displayed on your public profile (optional)</small>
+                                <label for="training">Recent Training & Workshops</label>
+                                <textarea id="training" class="form-control" rows="3" placeholder="List recent training and professional development...">Advanced Milk Testing Techniques - April 2024
+Laboratory Safety Protocols - March 2024
+Quality Assurance in Milk Banking - February 2024
+New Equipment Training - January 2024</textarea>
+                                <small class="form-helper">Include recent professional development activities</small>
                             </div>
                         </div>
                     </div>
@@ -182,7 +190,7 @@ Shariah compliance in healthcare practices</textarea>
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="contactName">Contact Name <span class="required">*</span></label>
-                                <input type="text" id="contactName" value="Ali Ahmad" class="form-control">
+                                <input type="text" id="contactName" value="Omar Rania" class="form-control">
                             </div>
                             
                             <div class="form-group">
@@ -199,55 +207,7 @@ Shariah compliance in healthcare practices</textarea>
                             
                             <div class="form-group full-width">
                                 <label for="contactPhone">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="contactPhone" value="+1 (555) 987-6543" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Preferences -->
-                    <div class="form-section">
-                        <h3 class="section-title">
-                            <i class="fas fa-sliders"></i> Preferences
-                        </h3>
-                        
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="primaryLocation">Primary Work Location</label>
-                                <select id="primaryLocation" class="form-control">
-                                    <option value="main" selected>Main Center</option>
-                                    <option value="north">North Branch</option>
-                                    <option value="south">South Branch</option>
-                                    <option value="east">East Branch</option>
-                                    <option value="west">West Branch</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="communication">Communication Preference</label>
-                                <select id="communication" class="form-control">
-                                    <option value="email" selected>Email</option>
-                                    <option value="sms">SMS</option>
-                                    <option value="phone">Phone Call</option>
-                                    <option value="whatsapp">WhatsApp</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label>Availability</label>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" checked>
-                                        <span class="checkbox-text">Available for consultations</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" checked>
-                                        <span class="checkbox-text">Available for emergency reviews</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" checked>
-                                        <span class="checkbox-text">Receive case notifications</span>
-                                    </label>
-                                </div>
+                                <input type="tel" id="contactPhone" value="+1 (555) 234-5678" class="form-control">
                             </div>
                         </div>
                     </div>

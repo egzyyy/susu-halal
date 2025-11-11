@@ -188,7 +188,7 @@
       <option value="" disabled selected>Select your role</option>
       <option value="hmmc_admin">HMMC Admin</option>
       <option value="nurse">Nurse</option>
-      <option value="pediatrician">Pediatrician</option>
+      <option value="doctor">Doctor</option>
       <option value="lab_technician">Lab Technician</option>
       <option value="shariah_advisor">Shariah Advisor</option>
       <option value="parent">Parent</option>

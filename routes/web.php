@@ -14,9 +14,42 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Authentication routes
+Route::get('/login', [LoginController::class, 'create'])->name('login');
+Route::post('/login', [LoginController::class, 'store']);
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+
+// Role-based dashboard routes (protected by auth middleware)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/hmmc/dashboard', function () {
+        return view('hmmc.dashboard');
+    })->name('hmmc.dashboard');
+
+    Route::get('/nurse/dashboard', function () {
+        return view('nurse.dashboard');
+    })->name('nurse.dashboard');
+
+    Route::get('/doctor/dashboard', function () {
+        return view('doctor.dashboard');
+    })->name('doctor.dashboard');
+
+    Route::get('/labtech/dashboard', function () {
+        return view('labtech.dashboard');
+    })->name('labtech.dashboard');
+
+    Route::get('/shariah/dashboard', function () {
+        return view('shariah.dashboard');
+    })->name('shariah.dashboard');
+
+    Route::get('/parent/dashboard', function () {
+        return view('parent.dashboard');
+    })->name('parent.dashboard');
+
+    Route::get('/donor/dashboard', function () {
+        return view('donor.dashboard');
+    })->name('donor.dashboard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

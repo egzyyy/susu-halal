@@ -28,7 +28,26 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = Auth::user();
+
+        // Redirect based on role
+        switch ($user->role) {
+            case 'hmmc_admin':
+                return redirect()->route('hmmc.dashboard');
+            case 'nurse':
+                return redirect()->route('nurse.dashboard');
+            case 'lab_technician':
+                return redirect()->route('labTech.dashboard');
+            case 'shariah_advisor':
+                return redirect()->route('advisor.dashboard');
+            case 'parent':
+                return redirect()->route('parent.dashboard');
+            case 'donor':
+                return redirect()->route('donor.dashboard');
+            default:
+                Auth::logout();
+                abort(403, 'Unauthorized role.');
+        }
     }
 
     /**
