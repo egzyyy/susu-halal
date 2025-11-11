@@ -1,39 +1,156 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password - Rahma Milk Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #1a5f7a;
+      --secondary: #57cc99;
+      --accent: #ffd166;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --success: #2a9d8f;
+      --gradient: linear-gradient(135deg, #1a5f7a 0%, #57cc99 100%);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-animation { animation: float 6s ease-in-out infinite; }
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
 
-        <!-- Password Reset Token -->
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
+  <!-- Floating Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-10 -left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 float-animation"></div>
+    <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 float-animation" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 float-animation" style="animation-delay: 4s;"></div>
+  </div>
+
+  <div class="w-full max-w-md mx-auto">
+    <div class="glass-effect rounded-3xl shadow-2xl p-8 space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 mx-auto bg-gradient-to-br from-[#1a5f7a] to-[#57cc99] rounded-2xl flex items-center justify-center shadow-lg">
+          <i class="fas fa-unlock-alt text-white text-2xl"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800">Reset Your Password</h2>
+        <p class="text-gray-600">Enter your new password to regain access</p>
+      </div>
+
+      <!-- Reset Password Form -->
+      <form method="POST" action="{{ route('password.store') }}" class="space-y-6">
+        @csrf
+        <!-- Token -->
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <!-- New Password -->
+        <div class="space-y-2">
+          <label for="password" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+            <i class="fas fa-lock text-blue-500"></i>
+            <span>New Password</span>
+          </label>
+          <div class="relative">
+            <input
+              id="password"
+              type="password"
+              name="password"
+              required
+              autocomplete="new-password"
+              placeholder="Enter new password"
+              class="w-full px-4 py-3 pl-11 pr-11 border border-gray-300 rounded-2xl bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            >
+            <i class="fas fa-key absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button type="button" onclick="togglePassword('password', 'password-toggle')" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+              <i id="password-toggle" class="fas fa-eye"></i>
+            </button>
+          </div>
+          @error('password')
+            <div class="flex items-center space-x-2 text-red-600 text-sm mt-1">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ $message }}</span>
+            </div>
+          @enderror
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div class="space-y-2">
+          <label for="password_confirmation" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
+            <i class="fas fa-lock text-blue-500"></i>
+            <span>Confirm Password</span>
+          </label>
+          <div class="relative">
+            <input
+              id="password_confirmation"
+              type="password"
+              name="password_confirmation"
+              required
+              autocomplete="new-password"
+              placeholder="Confirm new password"
+              class="w-full px-4 py-3 pl-11 pr-11 border border-gray-300 rounded-2xl bg-white/80 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            >
+            <i class="fas fa-key absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button type="button" onclick="togglePassword('password_confirmation', 'confirm-toggle')" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+              <i id="confirm-toggle" class="fas fa-eye"></i>
+            </button>
+          </div>
+          @error('password_confirmation')
+            <div class="flex items-center space-x-2 text-red-600 text-sm mt-1">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>{{ $message }}</span>
+            </div>
+          @enderror
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-[#1a5f7a] to-[#57cc99] text-white py-3 px-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:ring-4 focus:ring-blue-200 focus:outline-none"
+        >
+          <span class="flex items-center justify-center space-x-2">
+            <i class="fas fa-paper-plane"></i>
+            <span>Reset Password</span>
+          </span>
+        </button>
+      </form>
+    </div>
+
+    <div class="text-center mt-6 space-y-2">
+      <p class="text-gray-600 text-sm">
+        <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
+          Back to Login
+        </a>
+      </p>
+      <p class="text-xs text-gray-400">&copy; 2024 Rahma Milk Bank. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(inputId, toggleId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(toggleId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+  </script>
+</body>
+</html>

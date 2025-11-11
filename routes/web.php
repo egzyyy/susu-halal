@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/reset-password-test', function () {
+    return app(\App\Http\Controllers\Auth\NewPasswordController::class)
+        ->create(request()->merge(['token' => 'testtoken']));
+});
 
 Route::get('/', function () {
     return view('welcome');
