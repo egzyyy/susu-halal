@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('ns_ID')->primary();
             $table->string('ns_NRIC')->unique();
             $table->string('ns_Name');
+            $table->string('ns_Username')->unique();
+            $table->string('ns_Password');
             $table->string('ns_Address');
             $table->string('ns_Contact');
             $table->string('ns_Email')->unique();

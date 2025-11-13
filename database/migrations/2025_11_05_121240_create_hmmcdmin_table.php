@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('ad_Admin')->primary();
             $table->string('ad_NRIC')->unique();
             $table->string('ad_Name');
+            $table->string('ad_Username')->unique();
+            $table->string('ad_Password');
             $table->string('ad_Address');
             $table->string('ad_Contact');
             $table->string('ad_Email')->unique();

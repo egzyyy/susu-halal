@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('parent', function (Blueprint $table) {
             $table->id('pr_ID')->primary();
             $table->string('pr_Name');
+            $table->string('pr_Password');
+            $table->string('pr_NRIC')->unique();
             $table->string('pr_Address');
             $table->string('pr_Contact');
             $table->string('pr_Email')->unique();

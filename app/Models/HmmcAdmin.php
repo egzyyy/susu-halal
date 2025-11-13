@@ -12,7 +12,7 @@ class HmmcAdmin extends Model
     protected $table = 'hmmcadmin';
     protected $primaryKey = 'ad_Admin';
     protected $fillable = [
-        'ad_Name', 
+        'ad_Name',
         'ad_Email', 
         'ad_Contact', 
         'ad_NRIC', 

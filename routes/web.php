@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,38 +16,6 @@ Route::get('/', function () {
 });
 
 
-// Role-based dashboard routes (protected by auth middleware)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/hmmc/dashboard', function () {
-        return view('hmmc.dashboard');
-    })->name('hmmc.dashboard');
-
-    Route::get('/nurse/dashboard', function () {
-        return view('nurse.dashboard');
-    })->name('nurse.dashboard');
-
-    Route::get('/doctor/dashboard', function () {
-        return view('doctor.dashboard');
-    })->name('doctor.dashboard');
-
-    Route::get('/labtech/dashboard', function () {
-        return view('labtech.dashboard');
-    })->name('labtech.dashboard');
-
-    Route::get('/shariah/dashboard', function () {
-        return view('shariah.dashboard');
-    })->name('shariah.dashboard');
-
-    Route::get('/parent/dashboard', function () {
-        return view('parent.dashboard');
-    })->name('parent.dashboard');
-
-    Route::get('/donor/dashboard', function () {
-        return view('donor.dashboard');
-    })->name('donor.dashboard');
-});
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,6 +27,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/hmmc/dashboard', function () {
     return view('hmmc.hmmc_dashboard');
 })->name('hmmc.dashboard');
+
+Route::middleware(['auth', 'role:hmmc_admin'])->group(function () {
+    Route::get('/hmmc/users/create/{role}', [UserController::class, 'create'])->name('hmmc.users.create');
+    Route::post('/hmmc/users/store', [UserController::class, 'store'])->name('hmmc.users.store');
+});
 
 Route::get('/donor/dashboard', function () {
     return view('donor.donor_dashboard');

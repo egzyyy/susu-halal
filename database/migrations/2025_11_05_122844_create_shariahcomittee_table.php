@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('sc_ID')->primary();
             $table->string('sc_NRIC')->unique();
             $table->string('sc_Name');
+            $table->string('sc_Username')->unique();
+            $table->string('sc_Password');
             $table->string('sc_Address');
             $table->string('sc_Contact');
             $table->string('sc_Email')->unique();

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('labtech', function (Blueprint $table) {
             $table->id('lt_ID'); // primary key
             $table->string('lt_Name');
+            $table->string('lt_Username')->unique();
+            $table->string('lt_Password'); // for login credentials
             $table->string('lt_Email')->unique();
             $table->string('lt_Contact');
             $table->string('lt_NRIC')->unique();
@@ -23,7 +25,6 @@ return new class extends Migration
             $table->string('lt_Certification')->nullable();
             $table->string('lt_Specialization')->nullable();
             $table->integer('lt_YearsOfExperience')->nullable();
-            $table->string('lt_Password'); // for login credentials
             $table->timestamps();
         });
     }

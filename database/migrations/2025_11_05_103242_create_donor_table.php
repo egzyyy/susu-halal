@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('dn_ID')->primary();
             $table->string('dn_NRIC')->unique();
             $table->string('dn_FullName');
+            $table->string('dn_Username')->unique();
+            $table->string('dn_Password');
             $table->date('dn_DOB');
             $table->string('dn_Contact');
             $table->string('dn_Email')->unique();
