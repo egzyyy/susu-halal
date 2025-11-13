@@ -58,13 +58,17 @@
     </ul>
   </div>
 
-    <div class="logout-section">
-    <form method="POST" action="{{ route('logout') }}">
-      @csrf
-      <button type="submit" class="logout-btn">
-        <i class="fa-solid fa-right-from-bracket"></i> Logout
-      </button>
-    </form>
+  <div class="sidebar-section logout-section">
+    <ul>
+      <li>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </button>
+        </form>
+      </li>
+    </ul>
   </div>
 </aside>
 

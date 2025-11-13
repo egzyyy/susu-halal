@@ -91,21 +91,38 @@
 }
 
 .logout-section {
-  margin-top: auto; /* pushes to bottom */
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-top: 15px;
 }
 
-.logout-btn {
-  background: none;
-  border: none;
-  color: white;
-  font: inherit;
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  text-align: left;
+/* Make logout look exactly like sidebar links */
+.logout-section form {
+  margin: 0;
 }
 
-.logout-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.logout-section button.logout-btn {
+  background: none;
+  border: none;
+  color: #f5ebff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.logout-section button.logout-btn i {
+  margin-right: 8px;
+}
+
+/* Match hover effect with links */
+.logout-section button.logout-btn:hover {
+  background: #ffffff;
+  color: #7D2ED1;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(125, 46, 209, 0.4);
 }
