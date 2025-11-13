@@ -15,8 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< Updated upstream
-=======
 // Authentication routes
 // Route::get('/login', [LoginController::class, 'create'])->name('login');
 // Route::post('/login', [LoginController::class, 'store']);
@@ -53,7 +51,6 @@ Route::middleware(['auth'])->group(function () {
     })->name('donor.dashboard');
 });
 
->>>>>>> Stashed changes
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
