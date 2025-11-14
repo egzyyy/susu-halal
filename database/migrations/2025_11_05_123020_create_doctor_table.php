@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('dr_Contact');
             $table->string('dr_Email')->unique();
             $table->string('dr_Qualification');
-            $table->string('dr_Cerification'); // typo in diagram, use as-is or correct to Certification
+            $table->string('dr_Certification'); // typo in diagram, use as-is or correct to Certification
             $table->string('dr_Institution');
             $table->string('dr_Specialization');
             $table->integer('dr_YearsOfExperience');

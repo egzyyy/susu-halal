@@ -34,7 +34,7 @@
     </div>
 
     <div class="create-user-container">
-        <form class="create-user-form" method="POST" action="{{ route('hmmc.users.store') }}">
+        <form class="create-user-form" method="POST" action="{{ route('hmmc.store-user') }}">
             @csrf
             <input type="hidden" name="role" value="{{ $role }}">
 
@@ -56,17 +56,29 @@
                     <div class="form-group">
                         <label for="name">Full Name <span class="required">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter full name" required value="{{ old('name') }}">
+
+                        @error('name')
+                            <span class="input-error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address <span class="required">*</span></label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="example@email.com" required value="{{ old('email') }}">
+
+                        @error('name')
+                            <span class="input-error">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="contact">Contact Number <span class="required">*</span></label>
                         <input type="tel" name="contact" id="contact" class="form-control" placeholder="e.g., +60 12-3456789" required value="{{ old('contact') }}">
                     </div>
+
+                    @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
 
                     {{-- Gender Field for roles that require it --}}
                     @if(in_array($role, ['admin']))
@@ -77,6 +89,9 @@
                             <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                             <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                         </select>
+                    @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     @endif
 
@@ -85,6 +100,10 @@
                     <div class="form-group">
                         <label for="nric">NRIC <span class="required">*</span></label>
                         <input type="text" name="nric" id="nric" class="form-control" placeholder="Enter NRIC" required value="{{ old('nric') }}">
+
+                    @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     @endif
 
@@ -92,6 +111,10 @@
                         <label for="address">Address <span class="required">*</span></label>
                         <textarea name="address" id="address" class="form-control" rows="2" placeholder="Enter full address" required>{{ old('address') }}</textarea>
                     </div>
+
+                    @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
@@ -105,10 +128,16 @@
                     <div class="form-group">
                         <label for="baby_name">Baby Name <span class="required">*</span></label>
                         <input type="text" name="baby_name" id="baby_name" class="form-control" placeholder="Enter baby's name" required value="{{ old('baby_name') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="baby_dob">Baby Date of Birth <span class="required">*</span></label>
                         <input type="date" name="baby_dob" id="baby_dob" class="form-control" required value="{{ old('baby_dob') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="baby_gender">Baby Gender <span class="required">*</span></label>
@@ -117,14 +146,23 @@
                             <option value="male" {{ old('baby_gender') == 'male' ? 'selected' : '' }}>Male</option>
                             <option value="female" {{ old('baby_gender') == 'female' ? 'selected' : '' }}>Female</option>
                         </select>
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="baby_birth_weight">Baby Birth Weight (kg) <span class="required">*</span></label>
                         <input type="number" step="0.01" name="baby_birth_weight" id="baby_birth_weight" class="form-control" required value="{{ old('baby_birth_weight') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="form-group">
                         <label for="baby_current_weight">Baby Current Weight (kg) <span class="required">*</span></label>
                         <input type="number" step="0.01" name="baby_current_weight" id="baby_current_weight" class="form-control" required value="{{ old('baby_current_weight') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                 </div>
             </div>
@@ -140,11 +178,17 @@
                     <div class="form-group">
                         <label for="institution">Institution <span class="required">*</span></label>
                         <input type="text" name="institution" id="institution" class="form-control" placeholder="Enter institution name" required value="{{ old('institution') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     @elseif($role === 'labtech')
                     <div class="form-group">
                         <label for="institution">Institution</label>
                         <input type="text" name="institution" id="institution" class="form-control" placeholder="Enter institution name" value="{{ old('institution') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     @endif
 
@@ -155,18 +199,27 @@
                         </label>
                         <input type="text" name="qualification" id="qualification" class="form-control" placeholder="Enter qualification" 
                             @if(in_array($role, ['doctor','nurse','shariah'])) required @endif value="{{ old('qualification') }}">
+                                                @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     {{-- Certification (required for doctor, nurse, shariah) --}}
-                    @if(in_array($role, ['doctor','nurse','shariah']))
+                    @if(in_array($role, ['doctor','nurse','shariah',]))
                     <div class="form-group">
                         <label for="certification">Certification <span class="required">*</span></label>
                         <input type="text" name="certification" id="certification" class="form-control" placeholder="Enter certification" required value="{{ old('certification') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     @elseif($role === 'labtech')
                     <div class="form-group">
                         <label for="certification">Certification</label>
                         <input type="text" name="certification" id="certification" class="form-control" placeholder="Enter certification" value="{{ old('certification') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                     @endif
 
@@ -177,6 +230,9 @@
                         </label>
                         <input type="text" name="specialization" id="specialization" class="form-control" placeholder="Enter specialization" 
                             @if(in_array($role, ['doctor','nurse','shariah'])) required @endif value="{{ old('specialization') }}">
+                                                @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     {{-- Years of Experience (required for all professional roles) --}}
@@ -186,6 +242,9 @@
                         </label>
                         <input type="number" name="experience" id="experience" class="form-control" placeholder="0" 
                             @if(in_array($role, ['doctor','nurse','shariah'])) required @endif value="{{ old('experience', 0) }}">
+                                                @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     {{-- Department for organization --}}
@@ -200,6 +259,9 @@
                             <option value="laboratory" {{ old('department') == 'laboratory' ? 'selected' : '' }}>Laboratory</option>
                             <option value="shariah" {{ old('department') == 'shariah' ? 'selected' : '' }}>Shariah Committee</option>
                         </select>
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
                 </div>
             </div>
@@ -212,11 +274,17 @@
                     <div class="form-group">
                         <label for="username">Username <span class="required">*</span></label>
                         <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" required value="{{ old('username') }}">
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     <div class="form-group">
                         <label for="password">Temporary Password <span class="required">*</span></label>
                         <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+                                            @error('name')
+                        <span class="input-error">{{ $message }}</span>
+                    @enderror
                     </div>
 
                     {{-- Account Status for administrative control --}}
@@ -367,9 +435,9 @@ function getRoleIcon($role) {
         inputs.forEach(input => {
             input.addEventListener('blur', function() {
                 if (!this.value) {
-                    this.classList.add('error');
+                    this.classList.add('error-input');
                 } else {
-                    this.classList.remove('error');
+                    this.classList.remove('error-input');
                 }
             });
         });

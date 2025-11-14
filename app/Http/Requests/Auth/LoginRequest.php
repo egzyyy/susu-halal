@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
@@ -97,8 +98,108 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
 
-        // Store user in session manually
-        session(['auth_user' => $user, 'auth_role' => $role]);
+        // Create a User model instance for Laravel's auth system
+        $authUser = $this->createAuthUser($user, $role);
+        
+        // Properly log in the user using Laravel's Auth
+        Auth::login($authUser, $this->boolean('remember'));
+        
+        // Store additional info in session
+        session(['auth_role' => $role]);
+        
+        // Regenerate session to prevent fixation attacks
+        request()->session()->regenerate();
+    }
+
+    /**
+     * Create a User model instance for authentication
+     */
+    private function createAuthUser($roleUser, $role)
+    {
+        // Create or find a User model instance
+        // This maps your role-specific user to Laravel's User model
+        $email = $this->getUserEmail($roleUser, $role);
+        $name = $this->getUserName($roleUser, $role);
+        $userId = $this->getUserId($roleUser, $role);
+
+        // Find or create user in users table
+        $user = User::firstOrCreate(
+            ['email' => $email],
+            [
+                'name' => $name,
+                'password' => bcrypt('dummy'), // Not used for auth
+                'role' => $role,
+                'role_id' => $userId
+            ]
+        );
+
+        return $user;
+    }
+
+    private function getUserEmail($user, $role)
+    {
+        switch ($role) {
+            case 'hmmc_admin':
+                return $user->ad_Email;
+            case 'nurse':
+                return $user->ns_Email;
+            case 'doctor':
+                return $user->dr_Email;
+            case 'lab_technician':
+                return $user->lt_Email;
+            case 'shariah_advisor':
+                return $user->sa_Email;
+            case 'parent':
+                return $user->pr_Email;
+            case 'donor':
+                return $user->dn_Email;
+            default:
+                return '';
+        }
+    }
+
+    private function getUserName($user, $role)
+    {
+        switch ($role) {
+            case 'hmmc_admin':
+                return $user->ad_Name;
+            case 'nurse':
+                return $user->ns_Name;
+            case 'doctor':
+                return $user->dr_Name;
+            case 'lab_technician':
+                return $user->lt_Name;
+            case 'shariah_advisor':
+                return $user->sa_Name;
+            case 'parent':
+                return $user->pr_Name;
+            case 'donor':
+                return $user->dn_FullName;
+            default:
+                return '';
+        }
+    }
+
+    private function getUserId($user, $role)
+    {
+        switch ($role) {
+            case 'hmmc_admin':
+                return $user->ad_Admin;
+            case 'nurse':
+                return $user->ns_ID;
+            case 'doctor':
+                return $user->dr_ID;
+            case 'lab_technician':
+                return $user->lt_ID;
+            case 'shariah_advisor':
+                return $user->sa_ID;
+            case 'parent':
+                return $user->pr_ID;
+            case 'donor':
+                return $user->dn_ID;
+            default:
+                return null;
+        }
     }
 
     public function ensureIsNotRateLimited(): void

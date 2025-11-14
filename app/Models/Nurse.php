@@ -19,7 +19,7 @@ class Nurse extends Model
         'ns_Address',
         'ns_Institution', 
         'ns_Qualification',
-        'ns_Cerification',
+        'ns_Certification',
         'ns_Specialization',
         'ns_YearsOfExperience',
         'ns_Password',

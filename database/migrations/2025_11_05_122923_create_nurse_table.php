@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ns_Contact');
             $table->string('ns_Email')->unique();
             $table->string('ns_Qualification');
-            $table->string('ns_Cerification'); // typo as in diagram, or correct to Certification
+            $table->string('ns_Certification'); // typo as in diagram, or correct to Certification
             $table->string('ns_Institution');
             $table->string('ns_Specialization');
             $table->integer('ns_YearsOfExperience');

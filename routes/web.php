@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,12 +53,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 // User Management Module
 
 Route::get('/hmmc/dashboard', function () {
@@ -66,28 +61,36 @@ Route::get('/hmmc/dashboard', function () {
 
 Route::resource('users', UserController::class);
 // Create new user form
-Route::get('/hmmc/create-new-user/{role}', [UserController::class, 'create'])->name('hmmc.create-new-user');
-Route::post('/hmmc/users/store', [UserController::class, 'store'])->name('hmmc.users.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/hmmc/manage-users', [UserController::class, 'index'])->name('hmmc.manage-users');
+    Route::get('/create-new-user/{role}', [UserController::class, 'create'])->name('hmmc.create-new-user');
+    Route::post('/store-new-user', [UserController::class, 'store'])->name('hmmc.store-user');
+});
+
+// Admin User Management Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/{role}/{id}', [AdminUserController::class, 'show'])->name('show');
+        Route::get('/{role}/{id}/edit', [AdminUserController::class, 'edit'])->name('edit');
+        Route::put('/{role}/{id}', [AdminUserController::class, 'update'])->name('update');
+        Route::delete('/{role}/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 Route::get('/donor/dashboard', function () {
     return view('donor.donor_dashboard');
 })->name('donor.dashboard');
 
-Route::get('/hmmc/manage-users', function () {
-    return view('hmmc.hmmc_manage-users');
-})->name('hmmc.manage-users');
-
-Route::get('/donor/profile', function () {
-    return view('donor.donor_profile');
-})->name('donor.profile');
-
 Route::get('/donor/edit-profile', function () {
     return view('donor.donor_edit-profile');
 })->name('donor.edit-profile');
-
-Route::get('/doctor/profile', function () {
-    return view('doctor.doctor_profile');
-})->name('doctor.profile');
 
 Route::get('/doctor/edit-profile', function () {
     return view('doctor.doctor_edit-profile');
@@ -101,25 +104,9 @@ Route::get('/nurse/dashboard', function () {
     return view('nurse.nurse_dashboard');
 })->name('nurse.dashboard');
 
-Route::get('/nurse/profile', function () {
-    return view('nurse.nurse_profile');
-})->name('nurse.profile');
-
-Route::get('/nurse/edit-profile', function () {
-    return view('nurse.nurse_edit-profile');
-})->name('nurse.edit-profile');
-
 Route::get('/labtech/dashboard', function () {
     return view('labtech.labtech_dashboard');
 })->name('labtech.dashboard');
-
-Route::get('/labtech/profile', function () {
-    return view('labtech.labtech_profile');
-})->name('labtech.profile');
-
-Route::get('/labtech/edit-profile', function () {
-    return view('labtech.labtech_edit-profile');
-})->name('labtech.edit-profile');
 
 Route::get('/shariah/dashboard', function () {
     return view('shariah.shariah_dashboard');
@@ -129,26 +116,9 @@ Route::get('/shariah/profile', function () {
     return view('shariah.shariah_profile');
 })->name('shariah.profile');
 
-Route::get('/shariah/edit-profile', function () {
-    return view('shariah.shariah_edit-profile');
-})->name('shariah.edit-profile');
-
 Route::get('/parent/dashboard', function () {
     return view('parent.parent_dashboard');
 })->name('parent.dashboard');
-
-Route::get('/parent/profile', function () {
-    return view('parent.parent_profile');
-})->name('parent.profile');
-
-Route::get('/parent/edit-profile', function () {
-    return view('parent.parent_edit-profile');
-})->name('parent.edit-profile');
-
-Route::get('/hmmc/create-new-user', function () {
-    return view('hmmc.hmmc_create-new-user');
-})->name('hmmc.create-new-user');
-
 
 // Milk Request Module
 
