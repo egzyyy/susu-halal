@@ -82,10 +82,9 @@
                 <h2>All Users</h2>
                 <div class="table-controls">
                     <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search users..." onkeyup="searchUsers()">
-                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search users..." onkeyup="searchUsers()" class="btn-search">  
                     </div>
-                    <select id="roleFilter" onchange="filterByRole()" class="filter-select">
+                    <select id="roleFilter" onchange="filterByRole()" class="btn-filter">
                         <option value="all">All Roles</option>
                         <option value="admin">Admin</option>
                         <option value="doctor">Doctor</option>
@@ -171,8 +170,8 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="status-badge status-{{ $user->status }}">
-                                        <i class="fas fa-circle"></i> {{ ucfirst($user->status) }}
+                                    <span class="status-badge status-approved status-{{ $user->status }}">
+                                        <i></i> {{ ucfirst($user->status) }}
                                     </span>
                                 </td>
                                 <td>
@@ -183,15 +182,17 @@
                                 </td>
                                 <td>
                                     <div class="action-buttons">
-                                        <button class="btn-action btn-view" title="View Details" 
+                                        <button class="icon-btn view-btn" title="View Details"
                                             onclick="viewUser('{{ $user->original_id }}', '{{ $user->original_table }}')">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        <button class="btn-action btn-edit" title="Edit" 
+
+                                        <button class="icon-btn edit-btn" title="Edit"
                                             onclick="editUser('{{ $user->original_id }}', '{{ $user->original_table }}')">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn-action btn-delete" title="Delete" 
+
+                                        <button class="icon-btn delete-btn" title="Delete"
                                             onclick="confirmDelete('{{ $user->original_id }}', '{{ $user->original_table }}', '{{ $user->name }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -290,18 +291,23 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal" style="display: none;">
+    <div id="deleteModal" class="modal">
         <div class="modal-content modal-small">
             <div class="modal-icon-warning">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
             <h2 class="modal-title">Confirm Deletion</h2>
             <p class="modal-subtitle" id="deleteMessage"></p>
+            
+            <div class="permanent-warning">
+                <strong>Warning:</strong> This action is permanent and cannot be undone. All user data will be permanently deleted.
+            </div>
+            
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeDeleteModal()">
                     <i class="fas fa-times"></i> Cancel
                 </button>
-                <button class="btn-confirm-delete" onclick="executeDelete()">
+                <button class="btn-delete" onclick="executeDelete()">
                     <i class="fas fa-trash"></i> Delete User
                 </button>
             </div>
@@ -437,6 +443,7 @@
         function editUser(userId, userTable) {
             window.location.href = `/admin/users/${userTable}/${userId}/edit`;
         }
+
 
         function confirmDelete(userId, userTable, userName) {
             deleteUserId = userId;

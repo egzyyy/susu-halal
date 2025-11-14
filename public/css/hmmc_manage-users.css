@@ -195,24 +195,63 @@ body {
   gap: 8px;
 }
 
+.search-box {
+    position: relative;
+    display: inline-block;
+}
+
+.search-box input {
+    width: 250px;
+    padding: 10px 40px 10px 15px; /* right padding for icon */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.search-box .search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none; /* icon not clickable */
+}
+
+.search-filter {
+  display: flex;
+  gap: 12px;
+}
+
 .btn-search,
-.btn-filter,
-.btn-more-options {
-  background: white;
+.btn-filter {
+  padding: 8px 16px;
   border: 1px solid #d1d5db;
-  padding: 8px 14px;
-  border-radius: 6px;
+  background: white;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
   color: #374151;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: all 0.2s;
 }
 
 .btn-search:hover,
-.btn-filter:hover,
+.btn-filter:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.btn-more-options {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
 .btn-more-options:hover {
   background: #f9fafb;
 }
@@ -374,61 +413,80 @@ body {
 }
 
 /* Status Badges */
-.status-active {
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-labelling {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-storaging {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.status-screening {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-dispatching {
+  background: #fce7f3;
+  color: #9f1239;
+}
+
+.status-approved {
   background: #d1fae5;
   color: #065f46;
 }
 
 .status-pending {
-  background: #fef3c7;
+  background: #fed7aa;
   color: #92400e;
 }
 
-.status-inactive {
+.status-rejected {
   background: #fee2e2;
   color: #991b1b;
 }
 
 /* Action Buttons - Fixed for straight alignment */
-.actions {
-  display: inline-block;
+/* General Icon Button - No background */
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    font-size: 19px; /* matches image size */
+    transition: 0.2s ease-in-out;
 }
 
-.actions button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 6px 4px;
-  border-radius: 6px;
-  transition: background 0.2s;
-  margin-right: 4px;
+/* VIEW (Blue outlined eye) */
+.view-btn i {
+    color: #0066FF;
 }
 
-.actions button:first-child {
-  padding-left: 0;
-  margin-left: 0;
+/* EDIT (Black outline) */
+.edit-btn i {
+    color: #000000;
 }
 
-.actions button:last-child {
-  margin-right: 0;
+/* DELETE (Red fill) */
+.delete-btn i {
+    color: #E60000;
 }
 
-.actions .btn-view i {
-  color: #2563eb;
+/* Hover Effects */
+.icon-btn:hover i {
+    transform: scale(1.15);
 }
 
-.actions .btn-delete i {
-  color: #dc2626;
-}
-
-.actions .btn-more i {
-  color: #6b7280;
-}
-
-.actions button:hover {
-  background: #f3f4f6;
-}
 
 /* Give some bottom padding inside the Actions cell */
 .records-table td.actions {
@@ -466,7 +524,7 @@ body {
   background: white;
   border-radius: 16px;
   padding: 40px;
-  max-width: 600px;
+  max-width: 800px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
@@ -630,3 +688,106 @@ body {
     padding: 20px;
   }
 }
+
+/* ===========================
+   DELETE CONFIRMATION MODAL
+   =========================== */
+#deleteModal {
+    display: none; 
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45); 
+    justify-content: center;
+    align-items: center;
+}
+
+#deleteModal .modal-content {
+    background: #ffffff;
+    width: 420px;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    animation: fadeInScale 0.25s ease-out;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+@keyframes fadeInScale {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Warning Icon */
+.modal-icon-warning {
+    font-size: 52px;
+    color: #F87171;  
+    margin-bottom: 10px;
+}
+
+/* Title */
+.modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1f2937;
+}
+
+/* Subtitle Message */
+.modal-subtitle {
+    font-size: 15px;
+    color: #4b5563;
+    margin-bottom: 18px;
+}
+
+/* Permanent Deletion Notice */
+.permanent-warning {
+    background: #fff7f7;
+    border-left: 4px solid #EF4444;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #7f1d1d;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.modal-actions .btn-cancel,
+.modal-actions .btn-delete {
+    flex: 1;
+    padding: 12px 0;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Cancel Button */
+.modal-actions .btn-cancel {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.modal-actions .btn-cancel:hover {
+    background: #d1d5db;
+}
+
+/* Delete Button */
+.modal-actions .btn-delete {
+    background: #DC2626;
+    color: white;
+}
+
+.modal-actions .btn-delete:hover {
+    background: #b91c1c;
+}
+
