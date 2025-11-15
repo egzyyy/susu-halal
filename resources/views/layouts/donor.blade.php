@@ -28,7 +28,7 @@
     <h4>Donor</h4>
     <ul>
       <li><a href="{{ route('donor.dashboard') }}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
-      <li><a href="{{ route('donor.profile') }}"><i class="fa-solid fa-user"></i> Profile</a></li>
+      <li><a href="{{ route('profile.show') }}"><i class="fa-solid fa-user"></i> Profile</a></li>
       <li>
         <a href="#"><i class="fa-solid fa-droplet"></i> Request Milk Form</a>
       </li>

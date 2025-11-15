@@ -1,37 +1,28 @@
-@extends('layouts.parent')
+
+
+@extends('layouts.' . ($role ?? 'app'))
 
 @section('title', 'Edit Profile')
 
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/parent_edit-profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/doctor_edit-profile.css') }}">
 
-    <div class="main-content">
+<div class="main-content">
         <div class="edit-profile-layout">
             <!-- Left Sidebar -->
             <div class="profile-sidebar-card">
                 <div class="profile-avatar-section">
-                    <div class="profile-avatar">SA</div>
+                    <div class="avatar-circle">{{ strtoupper(substr($profile->name ?? 'DR', 0, 2)) }}</div>
                     <button class="avatar-edit-btn" title="Edit Avatar">
                         <i class="fas fa-camera"></i>
                     </button>
                 </div>
                 
-                <h2 class="profile-name">Sarah Ahmad</h2>
-                <span class="profile-badge">Parent</span>
-                <p class="profile-member">Member since January 2024</p>
+                <h2 class="profile-name">{{$profile->name}}</h2>
+                <span class="profile-badge">Active Doctor</span>
+                <p class="profile-member">Member since {{ $profile->created_at ? \Carbon\Carbon::parse($profile->created_at)->format('F Y') : 'N/A' }}</p>
                 
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">18</div>
-                        <div class="stat-label">TOTAL DONATIONS</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <div class="stat-value">4.2L</div>
-                        <div class="stat-label">TOTAL MILK</div>
-                    </div>
-                </div>
 
                 <div class="health-status-card">
                     <div class="health-icon">
@@ -46,167 +37,306 @@
             </div>
 
             <!-- Right Form Area -->
-            <div class="profile-form-container">
-                <form class="edit-profile-form">
-                    <!-- Personal Information -->
-                    <div class="form-section">
-                        <h3 class="section-title">
-                            <i class="fas fa-user"></i> Personal Information
-                        </h3>
+            <form class="edit-profile-form" action="{{ route('profile.update') }}" method="POST">
+                @csrf
+                @method('PATCH')
+                
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-user"></i> Personal Information
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" 
+                                id="name" 
+                                name="name" 
+                                value="{{ old('name', $profile->name ?? '') }}" 
+                                class="form-control @error('name') is-invalid @enderror" 
+                                required>
+                            @error('name')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
                         
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="fullName">Full Name <span class="required">*</span></label>
-                                <input type="text" id="fullName" value="Sarah Ahmed" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email Address <span class="required">*</span></label>
-                                <input type="email" id="email" value="sarah.ahmed@gmail.com" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="phone" value="+1 (555) 123-4567" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="dob">Date of Birth <span class="required">*</span></label>
-                                <input type="date" id="dob" value="1990-03-15" class="form-control">
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label for="address">Address <span class="required">*</span></label>
-                                <textarea id="address" class="form-control" rows="2">123 Green Street, Medina City</textarea>
-                            </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" 
+                                id="email" 
+                                name="email" 
+                                value="{{ old('email', $profile->email ?? '') }}" 
+                                class="form-control @error('email') is-invalid @enderror" 
+                                required>
+                            @error('email')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact">Phone Number</label>
+                            <input type="tel" 
+                                id="contact" 
+                                name="contact" 
+                                value="{{ old('contact', $profile->contact ?? '') }}" 
+                                class="form-control @error('contact') is-invalid @enderror">
+                            @error('contact')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        
+                        @if(in_array($role, ['donor']))
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" 
+                                id="dob" 
+                                name="dob" 
+                                value="{{ old('dob', $profile->dob ?? '') }}" 
+                                class="form-control @error('dob') is-invalid @enderror">
+                            @error('dob')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        @endif
+                        
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <textarea id="address" 
+                                    name="address" 
+                                    class="form-control @error('address') is-invalid @enderror" 
+                                    rows="2">{{ old('address', $profile->address ?? '') }}</textarea>
+                            @error('address')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+                </div>
 
-                    <!-- Emergency Contact -->
-                    <div class="form-section">
-                        <h3 class="section-title">
-                            <i class="fas fa-phone-alt"></i> Emergency Contact
-                        </h3>
+                <!-- Professional Information (Staff only) -->
+                @if(in_array($role, ['doctor', 'nurse', 'lab_technician', 'shariah_advisor']))
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-graduation-cap"></i> Professional Information
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="qualification">Qualification</label>
+                            <input type="text" 
+                                id="qualification" 
+                                name="qualification" 
+                                value="{{ old('qualification', $profile->qualification ?? '') }}" 
+                                class="form-control">
+                        </div>
                         
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="contactName">Contact Name <span class="required">*</span></label>
-                                <input type="text" id="contactName" value="Ali Ahmed" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="relationship">Relationship <span class="required">*</span></label>
-                                <select id="relationship" class="form-control">
-                                    <option value="spouse" selected>Spouse</option>
-                                    <option value="parent">Parent</option>
-                                    <option value="sibling">Sibling</option>
-                                    <option value="child">Child</option>
-                                    <option value="friend">Friend</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label for="contactPhone">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="contactPhone" value="+1 (555) 987-6543" class="form-control">
-                            </div>
+                        <div class="form-group">
+                            <label for="certification">Certification</label>
+                            <input type="text" 
+                                id="certification" 
+                                name="certification" 
+                                value="{{ old('certification', $profile->certification ?? '') }}" 
+                                class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="institution">Institution</label>
+                            <input type="text" 
+                                id="institution" 
+                                name="institution" 
+                                value="{{ old('institution', $profile->institution ?? '') }}" 
+                                class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="specialization">Specialization</label>
+                            <input type="text" 
+                                id="specialization" 
+                                name="specialization" 
+                                value="{{ old('specialization', $profile->specialization ?? '') }}" 
+                                class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Years of Experience</label>
+                            <input type="number" 
+                                id="experience" 
+                                name="experience" 
+                                value="{{ old('experience', $profile->experience ?? 0) }}" 
+                                min="0" 
+                                class="form-control">
                         </div>
                     </div>
+                </div>
+                @endif
 
-                    <!-- Health Information -->
-                    <div class="form-section">
-                        <h3 class="section-title">
-                            <i class="fas fa-heart-pulse"></i> Health Information
-                        </h3>
+                <!-- Baby Information (Parent only) -->
+                @if($role === 'parent')
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-baby"></i> Baby Information
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="baby_name">Baby Name</label>
+                            <input type="text" 
+                                id="baby_name" 
+                                name="baby_name" 
+                                value="{{ old('baby_name', $profile->baby_name ?? '') }}" 
+                                class="form-control">
+                        </div>
                         
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="bloodType">Blood Type</label>
-                                <select id="bloodType" class="form-control">
-                                    <option value="a+" selected>A+</option>
-                                    <option value="a-">A-</option>
-                                    <option value="b+">B+</option>
-                                    <option value="b-">B-</option>
-                                    <option value="ab+">AB+</option>
-                                    <option value="ab-">AB-</option>
-                                    <option value="o+">O+</option>
-                                    <option value="o-">O-</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="babyAge">Baby's Age</label>
-                                <input type="text" id="babyAge" value="6 months" class="form-control">
-                                <small class="form-helper">Age of your breastfeeding baby</small>
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label for="healthConditions">Health Conditions</label>
-                                <textarea id="healthConditions" class="form-control" rows="3" placeholder="List any relevant health conditions or medications..."></textarea>
-                                <small class="form-helper">Please disclose any conditions that might affect milk donation</small>
-                            </div>
+                        <div class="form-group">
+                            <label for="baby_dob">Date of Birth</label>
+                            <input type="date" 
+                                id="baby_dob" 
+                                name="baby_dob" 
+                                value="{{ old('baby_dob', $profile->baby_dob ?? '') }}" 
+                                class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="baby_gender">Gender</label>
+                            <select id="baby_gender" 
+                                    name="baby_gender" 
+                                    class="form-control">
+                                <option value="">Select Gender</option>
+                                <option value="Male" {{ old('baby_gender', $profile->baby_gender ?? '') == 'Male' ? 'selected' : '' }}>Male</option>
+                                <option value="Female" {{ old('baby_gender', $profile->baby_gender ?? '') == 'Female' ? 'selected' : '' }}>Female</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="baby_birth_weight">Birth Weight (kg)</label>
+                            <input type="number" 
+                                step="0.01" 
+                                id="baby_birth_weight" 
+                                name="baby_birth_weight" 
+                                value="{{ old('baby_birth_weight', $profile->baby_birth_weight ?? '') }}" 
+                                class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="baby_current_weight">Current Weight (kg)</label>
+                            <input type="number" 
+                                step="0.01" 
+                                id="baby_current_weight" 
+                                name="baby_current_weight" 
+                                value="{{ old('baby_current_weight', $profile->baby_current_weight ?? '') }}" 
+                                class="form-control">
                         </div>
                     </div>
+                </div>
+                @endif
 
-                    <!-- Preferences -->
-                    <div class="form-section">
-                        <h3 class="section-title">
-                            <i class="fas fa-sliders"></i> Preferences
-                        </h3>
+                <!-- Health Information (Donor only) -->
+                @if($role === 'donor')
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-heart-pulse"></i> Health Information
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="infection_risk">Infection/Disease Risk</label>
+                            <textarea id="infection_risk" 
+                                    name="infection_risk" 
+                                    class="form-control" 
+                                    rows="3" 
+                                    placeholder="List any infection or disease risks...">{{ old('infection_risk', $profile->infection_risk ?? '') }}</textarea>
+                        </div>
                         
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="donationCenter">Preferred Donation Center</label>
-                                <select id="donationCenter" class="form-control">
-                                    <option value="main" selected>Main Center</option>
-                                    <option value="north">North Branch</option>
-                                    <option value="south">South Branch</option>
-                                    <option value="east">East Branch</option>
-                                    <option value="west">West Branch</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="communication">Communication Preference</label>
-                                <select id="communication" class="form-control">
-                                    <option value="email" selected>Email</option>
-                                    <option value="sms">SMS</option>
-                                    <option value="phone">Phone Call</option>
-                                    <option value="whatsapp">WhatsApp</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group full-width">
-                                <label>Notification Preferences</label>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" checked>
-                                        <span class="checkbox-text">Appointment reminders</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" checked>
-                                        <span class="checkbox-text">Health screening updates</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox">
-                                        <span class="checkbox-text">Newsletter and updates</span>
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="form-group full-width">
+                            <label for="medication">Current Medication</label>
+                            <textarea id="medication" 
+                                    name="medication" 
+                                    class="form-control" 
+                                    rows="3" 
+                                    placeholder="List any current medications...">{{ old('medication', $profile->medication ?? '') }}</textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="recent_illness">Recent Illness</label>
+                            <textarea id="recent_illness" 
+                                    name="recent_illness" 
+                                    class="form-control" 
+                                    rows="3" 
+                                    placeholder="Describe any recent illnesses...">{{ old('recent_illness', $profile->recent_illness ?? '') }}</textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="dietary_alerts">Dietary Alerts</label>
+                            <textarea id="dietary_alerts" 
+                                    name="dietary_alerts" 
+                                    class="form-control" 
+                                    rows="3" 
+                                    placeholder="List any dietary restrictions or alerts...">{{ old('dietary_alerts', $profile->dietary_alerts ?? '') }}</textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="checkbox-label">
+                                <input type="checkbox" 
+                                    name="tobacco_alcohol" 
+                                    value="1" 
+                                    {{ old('tobacco_alcohol', $profile->tobacco_alcohol ?? false) ? 'checked' : '' }}>
+                                <span class="checkbox-text">I consume tobacco or alcohol</span>
+                            </label>
                         </div>
                     </div>
+                </div>
+                @endif
 
-                    <!-- Form Actions -->
-                    <div class="form-actions">
-                        <button type="button" class="btn-cancel">
-                            <i class="fas fa-times"></i> Cancel
-                        </button>
-                        <a href="{{ route('parent.profile') }}" class="btn-save">
-    <i class="fas fa-save"></i> Save Changes
-</a>
-
+                <!-- Change Password -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-lock"></i> Change Password (Optional)
+                    </h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="current_password">Current Password</label>
+                            <input type="password" 
+                                id="current_password" 
+                                name="current_password" 
+                                class="form-control @error('current_password') is-invalid @enderror">
+                            @error('current_password')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                            <small class="form-helper">Leave blank if you don't want to change password</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new_password">New Password</label>
+                            <input type="password" 
+                                id="new_password" 
+                                name="new_password" 
+                                class="form-control @error('new_password') is-invalid @enderror">
+                            @error('new_password')
+                                <span class="error-message">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new_password_confirmation">Confirm New Password</label>
+                            <input type="password" 
+                                id="new_password_confirmation" 
+                                name="new_password_confirmation" 
+                                class="form-control">
+                        </div>
                     </div>
-                </form>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="{{ route('profile.show') }}" class="btn-cancel">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
             </div>
         </div>
     </div>

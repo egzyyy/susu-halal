@@ -25,6 +25,7 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+        dd(session('auth_role'));
 
         $role = session('auth_role');
 
@@ -37,7 +38,7 @@ class AuthenticatedSessionController extends Controller
             case 'doctor':
                 return redirect()->route('doctor.dashboard');
             case 'lab_technician':
-                return redirect()->route('labTech.dashboard');
+                return redirect()->route('labtech.dashboard');
             case 'shariah_advisor':
                 return redirect()->route('advisor.dashboard');
             case 'parent':

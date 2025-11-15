@@ -1,10 +1,9 @@
-@extends('layouts.nurse')
+@extends('layouts.donor')
 
-@section('title', 'Nurse Profile')
+@section('title', 'Donor Profile')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/nurse_profile.css') }}">
-    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('css/donor_profile.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <div class="main-content">
@@ -17,20 +16,22 @@
             <div class="profile-sidebar">
                 <div class="profile-card">
                     <div class="profile-avatar">
-                        <div class="avatar-circle">NJ</div>
+                        <div class="avatar-circle">{{ strtoupper(substr($profile->name ?? 'D', 0, 2)) }}</div>
                     </div>
-                    <h2 class="profile-name">Nurse Jamila</h2>
-                    <p class="profile-role">Registered Nurse</p>
-                    <p class="profile-registered">Registered since January 2024</p>
+                    <h2 class="profile-name">{{ $profile->name ?? 'Donor' }}</h2>
+                    <p class="profile-role">Milk Donor</p>
+                    <p class="profile-registered">
+                        Registered since {{ $profile->created_at ? \Carbon\Carbon::parse($profile->created_at)->format('F Y') : 'N/A' }}
+                    </p>
                     
                     <div class="profile-stats">
                         <div class="stat-item">
-                            <div class="stat-value">{{ $patientsScreened ?? 156 }}</div>
-                            <div class="stat-label">PATIENTS SCREENED</div>
+                            <div class="stat-value">{{ $totalDonations ?? 0 }}</div>
+                            <div class="stat-label">DONATIONS</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value">{{ $donationsProcessed ?? 284 }}</div>
-                            <div class="stat-label">DONATIONS PROCESSED</div>
+                            <div class="stat-value">{{ $totalMilk ?? 0 }}L</div>
+                            <div class="stat-label">TOTAL MILK</div>
                         </div>
                     </div>
                 </div>
@@ -39,23 +40,25 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon blue">
-                            <i class="fas fa-user-md"></i>
+                            <i class="fas fa-hand-holding-heart"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">PATIENTS SCREENED</div>
-                            <div class="stat-number">{{ $patientsScreened ?? 156 }}</div>
-                            <div class="stat-change positive">↑ 12 this month</div>
+                            <div class="stat-title">TOTAL DONATIONS</div>
+                            <div class="stat-number">{{ $totalDonations ?? 0 }}</div>
+                            <div class="stat-change positive">
+                                {{ $monthDonations ?? 0 > 0 ? '↑ ' . $monthDonations . ' this month' : 'No donations this month' }}
+                            </div>
                         </div>
                     </div>
 
                     <div class="stat-card">
                         <div class="stat-icon green">
-                            <i class="fas fa-hand-holding-medical"></i>
+                            <i class="fas fa-droplet"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">DONATIONS PROCESSED</div>
-                            <div class="stat-number">{{ $donationsProcessed ?? 284 }}</div>
-                            <div class="stat-change positive">↑ 8 this month</div>
+                            <div class="stat-title">TOTAL MILK DONATED</div>
+                            <div class="stat-number">{{ $totalMilk ?? 0 }}L</div>
+                            <div class="stat-change positive">Making a difference</div>
                         </div>
                     </div>
 
@@ -64,9 +67,9 @@
                             <i class="fas fa-baby"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">INFANTS ASSISTED</div>
-                            <div class="stat-number">{{ $infantsAssisted ?? 89 }}</div>
-                            <div class="stat-change current">Helping 5 currently</div>
+                            <div class="stat-title">BABIES HELPED</div>
+                            <div class="stat-number">{{ $babiesHelped ?? 0 }}</div>
+                            <div class="stat-change current">Helping families</div>
                         </div>
                     </div>
 
@@ -75,9 +78,19 @@
                             <i class="fas fa-award"></i>
                         </div>
                         <div class="stat-info">
-                            <div class="stat-title">NURSE LEVEL</div>
-                            <div class="stat-number">Senior Nurse</div>
-                            <div class="stat-change">2 years experience</div>
+                            <div class="stat-title">DONOR STATUS</div>
+                            <div class="stat-number">
+                                @if(($totalMilk ?? 0) >= 5)
+                                    Platinum
+                                @elseif(($totalMilk ?? 0) >= 3)
+                                    Gold
+                                @elseif(($totalMilk ?? 0) >= 1)
+                                    Silver
+                                @else
+                                    Bronze
+                                @endif
+                            </div>
+                            <div class="stat-change">Active Donor</div>
                         </div>
                     </div>
                 </div>
@@ -85,73 +98,221 @@
 
             <!-- Right Content Area -->
             <div class="profile-content">
+                <!-- Personal Information -->
                 <div class="profile-section">
                     <div class="section-header">
-                        <h3>Professional Information</h3>
-                        <a href="{{ route('nurse.edit-profile') }}" class="btn-edit">
-                            Edit Profile
+                        <h3>Personal Information</h3>
+                        <a href="{{ route('profile.edit') }}" class="btn-edit">
+                            <i class="fas fa-edit"></i> Edit Profile
                         </a>
                     </div>
                     
                     <div class="info-grid">
                         <div class="info-item">
                             <label>FULL NAME</label>
-                            <p>Nurse Jamila</p>
+                            <p>{{ $profile->name ?? 'N/A' }}</p>
                         </div>
                         <div class="info-item">
                             <label>EMAIL</label>
-                            <p>n.jamila@email.com</p>
+                            <p>{{ $profile->email ?? 'N/A' }}</p>
                         </div>
                         <div class="info-item">
                             <label>PHONE</label>
-                            <p>011-23456789</p>
+                            <p>{{ $profile->contact ?? 'Not provided' }}</p>
                         </div>
                         <div class="info-item">
-                            <label>EMPLOYEE ID</label>
-                            <p>NUR-2024-015</p>
+                            <label>DATE OF BIRTH</label>
+                            <p>{{ $profile->dob ? \Carbon\Carbon::parse($profile->dob)->format('F d, Y') : 'Not provided' }}</p>
                         </div>
                         <div class="info-item">
-                            <label>DEPARTMENT</label>
-                            <p>Milk Bank & Lactation Services</p>
+                            <label>ADDRESS</label>
+                            <p>{{ $profile->address ?? 'Not provided' }}</p>
                         </div>
                         <div class="info-item">
-                            <label>SHIFT</label>
-                            <p>Morning Shift (8:00 AM - 4:00 PM)</p>
+                            <label>NRIC</label>
+                            <p>{{ $profile->nric ?? 'Not provided' }}</p>
                         </div>
                         <div class="info-item">
-                            <label>LICENSE NUMBER</label>
-                            <p>RN-789456123</p>
+                            <label>MEMBER SINCE</label>
+                            <p>{{ $profile->created_at ? \Carbon\Carbon::parse($profile->created_at)->format('F d, Y') : 'N/A' }}</p>
                         </div>
                         <div class="info-item">
-                            <label>EMERGENCY CONTACT</label>
-                            <p>Ahmed Rahman (Spouse) +1 (555) 987-6543</p>
+                            <label>ACCOUNT STATUS</label>
+                            <p><span class="status-badge completed">Active</span></p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Health Information -->
                 <div class="profile-section">
-                    <h3>Specialization & Qualifications</h3>
-                    <div class="qualifications">
-                        <div class="qualification-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>Bachelor of Science in Nursing</span>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>INFECTION/DISEASE RISK</label>
+                            <p>{{ $profile->infection_risk ?? 'Not provided' }}</p>
                         </div>
-                        <div class="qualification-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Certified Lactation Consultant</span>
+                        <div class="info-item">
+                            <label>CURRENT MEDICATION</label>
+                            <p>{{ $profile->medication ?? 'None' }}</p>
                         </div>
-                        <div class="qualification-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Pediatric Nursing Certification</span>
+                        <div class="info-item">
+                            <label>RECENT ILLNESS</label>
+                            <p>{{ $profile->recent_illness ?? 'None reported' }}</p>
                         </div>
-                        <div class="qualification-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Milk Bank Operations Specialist</span>
+                        <div class="info-item">
+                            <label>DIETARY ALERTS</label>
+                            <p>{{ $profile->dietary_alerts ?? 'None' }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>TOBACCO/ALCOHOL USE</label>
+                            <p>
+                                @if($profile->tobacco_alcohol ?? false)
+                                    <span class="status-badge pending">Yes</span>
+                                @else
+                                    <span class="status-badge completed">No</span>
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>
+
+                <!-- Certifications & Qualifications -->
+                <div class="profile-section">
+                    <h3>Certifications & Qualifications</h3>
+                    <div class="qualifications">
+                        <div class="qualification-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Registered Milk Donor</span>
+                        </div>
+                        <div class="qualification-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Profile Verified</span>
+                        </div>
+                        <div class="qualification-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Halal Certified</span>
+                        </div>
+                        @if(($totalDonations ?? 0) > 10)
+                        <div class="qualification-item">
+                            <i class="fas fa-award"></i>
+                            <span>Experienced Donor (10+ donations)</span>
+                        </div>
+                        @endif
+                    </div>
                 </div>
+
+                <!-- Recent Donations -->
+                @if(isset($recentDonations) && $recentDonations->count() > 0)
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h3>Recent Donations</h3>
+                        <div class="section-actions">
+                            <a href="{{ route('donor.donations') }}" class="btn-view-all">View All</a>
+                        </div>
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab active">All Donations <span class="badge">{{ $totalDonations ?? 0 }}</span></button>
+                        <button class="tab">This Month <span class="badge">{{ $monthDonations ?? 0 }}</span></button>
+                        <button class="tab">Pending <span class="badge">{{ $pendingDonations ?? 0 }}</span></button>
+                    </div>
+
+                    <table class="records-table">
+                        <thead>
+                            <tr>
+                                <th>DATE & TIME</th>
+                                <th>AMOUNT</th>
+                                <th>STATUS</th>
+                                <th>LOCATION</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recentDonations as $donation)
+                            <tr>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($donation->date)->format('M d, Y') }}<br>
+                                    <small>{{ \Carbon\Carbon::parse($donation->time)->format('h:i A') }}</small>
+                                </td>
+                                <td>{{ $donation->amount }}ml</td>
+                                <td>
+                                    <span class="status-badge {{ strtolower($donation->status) }}">
+                                        {{ ucfirst($donation->status) }}
+                                    </span>
+                                </td>
+                                <td>{{ $donation->location ?? 'Main Center' }}</td>
+                                <td class="actions">
+                                    <button class="btn-view" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @else
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h3>Recent Donations</h3>
+                    </div>
+                    <div class="empty-state">
+                        <i class="fas fa-droplet"></i>
+                        <p>No donation records yet</p>
+                        <a href="#" class="btn-primary">Make Your First Donation</a>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
+
+    <style>
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #6b7280;
+    }
+
+    .empty-state i {
+        font-size: 64px;
+        opacity: 0.3;
+        margin-bottom: 20px;
+    }
+
+    .empty-state p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        display: inline-block;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn-view-all {
+        padding: 8px 16px;
+        background: #f3f4f6;
+        color: #374151;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-view-all:hover {
+        background: #e5e7eb;
+    }
+    </style>
 @endsection

@@ -6,61 +6,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\HmmcAdmin;
-use App\Models\Doctor;
-use App\Models\Nurse;
-use App\Models\LabTech;
-use App\Models\ShariahAdvisor;
-use App\Models\ParentModel;
-use App\Models\Donor;
 
 class ProfileController extends Controller
 {
     private $roleConfig = [
         'hmmc_admin' => [
-            'model' => HmmcAdmin::class,
             'table' => 'hmmcadmin',
             'prefix' => 'ad',
             'id_field' => 'ad_Admin',
             'view_folder' => 'hmmc'
         ],
         'doctor' => [
-            'model' => Doctor::class,
             'table' => 'doctor',
             'prefix' => 'dr',
             'id_field' => 'dr_ID',
             'view_folder' => 'doctor'
         ],
         'nurse' => [
-            'model' => Nurse::class,
             'table' => 'nurse',
             'prefix' => 'ns',
             'id_field' => 'ns_ID',
             'view_folder' => 'nurse'
         ],
         'lab_technician' => [
-            'model' => LabTech::class,
             'table' => 'labtech',
             'prefix' => 'lt',
             'id_field' => 'lt_ID',
             'view_folder' => 'labtech'
         ],
         'shariah_advisor' => [
-            'model' => ShariahAdvisor::class,
             'table' => 'shariahcomittee',
             'prefix' => 'sc',
             'id_field' => 'sc_ID',
             'view_folder' => 'shariah'
         ],
         'parent' => [
-            'model' => ParentModel::class,
             'table' => 'parent',
             'prefix' => 'pr',
             'id_field' => 'pr_ID',
             'view_folder' => 'parent'
         ],
         'donor' => [
-            'model' => Donor::class,
             'table' => 'donor',
             'prefix' => 'dn',
             'id_field' => 'dn_ID',

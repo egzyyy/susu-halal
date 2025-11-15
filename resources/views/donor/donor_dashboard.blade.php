@@ -79,7 +79,7 @@
         <div class="card donations-card">
             <div class="card-header">
                 <h2>Donation History</h2>
-                <a href="{{ route('donor.profile') }}" class="view-report">
+                <a href="#" class="view-report">
                     View Full History
                     <i class="fas fa-arrow-right"></i>
                 </a>

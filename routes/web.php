@@ -63,8 +63,14 @@ Route::resource('users', UserController::class);
 // Create new user form
 Route::middleware(['auth'])->group(function () {
     Route::get('/hmmc/manage-users', [UserController::class, 'index'])->name('hmmc.manage-users');
-    Route::get('/create-new-user/{role}', [UserController::class, 'create'])->name('hmmc.create-new-user');
-    Route::post('/store-new-user', [UserController::class, 'store'])->name('hmmc.store-user');
+    Route::get('/hmmc/create-new-user/{role}', [UserController::class, 'create'])->name('hmmc.create-new-user');
+    Route::post('/hmmc/store-new-user', [UserController::class, 'store'])->name('hmmc.store-user');
+    
+    // User CRUD routes - make sure these come after more specific routes
+    Route::get('/hmmc/users/{role}/{id}', [UserController::class, 'show'])->name('hmmc.users.show');
+    Route::get('/hmmc/users/{role}/{id}/edit', [UserController::class, 'edit'])->name('hmmc.users.edit');
+    Route::put('/hmmc/users/{role}/{id}', [UserController::class, 'update'])->name('hmmc.users.update');
+    Route::delete('/hmmc/users/{role}/{id}', [UserController::class, 'destroy'])->name('hmmc.users.destroy');
 });
 
 // Admin User Management Routes
