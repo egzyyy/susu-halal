@@ -3,6 +3,7 @@
 @section('title', 'User Management')
 
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}"> {{-- IMPORTANT: Added CSRF token for DELETE --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/hmmc_manage-users.css') }}">
 
@@ -21,7 +22,6 @@
             </div>
         </div>
 
-        <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon blue">
@@ -76,13 +76,12 @@
             </div>
         </div>
 
-        <!-- Users Table -->
         <div class="table-container">
             <div class="table-header">
                 <h2>All Users</h2>
                 <div class="table-controls">
                     <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search users..." onkeyup="searchUsers()" class="btn-search">  
+                        <input type="text" id="searchInput" placeholder="Search users..." onkeyup="searchUsers()" class="btn-search"> 
                     </div>
                     <select id="roleFilter" onchange="filterByRole()" class="btn-filter">
                         <option value="all">All Roles</option>
@@ -97,7 +96,6 @@
                 </div>
             </div>
 
-            <!-- Tabs -->
             <div class="tabs">
                 <button class="tab active" data-tab="all" onclick="filterTab('all')">
                     All Users <span class="tab-count">{{ $totalUsers }}</span>
@@ -115,7 +113,6 @@
                 </button>
             </div>
 
-            <!-- Table -->
             <div class="table-wrapper">
                 <table class="records-table" id="usersTable">
                     <thead>
@@ -124,14 +121,163 @@
                             <th onclick="sortTable(1)">ROLE <i class="fas fa-sort"></i></th>
                             <th>CONTACT</th>
                             <th>STATUS</th>
+                            <th>SCREENING STATUS</th> 
                             <th onclick="sortTable(4)">REGISTRATION DATE <i class="fas fa-sort"></i></th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
+                    
+                    {{-- DEMO ENTRY 1: PASSED SCREENING --}}
+                    <tr data-role="donor" data-screening-status="passed">
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar green">SA</div>
+                                <div>
+                                    <div class="user-name">Sarah Al-Ghazali</div>
+                                    <div class="user-email">sarah.a@example.com</div>
+                                    <div class="user-username">@sarahG</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="role-badge role-donor">
+                                <i class="fas fa-hand-holding-heart"></i> Donor
+                            </span>
+                        </td>
+                        <td>
+                            <span class="contact-info">
+                                <i class="fas fa-phone"></i> +6012-345 6789
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge status-approved">Active</span>
+                        </td>
+                        <td class="screening-cell">
+                            <span class="screening-badge screening-passed" title="All medical screening requirements met.">
+                                Passed
+                            </span>
+                        </td>
+                        <td>
+                            <span class="date-info">
+                                <i class="far fa-calendar-alt"></i> Nov 15, 2025
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <div class="action-buttons">
+                                <button class="icon-btn view-btn" title="View Details" onclick="viewUser('1000', 'donor')"><i class="fas fa-eye"></i></button>
+                                <button class="icon-btn edit-btn" title="Edit" onclick="editUser('1000', 'donor')"><i class="fas fa-edit"></i></button>
+                                <button class="icon-btn delete-btn" title="Delete" onclick="confirmDelete('1000', 'donor', 'Sarah Al-Ghazali')"><i class="fas fa-trash"></i></button>
+                                <button class="icon-btn more-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </td> 
+                    </tr>
+                    {{-- DEMO ENTRY 2: FAILED SCREENING --}}
+                    <tr data-role="donor" data-screening-status="failed">
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar red">AA</div>
+                                <div>
+                                    <div class="user-name">Aisha Binti Abu</div>
+                                    <div class="user-email">aisha.abu@example.com</div>
+                                    <div class="user-username">@aishaAbu</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="role-badge role-donor">
+                                <i class="fas fa-hand-holding-heart"></i> Donor
+                            </span>
+                        </td>
+                        <td>
+                            <span class="contact-info">
+                                <i class="fas fa-phone"></i> +6019-987 6543
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge status-rejected">Inactive</span>
+                        </td>
+                        <td class="screening-cell">
+                            <span class="screening-badge screening-failed" title="Screening failed due to blood test anomaly.">
+                                Failed
+                            </span>
+                            {{-- Explicitly showing the remark/note for failed status --}}
+                            <div class="screening-remark-short">
+                                <i class="fas fa-exclamation-circle"></i> Incomplete blood work, retest required.
+                            </div>
+                        </td>
+                        <td>
+                            <span class="date-info">
+                                <i class="far fa-calendar-alt"></i> Oct 28, 2025
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <div class="action-buttons">
+                                <button class="icon-btn view-btn" title="View Details" onclick="viewUser('1001', 'donor')"><i class="fas fa-eye"></i></button>
+                                <button class="icon-btn edit-btn" title="Edit" onclick="editUser('1001', 'donor')"><i class="fas fa-edit"></i></button>
+                                <button class="icon-btn delete-btn" title="Delete" onclick="confirmDelete('1001', 'donor', 'Aisha Binti Abu')"><i class="fas fa-trash"></i></button>
+                                <button class="icon-btn more-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </td> 
+                    </tr>
+                    {{-- DEMO ENTRY 3: PENDING SCREENING --}}
+                    <tr data-role="donor" data-screening-status="pending">
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar purple">NM</div>
+                                <div>
+                                    <div class="user-name">Nurul Malik</div>
+                                    <div class="user-email">nurul.m@example.com</div>
+                                    <div class="user-username">@nurulM</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="role-badge role-donor">
+                                <i class="fas fa-hand-holding-heart"></i> Donor
+                            </span>
+                        </td>
+                        <td>
+                            <span class="contact-info">
+                                <i class="fas fa-phone"></i> +6013-112 3456
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge status-pending">Pending</span>
+                        </td>
+                        <td class="screening-cell">
+                            <span class="screening-badge screening-pending" title="Awaiting blood test results.">
+                                Pending
+                            </span>
+                        </td>
+                        <td>
+                            <span class="date-info">
+                                <i class="far fa-calendar-alt"></i> Nov 10, 2025
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <div class="action-buttons">
+                                <button class="icon-btn view-btn" title="View Details" onclick="viewUser('1002', 'donor')"><i class="fas fa-eye"></i></button>
+                                <button class="icon-btn edit-btn" title="Edit" onclick="editUser('1002', 'donor')"><i class="fas fa-edit"></i></button>
+                                <button class="icon-btn delete-btn" title="Delete" onclick="confirmDelete('1002', 'donor', 'Nurul Malik')"><i class="fas fa-trash"></i></button>
+                                <button class="icon-btn more-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </td> 
+                    </tr>
+                    {{-- END DEMO ENTRIES --}}
+                    
                     @if($allUsers->count() > 0)
                         @foreach ($allUsers as $user)
-                            <tr data-role="{{ $user->role }}">
+                            @php
+                                $status = $user->status;
+                                // --- Placeholder Data Start (Replace with actual backend fields) ---
+                                // Adjusting placeholder logic to skip the first 3 iterations as they are static now
+                                $i = $loop->iteration + 3; 
+                                $screeningStatus = $user->role == 'donor' ? (($i % 3 == 0 ? 'passed' : ($i % 3 == 1 ? 'failed' : 'pending'))) : 'na';
+                                $screeningRemark = 'Incomplete documentation required.';
+                                // --- Placeholder Data End ---
+                            @endphp
+                            <tr data-role="{{ $user->role }}" data-screening-status="{{ $screeningStatus }}">
                                 <td>
                                     <div class="user-info">
                                         <div class="user-avatar {{ ['teal', 'blue', 'green', 'purple', 'orange'][array_rand(['teal', 'blue', 'green', 'purple', 'orange'])] }}">
@@ -170,17 +316,34 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="status-badge status-approved status-{{ $user->status }}">
-                                        <i></i> {{ ucfirst($user->status) }}
+                                    <span class="status-badge status-{{ $status }}">
+                                        {{ ucfirst($status) }}
                                     </span>
                                 </td>
+                                
+                                <td class="screening-cell">
+                                    @if ($user->role == 'donor')
+                                        <span class="screening-badge screening-{{ $screeningStatus }}" 
+                                                @if($screeningStatus == 'failed') title="{{ $screeningRemark }}" @endif>
+                                            {{ ucfirst($screeningStatus) }}
+                                        </span>
+                                        @if($screeningStatus == 'failed' && $screeningRemark)
+                                            <div class="screening-remark-short">
+                                                <i class="fas fa-exclamation-circle"></i> {{ $screeningRemark }}
+                                            </div>
+                                        @endif
+                                    @else
+                                        <span class="screening-badge screening-na">N/A</span>
+                                    @endif
+                                </td>
+
                                 <td>
                                     <span class="date-info">
                                         <i class="far fa-calendar-alt"></i>
                                         {{ \Carbon\Carbon::parse($user->created_at)->format('M d, Y') }}
                                     </span>
                                 </td>
-                                <td>
+                                <td class="actions">
                                     <div class="action-buttons">
                                         <button class="icon-btn view-btn" title="View Details"
                                             onclick="viewUser('{{ $user->original_id }}', '{{ $user->original_table }}')">
@@ -196,13 +359,16 @@
                                             onclick="confirmDelete('{{ $user->original_id }}', '{{ $user->original_table }}', '{{ $user->name }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                        <button class="icon-btn more-btn" title="More Options">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
                                     </div>
-                                </td>
+                                </td> 
                             </tr>
                         @endforeach
                     @else
                         <tr id="noResults">
-                            <td colspan="6" class="text-center">
+                            <td colspan="7" class="text-center">
                                 <div class="empty-state">
                                     <i class="fas fa-users-slash"></i>
                                     <p>No users found.</p>
@@ -216,7 +382,6 @@
         </div>
     </div>
 
-    <!-- Role Selection Modal -->
     <div id="roleModal" class="modal">
         <div class="modal-content">
             <h2 class="modal-title">Select User Role</h2>
@@ -290,7 +455,6 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div id="deleteModal" class="modal">
         <div class="modal-content modal-small">
             <div class="modal-icon-warning">
@@ -346,58 +510,145 @@
             const input = document.getElementById('searchInput').value.toLowerCase();
             const table = document.getElementById('usersTable');
             const rows = table.getElementsByTagName('tr');
+            let found = false;
 
             for (let i = 1; i < rows.length; i++) {
                 const row = rows[i];
+                if (row.id === 'noResults') continue; 
+
                 const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(input) ? '' : 'none';
+                const isMatch = text.includes(input);
+                
+                // Also apply current filter to prevent showing unmatched roles
+                const currentRoleFilter = document.getElementById('roleFilter').value;
+                const rowRole = row.getAttribute('data-role');
+                const staffRoles = ['admin', 'doctor', 'nurse', 'labtech', 'shariah'];
+                
+                let isFiltered = false;
+                if (currentRoleFilter === 'all') {
+                    isFiltered = true;
+                } else if (currentRoleFilter === 'staff') {
+                    isFiltered = staffRoles.includes(rowRole);
+                } else {
+                    isFiltered = currentRoleFilter === rowRole;
+                }
+
+
+                if (isMatch && isFiltered) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
             }
+            document.getElementById('noResults').style.display = found ? 'none' : 'table-row';
         }
 
-        // Filter by role
+        // Filter by role (Dropdown)
         function filterByRole() {
             const select = document.getElementById('roleFilter');
             const role = select.value;
+            
+            // Sync with tabs
+            const tabs = document.querySelectorAll('.tabs .tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const targetTab = document.querySelector(`.tabs .tab[data-tab="${role === 'admin' || role === 'doctor' || role === 'nurse' || role === 'labtech' || role === 'shariah' ? 'staff' : role}"]`);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            } else if (role === 'all') {
+                document.querySelector('.tabs .tab[data-tab="all"]').classList.add('active');
+            }
+
+
             const table = document.getElementById('usersTable');
             const rows = table.getElementsByTagName('tr');
+            const staffRoles = ['admin', 'doctor', 'nurse', 'labtech', 'shariah'];
+            let found = false;
+
 
             for (let i = 1; i < rows.length; i++) {
                 const row = rows[i];
+                if (row.id === 'noResults') continue;
+
                 const rowRole = row.getAttribute('data-role');
+                let isVisible = false;
                 
                 if (role === 'all') {
-                    row.style.display = '';
+                    isVisible = true;
+                } else if (role === 'staff') { // This case should theoretically not happen via dropdown, but handled for safety
+                    isVisible = staffRoles.includes(rowRole);
                 } else {
-                    row.style.display = rowRole === role ? '' : 'none';
+                    isVisible = rowRole === role;
+                }
+                
+                if (isVisible) {
+                    // Also check against search input
+                    const input = document.getElementById('searchInput').value.toLowerCase();
+                    const text = row.textContent.toLowerCase();
+                    const isMatch = text.includes(input);
+                    
+                    if (isMatch) {
+                        row.style.display = '';
+                        found = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                } else {
+                    row.style.display = 'none';
                 }
             }
+             document.getElementById('noResults').style.display = found ? 'none' : 'table-row';
         }
 
         // Tab filtering
         function filterTab(type) {
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => tab.classList.remove('active'));
-            event.target.closest('.tab').classList.add('active');
+            event.currentTarget.classList.add('active'); // Use currentTarget to target the button itself
 
             const table = document.getElementById('usersTable');
             const rows = table.getElementsByTagName('tr');
             const staffRoles = ['admin', 'doctor', 'nurse', 'labtech', 'shariah'];
+            let found = false;
+
+            // Sync with dropdown
+            const roleDropdown = document.getElementById('roleFilter');
+            roleDropdown.value = (type === 'donors' ? 'donor' : (type === 'parents' ? 'parent' : (type === 'staff' ? 'all' : type))); // Tabs don't match dropdown exactly, use 'all' for staff
 
             for (let i = 1; i < rows.length; i++) {
                 const row = rows[i];
+                if (row.id === 'noResults') continue;
+
                 const rowRole = row.getAttribute('data-role');
-                
+                const input = document.getElementById('searchInput').value.toLowerCase();
+                const text = row.textContent.toLowerCase();
+                const isMatch = text.includes(input);
+
+                let isVisible = false;
+
                 if (type === 'all') {
-                    row.style.display = '';
+                    isVisible = true;
                 } else if (type === 'staff') {
-                    row.style.display = staffRoles.includes(rowRole) ? '' : 'none';
+                    isVisible = staffRoles.includes(rowRole);
+                } else if (type === 'donor') {
+                    isVisible = rowRole === 'donor';
+                } else if (type === 'parent') {
+                    isVisible = rowRole === 'parent';
+                }
+                
+                if (isVisible && isMatch) {
+                    row.style.display = '';
+                    found = true;
                 } else {
-                    row.style.display = rowRole === type ? '' : 'none';
+                    row.style.display = 'none';
                 }
             }
+            document.getElementById('noResults').style.display = found ? 'none' : 'table-row';
         }
 
-        // Sort table
+
+        // Sort table (Keep the implementation)
         function sortTable(columnIndex) {
             const table = document.getElementById('usersTable');
             let switching = true;
@@ -435,6 +686,7 @@
                     if (switchcount === 0 && dir === 'asc') {
                         dir = 'desc';
                         switching = true;
+                        switchcount++;
                     }
                 }
             }
