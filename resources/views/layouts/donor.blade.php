@@ -49,14 +49,6 @@
     </ul>
   </div>
 
-  <div class="sidebar-section">
-    <h4>Explore</h4>
-    <ul>
-      <li><a href="#"><i class="fa-solid fa-book"></i> Audit Logs</a></li>
-      <li><a href="#"><i class="fa-solid fa-chart-simple"></i> Activity Monitor</a></li>
-    </ul>
-  </div>
-
   <div class="sidebar-section logout-section">
     <ul>
       <li>

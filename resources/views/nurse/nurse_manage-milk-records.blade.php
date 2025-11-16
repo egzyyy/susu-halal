@@ -52,7 +52,6 @@
                             </div>
                             <div class="actions">
                                 <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-                                <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
                                 <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
                             </div>
                         </div>

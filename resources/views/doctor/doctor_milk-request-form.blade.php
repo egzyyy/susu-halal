@@ -73,10 +73,11 @@
           <input type="text" id="weight" name="weight" placeholder="e.g. 2.5">
         </div>
         <div class="form-group">
-          <label>Recommended Volume per Feeding</label>
-          <input type="text" value="Enter weight to calculate" readonly>
+        <label id="recommended_label">Calculated Volume per Feeding: <span class="calc-volume">Enter weight to calculate</span></label>
+        <input type="number" id="entered_volume" name="entered_volume" placeholder="Enter volume (ml)" min="1">
         </div>
       </div>
+      
     </section>
 
     <!-- Feeding Schedule -->
@@ -101,4 +102,25 @@
     </div>
   </form>
 </div>
+
+<script>
+document.getElementById("weight").addEventListener("input", function () {
+    let weight = parseFloat(this.value);
+
+    let labelSpan = document.querySelector(".calc-volume");
+
+    if (!isNaN(weight) && weight > 0) {
+        let recommended = weight * 150; // Formula: 150 ml per kg
+        labelSpan.textContent = recommended + " ml";
+
+        // Set max allowed value for the input
+        document.getElementById("entered_volume").setAttribute("max", recommended);
+    } else {
+        labelSpan.textContent = "Enter weight to calculate";
+        document.getElementById("entered_volume").removeAttribute("max");
+    }
+});
+</script>
+
+
 @endsection

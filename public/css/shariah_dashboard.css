@@ -1,3 +1,6 @@
+/* Import Base Layout */
+@import url('base_layout.css');
+
 /* General Layout */
 body {
   font-family: 'Inter', sans-serif;
@@ -285,7 +288,6 @@ body {
   }
 }
 
-
 /* Table */
 .table-container {
   overflow-x: auto;
@@ -407,8 +409,7 @@ body {
   color: #991b1b;
 }
 
-/* Actions */
-/* Updated Action Buttons for consistency with other pages */
+/* Action Buttons */
 .actions {
   display: flex;
   justify-content: flex-start;
@@ -447,7 +448,6 @@ body {
 .action-btn.delete:hover i {
   color: #b91c1c;
 }
-
 
 /* Activity List */
 .activity-list {
@@ -525,7 +525,7 @@ body {
   .content-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .bottom-grid {
     grid-template-columns: 1fr;
   }
@@ -535,13 +535,13 @@ body {
   .main-content {
     padding: 20px;
   }
-  
+
   .header-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
   }

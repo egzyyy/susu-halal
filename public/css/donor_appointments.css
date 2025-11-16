@@ -1,35 +1,10 @@
 /* Import standardized status colors */
 @import url("status_colors.css");
+@import url("base_layout.css");
 
-/* General Layout */
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    background: #f9fafb;
-    color: #333;
-}
-
-.container {
-    display: flex;
-    min-height: 100vh;
-}
-
-.main-content {
-    flex: 1;
-    padding: 40px;
-    overflow-y: auto;
-    background: #f9fafb;
-}
-
-.appointments-page {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Page Header */
-.page-header h1 {
-    font-size: 26px;
-    margin-bottom: 4px;
+.page-header p {
+    /* Overriding the default #6b7280 in base_layout to match the original blue */
+    color: #1553cf; 
 }
 
 /* Appointment Cards */
@@ -165,9 +140,13 @@ body {
     background: #f8fafc;
 }
 
-/* Status badges: Removed inline styles and mapping to use standardized file */
+/* Status badges */
 .status {
-    /* Uses base styles from status_colors.css */
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 /* Action Buttons */

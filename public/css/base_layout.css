@@ -1,0 +1,58 @@
+/* =======================================
+   BASE LAYOUT STYLES (REUSABLE ACROSS PAGES)
+   ======================================= */
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background: #f9fafb; /* Light gray background for the overall app */
+    color: #333;
+}
+
+.container {
+    /* Assumed container for sidebar + main content */
+    display: flex;
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+/* Main Content Area */
+.main-content {
+    /* Allows content to take up remaining horizontal space */
+    flex: 1;
+    
+    /* PADDING: Creates the standardized 40px space between content and edges/sidebar */
+    padding: 40px; 
+    
+    /* Background and Scrolling */
+    overflow-y: auto;
+    background: #f9fafb; /* Matches body background */
+}
+
+/* Page Header H1 Styling (Applied globally for consistency) */
+.page-header {
+    margin-bottom: 32px; /* Standard space below the header block */
+}
+
+.page-header h1 {
+    /* These styles define the H1 font but are often overridden by page-specific CSS */
+    font-size: 26px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-top: 0;
+    margin-bottom: 4px; /* Space to the P tag */
+}
+
+/* Page Header P Styling */
+.page-header p {
+    color: #6b7280; /* Standardized description text color */
+    margin-top: 4px; 
+    margin-bottom: 0; /* Margin handled by .page-header wrapper */
+    font-size: 14px;
+}
+
+/* Global Responsive Settings */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px; /* Reduced padding on small screens */
+    }
+}

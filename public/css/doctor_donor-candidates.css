@@ -1,44 +1,8 @@
-/* General Layout */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
-
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
-}
-
-/* Page Header */
-.page-header {
-  margin-bottom: 32px;
-}
-
-.page-header h1 {
-  margin-bottom: 4px;
-  font-size: 26px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.page-header p {
-  color: #6b7280;
-  margin-bottom: 24px;
-  font-size: 14px;
-}
+@import url("base_layout.css");
 
 /* Candidates Container */
 .candidates-container {
-  max-width: 1400px;
+  /* max-width: 1400px; */
 }
 
 .candidates-card {

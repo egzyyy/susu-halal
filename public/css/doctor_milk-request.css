@@ -1,32 +1,13 @@
-/* General Layout */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
+/* =======================================
+   IMPORT BASE LAYOUT FIRST
+   ======================================= */
+@import url("base_layout.css");
 
-.container {
-  display: flex;
-  height: 100vh;
-}
 
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
-}
 
-.page-header h1 {
-  margin-bottom: 4px;
-  font-size: 26px;
-}
-
-.page-header p {
-  color: #6b7280;
-  margin-bottom: 24px;
-}
+/* =======================================
+   PAGE-SPECIFIC STYLES (Overrides Allowed)
+   ======================================= */
 
 /* Card */
 .card {
@@ -76,7 +57,7 @@ body {
   font-size: 14px;
 }
 
-
+/* Search Input */
 .search-input {
   border: 1px solid #d1d5db;
   border-radius: 6px;
@@ -133,9 +114,9 @@ body {
   color: #075985;
 }
 
-/* Action Buttons - Fixed for straight alignment */
+/* Action Buttons – Improved alignment */
 .actions {
-  display: inline-block; /* Change from flex to inline-block */
+  display: inline-block;
 }
 
 .actions button {
@@ -143,14 +124,14 @@ body {
   border: none;
   cursor: pointer;
   font-size: 16px;
-  padding: 6px 4px; /* Reduce horizontal padding */
+  padding: 6px 4px;
   border-radius: 6px;
   transition: background 0.2s;
-  margin-right: 4px; /* Smaller margin */
+  margin-right: 4px;
 }
 
 .actions button:first-child {
-  padding-left: 0; /* Remove left padding from first button */
+  padding-left: 0;
   margin-left: 0;
 }
 
@@ -166,9 +147,8 @@ body {
   background: #f3f4f6;
 }
 
-/* Give some bottom padding inside the Actions cell */
+/* Extra padding inside action column */
 .records-table td.actions {
-  padding-bottom: 16px; /* Adds vertical space inside the cell */
-  padding-top: 30px;    /* Optional, to center icons vertically */
+  padding-bottom: 16px;
+  padding-top: 30px;
 }
-
