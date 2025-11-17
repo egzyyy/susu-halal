@@ -110,14 +110,14 @@
                     </div>
                     <span class="quick-stat-badge primary">New Request</span>
                 </a>
-                <a href="{{ route('parent.profile') }}" class="quick-stat-item">
+                <a href="{{ route('profile.show') }}" class="quick-stat-item">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-user"></i></div>
                         <div class="quick-stat-label">View Profile</div>
                     </div>
                     <span class="quick-stat-badge primary">View</span>
                 </a>
-                <a href="{{ route('parent.edit-profile') }}" class="quick-stat-item">
+                <a href="{{ route('profile.edit-profile') }}" class="quick-stat-item">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
                         <div class="quick-stat-label">Update Profile</div>

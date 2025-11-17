@@ -5,7 +5,9 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/doctor_list-of-donor-appointments.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="container">
 
+    <div class="main-content">
 <div class="appointments-record-page">
   <div class="page-header">
     <h1>Donor Appointment Record</h1>
@@ -161,6 +163,8 @@
       </table>
     </div>
   </div>
+</div>
+</div>
 </div>
 
 @endsection

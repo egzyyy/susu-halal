@@ -1,22 +1,9 @@
-/* ===== General Layout ===== */
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
+/* Reuse base layout styles */
+@import url("base_layout.css");
 
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-.main-content {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
-  margin-left: auto;
-}
+/* ================================
+   MILK PROCESSING PAGE STYLES
+   ================================ */
 
 /* ===== Page Header ===== */
 .page-header {
@@ -24,13 +11,6 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-}
-
-.page-header h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0;
 }
 
 .btn-back {
@@ -82,7 +62,7 @@ body {
   margin: 0;
 }
 
-/* ===== Stage Content Wrapper ===== */
+/* ===== Stage Content Layout ===== */
 .stage-content-wrapper {
   display: flex;
   gap: 40px;
@@ -222,10 +202,6 @@ body {
   background: #f9fafb;
 }
 
-.results-table tbody tr:last-child {
-  border-bottom: none;
-}
-
 .results-table tbody td {
   padding: 14px 16px;
   font-size: 14px;
@@ -238,14 +214,8 @@ body {
   color: #00bcd4;
 }
 
-.results-table tbody td:nth-child(2) {
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
 /* ===== Action Buttons ===== */
 .actions {
-  display: inline-block;
   text-align: center;
 }
 
@@ -260,35 +230,12 @@ body {
   margin-right: 4px;
 }
 
-.actions button:first-child {
-  padding-left: 0;
-  margin-left: 0;
-}
-
-.actions button:last-child {
-  margin-right: 0;
-}
-
-.actions .btn-view i { 
-  color: #2563eb;
-}
-
-.actions .btn-delete i { 
-  color: #dc2626;
-}
-
-.actions .btn-more i { 
-  color: #6b7280;
-}
+.actions .btn-view i { color: #2563eb; }
+.actions .btn-delete i { color: #dc2626; }
+.actions .btn-more i { color: #6b7280; }
 
 .actions button:hover {
   background: #f3f4f6;
-}
-
-.results-table td.actions {
-  padding-bottom: 16px;
-  padding-top: 16px;
-  text-align: center;
 }
 
 /* ===== Scrollbar ===== */
@@ -305,50 +252,39 @@ body {
   border-radius: 4px;
 }
 
-.main-content::-webkit-scrollbar-thumb:hover {
-  background: #b0b0b0;
-}
-
-/* ===== Responsive Design ===== */
+/* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .stage-content-wrapper {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .stage-image-section img {
     width: 200px;
     height: 200px;
   }
-  
+
   .details-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    padding: 20px;
-  }
-  
+
   .page-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
-  
+
   .page-header h1 {
     font-size: 20px;
   }
-  
-  .results-table-container {
-    overflow-x: auto;
-  }
-  
+
   .results-table {
     font-size: 12px;
   }
-  
+
   .results-table thead th,
   .results-table tbody td {
     padding: 10px 8px;

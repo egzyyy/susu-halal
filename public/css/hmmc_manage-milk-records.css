@@ -227,9 +227,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-  .main-content {
-    padding: 24px;
-  }
+
   
   .records-table th,
   .records-table td {
@@ -238,10 +236,7 @@
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    padding: 20px;
-  }
+
   
   .table-wrapper {
     overflow-x: auto;

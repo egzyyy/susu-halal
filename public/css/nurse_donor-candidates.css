@@ -1,45 +1,4 @@
-/* General Layout */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
-
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
-}
-
-/* Page Header */
-.page-header {
-  margin-bottom: 32px;
-}
-
-.page-header h1 {
-  margin-bottom: 4px;
-  font-size: 26px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.page-header p {
-  color: #6b7280;
-  margin-bottom: 24px;
-  font-size: 14px;
-}
-
-/* Candidates Container */
-.candidates-container {
-  max-width: 1400px;
-}
+@import url("base_layout.css");
 
 .candidates-card {
   background: white;
@@ -359,10 +318,6 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .main-content {
-    padding: 24px;
-  }
-
   .card-header {
     flex-direction: column;
     align-items: flex-start;

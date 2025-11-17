@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{ asset('css/donor_pumping-kit-form.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <div class="container">
+
+    <div class="main-content">
     <div class="page-header">
         <h1>Pumping Kit Request Appointment Form</h1>
         <p>Please provide the following details to book your pumping kit at the hospital.</p>
@@ -55,4 +58,6 @@
             </form>
         </div>
     </div>
+    </div>
+</div>
 @endsection

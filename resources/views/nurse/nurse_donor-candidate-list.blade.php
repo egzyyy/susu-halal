@@ -5,7 +5,9 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/nurse_donor-candidates.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="container">
 
+    <div class="main-content">
     <div class="page-header">
         <h1>Donor Candidates</h1>
         <p>Manage and review applicants for becoming a donor.</p>
@@ -163,4 +165,6 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 @endsection

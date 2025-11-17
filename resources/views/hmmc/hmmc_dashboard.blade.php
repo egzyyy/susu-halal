@@ -169,7 +169,7 @@
                             <td>May 15, 2024</td>
                             <td class="actions">
                                 <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
 
                             </td>
                         </tr>
@@ -188,7 +188,7 @@
                             <td>May 14, 2024</td>
                             <td class="actions">
                                <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
 
                             </td>
                         </tr>
@@ -207,7 +207,7 @@
                             <td>May 12, 2024</td>
                             <td class="actions">
                                <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
 
                             </td>
                         </tr>
@@ -226,7 +226,7 @@
                             <td>May 10, 2024</td>
                             <td class="actions">
                                <button class="action-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-<button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                                <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
 
                             </td>
                         </tr>

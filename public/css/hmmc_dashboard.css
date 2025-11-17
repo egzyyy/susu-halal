@@ -510,9 +510,6 @@
 }
 
 @media (max-width: 768px) {
-    .main-content {
-        padding: 20px;
-    }
     
     .header-content {
         flex-direction: column;

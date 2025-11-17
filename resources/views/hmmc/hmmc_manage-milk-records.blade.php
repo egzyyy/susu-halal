@@ -34,6 +34,7 @@
                         <th>MILKS DONOR</th>
                         <th>CLINICAL STATUS</th>
                         <th>SHARIAH APPROVAL</th>
+                        <th>SHARIAH ID</th> <!-- NEW COLUMN ADDED HERE -->
                         <th>EXPIRATION DATE</th>
                         <th>ELIGIBILITY</th>
                         <th>ACTIONS</th>
@@ -52,6 +53,7 @@
                         </td>
                         <td><span class="status-badge status-labelling">Labelling</span></td>
                         <td><span class="status-badge status-approved">Approved</span></td>
+                        <td>SH-2024-001</td>
                         <td>May 15, 2024</td>
                         <td>Passed</td>
                         <td class="actions">
@@ -72,6 +74,7 @@
                         </td>
                         <td><span class="status-badge status-storaging">Storaging</span></td>
                         <td><span class="status-badge status-approved">Approved</span></td>
+                        <td>SH-2024-001</td>
                         <td>May 14, 2024</td>
                         <td>Passed</td>
                         <td class="actions">
@@ -92,6 +95,7 @@
                         </td>
                         <td><span class="status-badge status-screening">Screening</span></td>
                         <td><span class="status-badge status-pending">Pending</span></td>
+                        <td>SH-2024-001</td>
                         <td>Jun 23, 2024</td>
                         <td>Passed</td>
                         <td class="actions">
@@ -112,6 +116,7 @@
                         </td>
                         <td><span class="status-badge status-labelling">Labelling</span></td>
                         <td><span class="status-badge status-approved">Approved</span></td>
+                        <td>SH-2024-001</td>
                         <td>May 15, 2024</td>
                         <td>Passed</td>
                         <td class="actions">
@@ -132,6 +137,7 @@
                         </td>
                         <td><span class="status-badge status-dispatching">Dispatching</span></td>
                         <td><span class="status-badge status-rejected">Rejected</span></td>
+                        <td>SH-2024-001</td>
                         <td>Apr 28, 2024</td>
                         <td>Failed due to smoker</td>
                         <td class="actions">

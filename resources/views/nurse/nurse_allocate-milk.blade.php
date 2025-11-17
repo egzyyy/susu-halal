@@ -58,9 +58,9 @@
             <td>{{ $patient['date'] }}</td>
             <td><span class="status {{ $patient['status'] }}">{{ ucfirst($patient['status']) }}</span></td>
             <td class="actions">
-  <button class="btn-done" title="Done"><i class="fas fa-check"></i></button>
-    <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
-</td>
+              <button class="btn-done" title="Done"><i class="fas fa-check"></i></button>
+                <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+            </td>
 
           </tr>
           @endforeach
@@ -68,6 +68,112 @@
       </table>
     </div>
 
+    <!-- ==========================
+      VIEW DETAILS POPUP MODAL
+=========================== -->
+<div id="viewModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    
+    <div class="modal-header">
+      <h3>Milk Request Details</h3>
+      <button class="modal-close">&times;</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Patient Details -->
+      <div class="modal-section">
+        <h4>Patient Information</h4>
+        <p><strong>ID:</strong> <span id="modalPatientId"></span></p>
+        <p><strong>Name:</strong> <span id="modalPatientName"></span></p>
+        <p><strong>NICU:</strong> <span id="modalPatientNicu"></span></p>
+        <p><strong>Date Requested:</strong> <span id="modalPatientDate"></span></p>
+      </div>
+
+      <hr>
+
+      <!-- Allocated Milk IDs -->
+      <div class="modal-section">
+        <h4>Allocated Milk</h4>
+
+        <div id="milkListContainer">
+          <!-- Dynamic rows added via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="save-btn">Save Changes</button>
+      <button class="modal-close cancel-btn">Cancel</button>
+    </div>
+
   </div>
 </div>
+
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const viewButtons = document.querySelectorAll(".btn-view");
+    const modal = document.getElementById("viewModal");
+    const closeButtons = document.querySelectorAll(".modal-close");
+
+    viewButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+
+            // Example data — replace with your actual DB data later
+            const patient = {
+                id: "P001",
+                name: "Sarah Ahmad Binti Fauzi",
+                nicu: "3B",
+                date: "Jan 12, 2024",
+                milk_ids: ["MILK001", "MILK002", "MILK003"]
+            };
+
+            // Insert patient info
+            document.getElementById("modalPatientId").textContent = patient.id;
+            document.getElementById("modalPatientName").textContent = patient.name;
+            document.getElementById("modalPatientNicu").textContent = patient.nicu;
+            document.getElementById("modalPatientDate").textContent = patient.date;
+
+            // Generate milk rows
+            const container = document.getElementById("milkListContainer");
+            container.innerHTML = "";
+
+            patient.milk_ids.forEach(id => {
+                const row = document.createElement("div");
+                row.className = "milk-row";
+                row.innerHTML = `
+                    <input type="checkbox" class="milk-check" data-id="${id}">
+                    <span><strong>${id}</strong></span>
+                    <input type="datetime-local" class="milk-datetime">
+                `;
+                container.appendChild(row);
+            });
+
+            // Show date/time input only when ticked
+            container.querySelectorAll(".milk-check").forEach(check => {
+                check.addEventListener("change", function() {
+                    const dt = this.parentElement.querySelector(".milk-datetime");
+                    dt.style.display = this.checked ? "block" : "none";
+                });
+            });
+
+            modal.style.display = "flex";
+        });
+    });
+
+    closeButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    });
+
+});
+</script>
+
 @endsection

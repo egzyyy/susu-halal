@@ -1,40 +1,4 @@
-/* General Layout - Ensures content appears beside sidebar */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
-
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-/* Main Content - Positions content to the right of sidebar */
-.main-content {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
-  background: #f9fafb;
-}
-
-/* Confirm Appointment Page */
-.confirm-appointment-page {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.page-header {
-  margin-bottom: 32px;
-}
-
-.page-header h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-}
+@import url("base_layout.css");
 
 /* Confirmation Container */
 .confirmation-container {
@@ -198,9 +162,6 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .main-content {
-    padding: 20px;
-  }
 
   .confirmation-container {
     padding: 24px;

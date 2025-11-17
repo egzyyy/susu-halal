@@ -1,10 +1,5 @@
 @import url("base_layout.css");
 
-/* Candidates Container */
-.candidates-container {
-  /* max-width: 1400px; */
-}
-
 .candidates-card {
   background: white;
   border-radius: 12px;

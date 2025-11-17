@@ -10,7 +10,7 @@ body {
 }
 
 .container {
-    /* Assumed container for sidebar + main content */
+    /* Container for sidebar + main content */
     display: flex;
     min-height: 100vh; /* Ensure it takes full viewport height */
 }
@@ -20,8 +20,8 @@ body {
     /* Allows content to take up remaining horizontal space */
     flex: 1;
     
-    /* PADDING: Creates the standardized 40px space between content and edges/sidebar */
-    padding: 40px; 
+    /* STANDARDIZED PADDING: 40px top, right, bottom, left */
+    padding: 40px 40px 40px 40px; 
     
     /* Background and Scrolling */
     overflow-y: auto;
@@ -51,8 +51,20 @@ body {
 }
 
 /* Global Responsive Settings */
+@media (max-width: 1200px) {
+    .main-content {
+        padding: 30px; /* Slightly reduced padding on medium screens */
+    }
+}
+
 @media (max-width: 768px) {
     .main-content {
-        padding: 20px; /* Reduced padding on small screens */
+        padding: 20px; /* Further reduced padding on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 16px; /* Minimal padding on very small screens */
     }
 }

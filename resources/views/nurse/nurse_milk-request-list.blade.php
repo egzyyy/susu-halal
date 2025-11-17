@@ -33,7 +33,7 @@
               <th>Date Requested</th>
               <th>Date Time to Give</th>
               <th>Request Status</th>
-              <th>Volume (ML)</th>
+              <th>Milk Selection</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -58,7 +58,7 @@
                 <td>
                   <span class="status {{ strtolower($milk['status']) }}">{{ $milk['status'] }}</span>
                 </td>
-                <td><button type="button" class="select-text">SELECT</button></td>
+                <td><button type="button" class="select-text">SELECT MILK</button></td>
                 <td class="actions">
                   <button class="btn-edit" title="Edit"><i class="fas fa-pen"></i></button>
                   <button class="btn-view" title="View"><i class="fas fa-list"></i></button>
@@ -135,29 +135,40 @@
         </div>
 
         <div class="form-group">
-          <label>Milk Unit ID <span class="required">*</span></label>
-          <select id="milkUnitId" required>
-            <option value="">Click to select...</option>
-            <option value="MU-2024-001">MU-2024-001 (50ml - Expires: Jan 20, 2024)</option>
-            <option value="MU-2024-002">MU-2024-002 (45ml - Expires: Jan 21, 2024)</option>
-            <option value="MU-2024-003">MU-2024-003 (60ml - Expires: Jan 22, 2024)</option>
-          </select>
+          <label>Milk Unit ID (Select Multiple)</label>
+
+          <div id="milkList" class="milk-list">
+            <!-- Example items (you can load dynamically later) -->
+            <div class="milk-item" data-id="MU-2024-001" data-volume="50">
+              MU-2024-001 — 50ml (Expires Jan 20, 2024)
+            </div>
+            <div class="milk-item" data-id="MU-2024-002" data-volume="45">
+              MU-2024-002 — 45ml (Expires Jan 21, 2024)
+            </div>
+            <div class="milk-item" data-id="MU-2024-003" data-volume="60">
+              MU-2024-003 — 60ml (Expires Jan 22, 2024)
+            </div>
+            <div class="milk-item" data-id="MU-2024-001" data-volume="50">
+              MU-2024-001 — 50ml (Expires Jan 20, 2024)
+            </div>
+            <div class="milk-item" data-id="MU-2024-002" data-volume="45">
+              MU-2024-002 — 45ml (Expires Jan 21, 2024)
+            </div>
+            <div class="milk-item" data-id="MU-2024-003" data-volume="60">
+              MU-2024-003 — 60ml (Expires Jan 22, 2024)
+            </div>
+          </div>
+
+          <p class="total-volume-display">
+            <strong>Total Selected Milk:</strong> <span id="totalVolume">0</span> ml
+          </p>
         </div>
 
-        <div class="form-group">
-          <label>Volume (ml)</label>
-          <input type="number" id="volume" placeholder="Enter volume">
-        </div>
 
         <div class="form-group">
-          <label>Expiry Date & Time</label>
-          <input type="datetime-local" id="expiryDate">
+          <label>Storage Location</label>
+          <input type="text" id="storageLocation" value="NICU Storage Room A" readonly>
         </div>
-
-        <div class="form-group">
-  <label>Storage Location</label>
-  <input type="text" id="storageLocation" value="NICU Storage Room A" readonly>
-</div>
 
 
         <button type="submit" class="btn-allocate">ALLOCATE MILK UNIT</button>
@@ -167,6 +178,36 @@
 </div>
 
 <script>
+
+let selectedMilkUnits = [];
+
+function updateTotalVolume() {
+  let total = selectedMilkUnits.reduce((sum, item) => sum + parseFloat(item.volume), 0);
+  document.getElementById("totalVolume").textContent = total;
+}
+
+document.querySelectorAll(".milk-item").forEach(item => {
+  item.addEventListener("click", function () {
+      const id = this.getAttribute("data-id");
+      const volume = this.getAttribute("data-volume");
+
+      // Check if already selected
+      const index = selectedMilkUnits.findIndex(m => m.id === id);
+
+      if (index === -1) {
+          // Add to selection
+          selectedMilkUnits.push({ id, volume });
+          this.classList.add("selected");
+      } else {
+          // Remove from selection
+          selectedMilkUnits.splice(index, 1);
+          this.classList.remove("selected");
+      }
+
+      updateTotalVolume();
+  });
+});
+
 // Open modal when SELECT is clicked
 document.addEventListener('DOMContentLoaded', function() {
   const selectButtons = document.querySelectorAll('.select-text');
@@ -195,27 +236,17 @@ document.addEventListener('click', function(e) {
 document.getElementById('milkAllocationForm').addEventListener('submit', function(e) {
   e.preventDefault();
   
-  const milkUnitId = document.getElementById('milkUnitId').value;
-  const volume = document.getElementById('volume').value;
-  const expiryDate = document.getElementById('expiryDate').value;
-  const storageLocation = document.getElementById('storageLocation').value;
-  
-  if (!milkUnitId) {
-    alert('Please select a Milk Unit ID');
+  if (selectedMilkUnits.length === 0) {
+    alert('Please select at least one Milk Unit.');
     return;
   }
-  
-  // Here you would send the data to your Laravel backend
-  console.log({
-    milkUnitId,
-    volume,
-    expiryDate,
-    storageLocation
-  });
-  
-  alert('Milk unit allocated successfully!');
+
+  console.log("Selected Milk Units:", selectedMilkUnits);
+
+  alert('Milk units allocated successfully!');
   closeMilkModal();
 });
+
 </script>
 
 @endsection

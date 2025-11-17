@@ -1,41 +1,4 @@
-/* General Layout */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-  overflow-x: hidden; /* Prevent side scroll */
-}
-
-/* Container Layout (Sidebar + Content) */
-.container {
-  display: flex;
-  min-height: 100vh; /* Use min-height instead of fixed height */
-  height: auto; /* Allow natural height growth */
-  overflow: hidden; /* Prevent double scroll on container */
-}
-
-/* Main Content Area */
-.main-content {
-  flex: 1;
-  padding: 40px;
-  background: #f9fafb;
-  /* Remove overflow-y:auto to prevent double scroll */
-  overflow-y: visible; 
-}
-
-
-.page-header h1 {
-  margin-bottom: 4px;
-  font-size: 26px;
-  color: #1a202c;
-}
-
-.page-header p {
-  color: #6b7280;
-  margin-bottom: 24px;
-}
-
+@import url("base_layout.css");
 /* Section Styling */
 .appointment-section {
   background: #fff;

@@ -81,19 +81,34 @@
     </section>
 
     <!-- Feeding Schedule -->
-    <section class="form-section">
-      <h2>🗓️ Feeding Schedule</h2>
-      <div class="grid-2">
-        <div class="form-group">
-          <label for="feeding_date">Scheduled Feeding Date</label>
-          <input type="date" id="feeding_date" name="feeding_date">
-        </div>
-        <div class="form-group">
-          <label for="feeding_time">Scheduled Feeding Time <span class="required">*</span></label>
-          <input type="time" id="feeding_time" name="feeding_time" required>
-        </div>
-      </div>
-    </section>
+<section class="form-section">
+  <h2>🗓️ Feeding Schedule</h2>
+
+  <div class="grid-2">
+    <div class="form-group">
+      <label for="feeding_date">Feeding Start Date</label>
+      <input type="date" id="feeding_date" name="feeding_date">
+    </div>
+
+    <div class="form-group">
+      <label for="start_time">Start Time <span class="required">*</span></label>
+      <input type="time" id="start_time" name="start_time" required>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="form-group">
+      <label for="feeds_per_day">Number of Feedings per Day <span class="required">*</span></label>
+      <input type="number" id="feeds_per_day" name="feeds_per_day" min="1" placeholder="e.g. 6" required>
+    </div>
+
+    <div class="form-group">
+      <label for="interval_hours">Interval Between Feedings (hours) <span class="required">*</span></label>
+      <input type="number" id="interval_hours" name="interval_hours" min="1" placeholder="e.g. 4" required>
+    </div>
+  </div>
+</section>
+
 
     <!-- Form Buttons -->
     <div class="form-actions">
@@ -104,6 +119,23 @@
 </div>
 
 <script>
+
+document.getElementById("feeds_per_day").addEventListener("input", validateFeedingSchedule);
+document.getElementById("interval_hours").addEventListener("input", validateFeedingSchedule);
+
+function validateFeedingSchedule() {
+    let feeds = parseInt(document.getElementById("feeds_per_day").value);
+    let interval = parseFloat(document.getElementById("interval_hours").value);
+
+    if (!isNaN(feeds) && !isNaN(interval)) {
+        let totalHours = feeds * interval;
+
+        if (totalHours > 24) {
+            alert("⚠️ Total feeding duration exceeds 24 hours. Please adjust feeds per day or interval.");
+        }
+    }
+}
+
 document.getElementById("weight").addEventListener("input", function () {
     let weight = parseFloat(this.value);
 

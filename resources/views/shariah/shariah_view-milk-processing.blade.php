@@ -5,7 +5,9 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/shariah_view-milk-processing.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="container">
 
+    <div class="main-content">
 <div class="page-content-wrapper"> 
     
     <div class="page-header">
@@ -121,6 +123,8 @@
             <button class="btn-approve"><i class="fas fa-check-circle"></i> Approve Milk</button>
         </div>
         </div>
+</div>
+</div>
 </div>
 
 @endsection

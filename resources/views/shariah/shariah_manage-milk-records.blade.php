@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <body>
+    <div class="container">
     <div class="main-content">
         <div class="page-header">
             <h1>Milk Records Management</h1>
@@ -154,6 +155,7 @@
                 <!-- Content will be dynamically loaded -->
             </div>
         </div>
+    </div>
     </div>
 
     <script>

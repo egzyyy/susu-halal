@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{ asset('css/doctor_donor-candidates.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <div class="container">
+
+    <div class="main-content">
     <div class="page-header">
         <h1>Donor Candidates</h1>
         <p>Manage and review donor candidate applications</p>
@@ -148,4 +151,7 @@
             </div>
         </div>
     </div>
+
+    </div>
+</div>
 @endsection

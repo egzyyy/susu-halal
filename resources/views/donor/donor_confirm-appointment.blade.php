@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="{{ asset('css/donor_confirm-appointment.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<div class="container">
+
+    <div class="main-content">
 <div class="confirm-appointment-page">
     <div class="page-header">
         <h1>Milk Donation Appointment Form</h1>
@@ -97,6 +100,8 @@
             </div>
         </form>
     </div>
+</div>
+</div>
 </div>
 
 @endsection

@@ -8,6 +8,9 @@
   <!-- Add Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <div class="container">
+
+    <div class="main-content">
   <div class="page-header">
     <h1>Milk Request Records</h1>
     <p>Manage and track all milk processing requests</p>
@@ -91,5 +94,7 @@
       </tbody>
     </table>
   </div>
+  </div>
+</div>
 
 @endsection

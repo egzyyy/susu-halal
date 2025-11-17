@@ -5,26 +5,15 @@
 /* Assuming base_layout.css includes body, .container, .main-content definitions */
 @import url("base_layout.css"); 
 
-/* General Page Wrapper (to limit max width if needed, but removed in this case) */
-.page-content-wrapper { 
-    max-width: 1400px;
-    margin: 0 auto;
-}
+
 
 /* ===== Page Header ===== */
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
 }
 
-.page-header h1 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0;
-}
 
 .btn-back {
     background: #00bcd4;

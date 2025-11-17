@@ -1,23 +1,4 @@
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
-
-/* Ensure sidebar + main content layout */
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-/* Match layout with sidebar */
-.main-content {
-  flex: 1;
-  background: #f9fafb;
-  padding: 40px;
-  overflow-y: auto;
-}
+@import url("base_layout.css");
 
 /* Optional inner wrapper for spacing */
 .request-page {

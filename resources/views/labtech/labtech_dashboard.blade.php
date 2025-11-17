@@ -5,6 +5,8 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/labtech_dashboard.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="container">
+
 
 <div class="main-content">
     <!-- Page Header -->
@@ -217,6 +219,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Chart.js -->

@@ -198,4 +198,30 @@ body {
 .select-text:hover {
   text-decoration: underline;
 }
+.milk-list {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.milk-item {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.milk-item:hover {
+  background: #e5e7eb;
+}
+
+.milk-item.selected {
+  background: #d1fae5;
+  border-left: 4px solid #059669;
+  font-weight: 600;
+}
 

@@ -1,46 +1,4 @@
-/* General Layout */
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f9fafb;
-  color: #333;
-}
-
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
-  margin-left: 0; /* Ensure content starts after sidebar */
-}
-
-/* Page Header */
-.page-header {
-  margin-bottom: 32px;
-}
-
-.page-header h1 {
-  margin-bottom: 4px;
-  font-size: 26px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.page-header p {
-  color: #6b7280;
-  margin-bottom: 24px;
-  font-size: 14px;
-}
-
-/* Form Container */
-.form-container {
-  max-width: 900px;
-}
+@import url("base_layout.css");
 
 .form-card {
   background: white;
@@ -214,9 +172,6 @@ input::placeholder {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .main-content {
-    padding: 20px;
-  }
 
   .form-card {
     padding: 24px;
