@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- Clinical Status -->
-                <div class="modal-section">
+                <!-- <div class="modal-section">
                     <label>
                         <i class="fas fa-heartbeat"></i> Clinical Status 
                         <span class="text-danger">*</span>
@@ -148,7 +148,7 @@
                         <option value="Storaging">Storaging</option>
                         <option value="Dispatching">Dispatching</option>
                     </select>
-                </div>
+                </div> -->
 
                 <button type="submit" class="modal-close-btn">
                     Submit
