@@ -52,7 +52,19 @@
                         </span>
                     </div>
                     <div class="actions">
-                        <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+                        <button 
+                            class="btn-view" 
+                            title="View"
+                            onclick="openMilkModal(
+                                {{ $record['id'] }},
+                                '{{ $record['donor'] }}',
+                                '{{ $record['status'] }}',
+                                '{{ $record['eligibility'] }}'
+                            )"
+                        >
+                            <i class="fas fa-eye"></i>
+                        </button>
+
                         <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
                     </div>
                 </div>
@@ -62,6 +74,47 @@
 
     </div>
 </div>
+
+<!-- ========== REUSABLE MODAL ========== -->
+<div id="milkModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Milk Record Details</h2>
+            <button class="modal-close-btn" onclick="closeMilkModal()">Close</button>
+        </div>
+
+
+        <div class="modal-body">
+            <p><strong>Milk ID:</strong> <span id="modal-milk-id"></span></p>
+            <p><strong>Donor Name:</strong> <span id="modal-donor-name"></span></p>
+            <p><strong>Status:</strong> <span id="modal-status"></span></p>
+            <p><strong>Eligibility:</strong> <span id="modal-eligibility"></span></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function openMilkModal(id, donor, status, eligibility) {
+    document.getElementById("modal-milk-id").innerText = id;
+    document.getElementById("modal-donor-name").innerText = donor;
+    document.getElementById("modal-status").innerText = status;
+    document.getElementById("modal-eligibility").innerText = eligibility;
+
+    document.getElementById("milkModal").style.display = "flex";
+}
+
+function closeMilkModal() {
+    document.getElementById("milkModal").style.display = "none";
+}
+
+// Close when clicking outside modal
+window.addEventListener("click", function(e) {
+    const modal = document.getElementById("milkModal");
+    if (e.target === modal) modal.style.display = "none";
+});
+</script>
+
 
 
 @endsection

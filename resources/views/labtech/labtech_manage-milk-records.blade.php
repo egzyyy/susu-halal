@@ -52,7 +52,6 @@
                             <i class="fas fa-bottle-droplet milk-icon"></i>
                         </div>
                         <div>
-                            {{-- This div contains the vertically stacked elements, fixed in CSS --}}
                             <span class="milk-id">Milk ID #{{ $record['id'] }}</span>
                             <span class="donor-name">{{ $record['donor'] }}</span>
                         </div>
@@ -70,7 +69,17 @@
                     </div>
 
                     <div class="actions">
-                        <button class="btn-view" title="View"><i class="fas fa-eye"></i></button>
+                        <button class="btn-view" title="View"
+                            onclick="openViewMilkModal({
+                                milkId: 'Milk ID #{{ $record['id'] }}',
+                                donorName: '{{ $record['donor'] }}',
+                                status: '{{ $record['status'] }}',
+                                volume: '{{ $record['volume'] }}',
+                                expiry: '{{ $record['expiry'] }}',
+                                eligibility: '{{ $record['eligibility'] }}'
+                            })">
+                            <i class="fas fa-eye"></i>
+                        </button>
                         <button class="btn-delete" title="Delete"><i class="fas fa-trash"></i></button>
                         <button class="btn-more" title="More"><i class="fas fa-ellipsis-v"></i></button>
                     </div>
@@ -81,27 +90,22 @@
     </div>
 </div>
 
-{{-- Placeholder for Modal and Scripts --}}
-{{-- <div id="editMilkModal" class="modal">...</div> --}}
-
 {{-- ===========================
       ADD RECORD MODAL
 =========================== --}}
 <div id="addRecordModal" class="modal-overlay">
-    <div class="modal-box">
+    <div class="modal-content">
+        <h2>Add Milk Record</h2>
 
-        <div class="modal-header">
-            <h3>Add Milk Record</h3>
-            <button class="modal-close">&times;</button>
-        </div>
-
-        <form id="addRecordForm">
-
-            <div class="modal-body">
-
-                <!-- Donor ID (Dropdown) -->
-                <div class="modal-section mb-3">
-                    <label class="form-label"><strong>Donor ID</strong> <span class="text-danger">*</span></label>
+        <div class="modal-body">
+            <form id="addRecordForm">
+                
+                <!-- Donor ID -->
+                <div class="modal-section">
+                    <label>
+                        <i class="fas fa-user"></i> Donor ID 
+                        <span class="text-danger">*</span>
+                    </label>
                     <select class="form-select" name="donor_id" required>
                         <option value="" selected disabled>-- Select Donor ID --</option>
                         <option value="D001">D001 - Sarah Ahmad</option>
@@ -113,52 +117,133 @@
                 </div>
 
                 <!-- Milk Volume -->
-                <div class="modal-section mb-3">
-                    <label class="form-label"><strong>Milk Volume (ml)</strong> <span class="text-danger">*</span></label>
-                    <input type="number" name="milk_volume" class="form-control" placeholder="Enter volume in ml" required min="1">
+                <div class="modal-section">
+                    <label>
+                        <i class="fas fa-flask"></i> Milk Volume (ml) 
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="number" name="milk_volume" class="form-control" 
+                           placeholder="Enter volume in ml" required min="1" step="0.1">
                 </div>
 
-                <!-- Milk Expiry Date -->
-                <div class="modal-section mb-3">
-                    <label class="form-label"><strong>Expiry Date</strong> <span class="text-danger">*</span></label>
+                <!-- Expiry Date -->
+                <div class="modal-section">
+                    <label>
+                        <i class="fas fa-calendar-alt"></i> Expiry Date 
+                        <span class="text-danger">*</span>
+                    </label>
                     <input type="date" name="expiry_date" class="form-control" required>
                 </div>
 
-            </div>
+                <!-- Clinical Status -->
+                <div class="modal-section">
+                    <label>
+                        <i class="fas fa-heartbeat"></i> Clinical Status 
+                        <span class="text-danger">*</span>
+                    </label>
+                    <select class="form-select" name="clinical_status" required>
+                        <option value="" selected disabled>-- Select Clinical Status --</option>
+                        <option value="Screening">Screening</option>
+                        <option value="Labelling">Labelling</option>
+                        <option value="Storaging">Storaging</option>
+                        <option value="Dispatching">Dispatching</option>
+                    </select>
+                </div>
 
-            <div class="modal-footer">
-                <button type="submit" class="save-btn">Submit</button>
-                <button type="button" class="modal-close cancel-btn">Cancel</button>
-            </div>
-
-        </form>
-
+                <button type="submit" class="modal-close-btn">
+                    Submit
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
 
-<!-- ===========================
+{{-- ===================== VIEW MILK RECORD MODAL ===================== --}}
+<div id="viewMilkModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+                <h2>Milk Record Details</h2>
+                <button class="modal-close-btn" onclick="closeViewMilkModal()">Close</button>
+            </div>
+
+        <div class="modal-body">
+            <p><strong>Milk ID:</strong> <span id="view-milk-id"></span></p>
+            <p><strong>Donor Name:</strong> <span id="view-donor-name"></span></p>
+            
+            <hr>
+            
+            <h3>Processing Information</h3>
+            <p><strong>Clinical Status:</strong> <span id="view-status"></span></p>
+            <p><strong>Volume:</strong> <span id="view-volume"></span></p>
+            <p><strong>Expiry Date:</strong> <span id="view-expiry"></span></p>
+            
+            <hr>
+            
+            <h3>Quality Control</h3>
+            <p><strong>Eligibility:</strong> <span id="view-eligibility"></span></p>
+        </div>
+    </div>
+</div>
+
+
+{{-- ===========================
       POPUP SCRIPT
-=========================== -->
+=========================== --}}
 <script>
+// Open View Modal
+function openViewMilkModal(data) {
+    document.getElementById("view-milk-id").textContent = data.milkId;
+    document.getElementById("view-donor-name").textContent = data.donorName;
+    document.getElementById("view-status").textContent = data.status;
+    document.getElementById("view-volume").textContent = data.volume;
+    document.getElementById("view-expiry").textContent = data.expiry;
+    document.getElementById("view-eligibility").textContent = data.eligibility;
+    
+    document.getElementById("viewMilkModal").style.display = "flex";
+}
+
+// Close View Modal
+function closeViewMilkModal() {
+    document.getElementById("viewMilkModal").style.display = "none";
+}
+
+// Add Record Modal Controls
 document.addEventListener("DOMContentLoaded", () => {
+    const openAdd = document.getElementById("openAddRecord");
+    const addModal = document.getElementById("addRecordModal");
 
-    const addBtn = document.getElementById("openAddRecord");
-    const modal = document.getElementById("addRecordModal");
-    const closeBtns = document.querySelectorAll(".modal-close");
-
-    // Open popup
-    addBtn.addEventListener("click", () => {
-        modal.style.display = "flex";
+    // Open Add Record modal
+    openAdd.addEventListener("click", () => {
+        addModal.style.display = "flex";
     });
 
-    // Close popup
-    closeBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-    });
+    // Close modal when clicking outside
+    window.onclick = function(e) {
+        if (e.target === addModal) {
+            addModal.style.display = "none";
+        }
+        if (e.target === document.getElementById("viewMilkModal")) {
+            closeViewMilkModal();
+        }
+    }
 
+    // Form submission
+    document.getElementById("addRecordForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        
+        console.log("Form submitted:", data);
+        
+        // TODO: Send data to server
+        // After successful submission:
+        alert("Milk record added successfully!");
+        addModal.style.display = "none";
+        e.target.reset();
+    });
 });
 </script>
 
