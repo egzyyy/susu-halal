@@ -42,7 +42,7 @@
                 </div>
 
                 <h2 class="profile-name">{{ $profile->name ?? 'Doctor' }}</h2>
-                <p class="profile-role">Shariah Committee</p>
+                <p class="profile-role">Shariah Compliance</p>
 
                 <p class="profile-registered">
                     Joined since 

@@ -19,7 +19,7 @@
                 </div>
                 
                 <h2 class="profile-name">{{$profile->name}}</h2>
-                <span class="profile-badge">Active Doctor</span>
+                <span class="profile-badge">Active Lab Technician</span>
                 <p class="profile-member">Member since {{ $profile->created_at ? \Carbon\Carbon::parse($profile->created_at)->format('F Y') : 'N/A' }}</p>
                 
 
@@ -286,7 +286,11 @@
                 </div>
                 @endif
 
-                <!-- Change Password -->
+            <form method="POST" action="{{ route('profile.update') }}" class="space-y-6">
+                @csrf
+                @method('PUT')
+
+                <!-- Change Password Section -->
                 <div class="form-section">
                     <h3 class="section-title">
                         <i class="fas fa-lock"></i> Change Password (Optional)

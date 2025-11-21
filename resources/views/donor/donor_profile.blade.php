@@ -282,7 +282,7 @@
                     <div class="empty-state">
                         <i class="fas fa-droplet"></i>
                         <p>No donation records yet</p>
-                        <a href="#" class="btn-primary">Make Your First Donation</a>
+                        <a href="{{ route('donor.appointment-form') }}" class="btn-primary">Make Your First Donation</a>
                     </div>
                 </div>
                 @endif

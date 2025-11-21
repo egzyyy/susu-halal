@@ -10,7 +10,9 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1>Welcome, {{ session('auth_user')->ns_Name ?? 'Nurse' }}</h1>
+            <h1>Welcome, {{ auth()->user()->name }}<br>
+            <p class="muted">Shariah-compliant Human Milk Bank • Nurse dashboard</p>
+            </h1>
         </div>
     </div>
 
@@ -93,28 +95,28 @@
         <div class="card quick-stats-card">
             <h2>Quick Actions</h2>
             <div class="quick-stats-list">
-                <a href="{{ route('nurse.donor-appointment-record') }}" class="quick-stat-item">
+                <a href="{{ route('nurse.donor-appointment-record') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-calendar-alt"></i></div>
                         <div class="quick-stat-label">Appointments</div>
                     </div>
                     <span class="quick-stat-badge primary">Manage</span>
                 </a>
-                <a href="{{ route('nurse.milk-request-list') }}" class="quick-stat-item">
+                <a href="{{ route('nurse.milk-request-list') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-baby"></i></div>
                         <div class="quick-stat-label">Milk Requests</div>
                     </div>
                     <span class="quick-stat-badge primary">Review</span>
                 </a>
-                <a href="{{ route('nurse.allocate-milk') }}" class="quick-stat-item">
+                <a href="{{ route('nurse.allocate-milk') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-tasks"></i></div>
                         <div class="quick-stat-label">Allocate Milk</div>
                     </div>
                     <span class="quick-stat-badge primary">Allocate</span>
                 </a>
-                <a href="{{ route('nurse.donor-candidate-list') }}" class="quick-stat-item">
+                <a href="{{ route('nurse.donor-candidate-list') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-users"></i></div>
                         <div class="quick-stat-label">Donor Screening</div>

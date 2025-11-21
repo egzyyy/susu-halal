@@ -10,7 +10,9 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1>Welcome, {{ session('auth_user')->sc_Name ?? 'Shariah Advisor' }}</h1>
+            <h1>Welcome, {{ auth()->user()->name }}<br>
+            <p class="muted">Shariah-compliant Human Milk Bank • Shariah Compliance Dashboard</p>
+            </h1>
         </div>
     </div>
 
@@ -93,33 +95,33 @@
         <div class="card quick-stats-card">
             <h2>Quick Actions</h2>
             <div class="quick-stats-list">
-                <a href="{{ route('shariah.infant-request') }}" class="quick-stat-item">
+                <a href="{{ route('shariah.manage-milk-records') }}" class="quick-stat-item" style="text-decoration: none;"">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-baby"></i></div>
-                        <div class="quick-stat-label">Review Requests</div>
+                        <div class="quick-stat-label">Milk Records</div>
                     </div>
-                    <span class="quick-stat-badge primary">Review</span>
+                    <span class="quick-stat-badge primary">View Record</span>
                 </a>
-                <a href="{{ route('shariah.manage-milk-records') }}" class="quick-stat-item">
+                <a href="{{ route('shariah.view-milk-processing') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
-                        <div class="quick-stat-value"><i class="fas fa-database"></i></div>
-                        <div class="quick-stat-label">Manage Records</div>
+                        <div class="quick-stat-value"><i class="fas fa-user"></i></div>
+                        <div class="quick-stat-label">Milk Process</div>
                     </div>
-                    <span class="quick-stat-badge primary">Manage</span>
+                    <span class="quick-stat-badge primary">View Process</span>
                 </a>
-                <a href="{{ route('shariah.view-milk-processing') }}" class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value"><i class="fas fa-industry"></i></div>
-                        <div class="quick-stat-label">Processing Audit</div>
-                    </div>
-                    <span class="quick-stat-badge primary">Audit</span>
-                </a>
-                <a href="{{ route('profile.edit') }}" class="quick-stat-item">
+                <a href="{{ route('shariah.infant-request') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
-                        <div class="quick-stat-label">Update Profile</div>
+                        <div class="quick-stat-label">Infant Milk Request</div>
                     </div>
-                    <span class="quick-stat-badge primary">Edit</span>
+                    <span class="quick-stat-badge primary">View Request</span>
+                </a>
+                <a href="{{ route('profile.show') }}" class="quick-stat-item" style="text-decoration: none;">
+                    <div class="quick-stat-info">
+                        <div class="quick-stat-value"><i class="fas fa-user"></i></div>
+                        <div class="quick-stat-label">View Profile</div>
+                    </div>
+                    <span class="quick-stat-badge primary">View</span>
                 </a>
             </div>
         </div>

@@ -10,7 +10,9 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1>Welcome, {{ session('auth_user')->dn_Name ?? 'Donor' }}</h1>
+            <h1>Welcome, {{ auth()->user()->name }}<br>
+            <p class="muted">Shariah-compliant Human Milk Bank • Donor Dashboard</p>
+            </h1>
         </div>
     </div>
 
@@ -60,7 +62,7 @@
 
         <div class="stat-card">
             <div class="stat-header">
-                <span class="stat-label">Babies Helped</span>
+                <span class="stat-label">Milk Receipient</span>
                 <div class="stat-icon red">
                     <i class="fas fa-baby"></i>
                 </div>
@@ -93,28 +95,28 @@
         <div class="card quick-stats-card">
             <h2>Quick Actions</h2>
             <div class="quick-stats-list">
-                <a href="{{ route('donor.appointment-form') }}" class="quick-stat-item">
+                <a href="{{ route('donor.appointment-form') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-calendar-plus"></i></div>
-                        <div class="quick-stat-label">Schedule Appointment</div>
+                        <div class="quick-stat-label">Donate Milk</div>
                     </div>
                     <span class="quick-stat-badge primary">Book Now</span>
                 </a>
-                <a href="{{ route('donor.pumping-kit-form') }}" class="quick-stat-item">
+                <a href="{{ route('donor.pumping-kit-form') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-box"></i></div>
                         <div class="quick-stat-label">Request Pumping Kit</div>
                     </div>
                     <span class="quick-stat-badge primary">Request</span>
                 </a>
-                <a href="{{ route('donor.my-appointments') }}" class="quick-stat-item">
+                <a href="{{ route('donor.appointments') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-list"></i></div>
                         <div class="quick-stat-label">View My Appointments</div>
                     </div>
                     <span class="quick-stat-badge primary">View All</span>
                 </a>
-                <a href="{{ route('donor.edit-profile') }}" class="quick-stat-item">
+                <a href="{{ route('profile.edit') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
                         <div class="quick-stat-label">Update Profile</div>

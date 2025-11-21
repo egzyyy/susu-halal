@@ -11,8 +11,9 @@
     <div class="page-header">
         <div class="header-content">
             <div>
-                <h1>Welcome, {{ session('auth_user')->da_Name ?? 'Doctor' }}</h1>
-                <p class="muted">Shariah-compliant Human Milk Bank • Doctor dashboard</p>
+            <h1>Welcome, {{ auth()->user()->name }}<br>
+            <p class="muted">Shariah-compliant Human Milk Bank • Doctor Dashboard</p>
+            </h1>
             </div>
         </div>
     </div>
@@ -92,41 +93,41 @@
             </div>
         </div>
 
-        <!-- Quick Stats -->
+        <!-- Quick Actions -->
         <div class="card quick-stats-card">
-            <h2>Quick Stats</h2>
-            <div class="quick-stats-list">
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">{{ $newPatients ?? 6 }}</div>
-                        <div class="quick-stat-label">New Patients This Week</div>
+            <h2>Quick Actions</h2>
+                    <div class="quick-stats-list">
+                        <a href="{{ route('doctor.donor-candidate-list') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-calendar-plus"></i></div>
+                                <div class="quick-stat-label">View Donor List</div>
+                            </div>
+                            <span class="quick-stat-badge primary">View Now</span>
+                        </a>
+                        <a href="{{ route('doctor.milk-request-form') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-box"></i></div>
+                                <div class="quick-stat-label">Request Milk</div>
+                            </div>
+                            <span class="quick-stat-badge primary">Request Now</span>
+                        </a>
+                        <a href="{{ route('doctor.list-milk-request') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-list"></i></div>
+                                <div class="quick-stat-label">View Milk Record</div>
+                            </div>
+                            <span class="quick-stat-badge primary">View Now</span>
+                        </a>
+                        <a href="{{ route('profile.edit') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
+                                <div class="quick-stat-label">Update Profile</div>
+                            </div>
+                            <span class="quick-stat-badge primary">Edit</span>
+                        </a>
                     </div>
-                    <span class="quick-stat-badge positive">+{{ $newPatientsChange ?? 6 }}</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">{{ $milkRequestsApproved ?? 14 }}</div>
-                        <div class="quick-stat-label">Milk Requests Approved</div>
                     </div>
-                    <span class="quick-stat-badge positive">+{{ $requestsApprovedChange ?? 14 }}</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">{{ $prescriptionsPending ?? 4 }}</div>
-                        <div class="quick-stat-label">Pending Prescriptions</div>
-                    </div>
-                    <span class="quick-stat-badge warning">Pending</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">{{ $followupsThisWeek ?? 9 }}</div>
-                        <div class="quick-stat-label">Follow-ups Scheduled</div>
-                    </div>
-                    <span class="quick-stat-badge positive">+{{ $followupChange ?? 9 }}</span>
-                </div>
-            </div>
         </div>
-    </div>
 
     <!-- Bottom Grid -->
     <div class="bottom-grid">

@@ -296,7 +296,11 @@
                 </div>
                 @endif
 
-                <!-- Change Password -->
+                <form method="POST" action="{{ route('profile.update') }}" class="space-y-6">
+                @csrf
+                @method('PUT')
+                
+                <!-- Change Password Section -->
                 <div class="form-section">
                     <h3 class="section-title">
                         <i class="fas fa-lock"></i> Change Password (Optional)

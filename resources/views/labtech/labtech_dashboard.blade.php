@@ -13,8 +13,9 @@
     <div class="page-header">
         <div class="header-content">
             <div>
-                <h1>Welcome, {{ session('auth_user')->lt_Name ?? 'Lab Technician' }}</h1>
-                <p class="muted">Shariah-compliant Human Milk Bank • Laboratory Dashboard</p>
+                <h1>Welcome, {{ auth()->user()->name }}<br>
+                <p class="muted">Shariah-compliant Human Milk Bank • Lab Technician dashboard</p>
+                </h1>
             </div>
 
         </div>
@@ -94,42 +95,27 @@
                 <canvas id="labTechChart"></canvas>
             </div>
         </div>
-
-        <!-- Quick Stats -->
+        <!-- Quick Actions -->
         <div class="card quick-stats-card">
-            <h2>Quick Stats</h2>
-            <div class="quick-stats-list">
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">12</div>
-                        <div class="quick-stat-label">New Samples Today</div>
+            <h2>Quick Actions</h2>
+                    <div class="quick-stats-list">
+                        <a href="{{ route('labtech.manage-milk-records') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-calendar-plus"></i></div>
+                                <div class="quick-stat-label">Milk Record</div>
+                            </div>
+                            <span class="quick-stat-badge primary">View Now</span>
+                        </a>
+                        <a href="{{ route('profile.edit') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
+                                <div class="quick-stat-label">Update Profile</div>
+                            </div>
+                            <span class="quick-stat-badge primary">Edit</span>
+                        </a>
                     </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">6</div>
-                        <div class="quick-stat-label">Samples Under Pasteurization</div>
                     </div>
-                    <span class="quick-stat-badge warning">Processing</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">9</div>
-                        <div class="quick-stat-label">Dispatched Today</div>
-                    </div>
-                    <span class="quick-stat-badge positive">+9</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">3</div>
-                        <div class="quick-stat-label">Alerts</div>
-                    </div>
-                    <span class="quick-stat-badge danger">Check</span>
-                </div>
-            </div>
         </div>
-    </div>
 
     <!-- Bottom Grid -->
     <div class="bottom-grid">

@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Doctor Dashboard')</title>
   <link rel="stylesheet" href="{{ asset('css/donor_sidebar.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome CDN -->
 <link
   rel="stylesheet"
@@ -15,6 +17,30 @@
   crossorigin="anonymous"
   referrerpolicy="no-referrer"
 />
+
+
+<style>
+    :root {
+        --primary: #1a5f7a;
+        --secondary: #57cc99;
+        --gradient: linear-gradient(135deg, #1a5f7a 0%, #57cc99 100%);
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    .float-animation { animation: float 6s ease-in-out infinite; }
+    .gradient-text {
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+</style>
 
 </head>
 <body>

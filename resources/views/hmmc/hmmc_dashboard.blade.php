@@ -10,13 +10,9 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1>Welcome, {{ session('auth_user')->ad_Name ?? 'HMMC' }}</h1>
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-file-export"></i>
-                    Export
-                </button>
-            </div>
+            <h1>Welcome, {{ auth()->user()->name }}<br>
+            <p class="muted">Shariah-compliant Human Milk Bank • HMMC Admin dashboard</p>
+            </h1>
         </div>
     </div>
 
@@ -95,39 +91,40 @@
         </div>
         </div>
 
-        <!-- Quick Stats -->
+        <!-- Quick Actions -->
         <div class="card quick-stats-card">
-            <h2>Quick Stats</h2>
-            <div class="quick-stats-list">
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">10</div>
-                        <div class="quick-stat-label">New Donors This Week</div>
+            <h2>Quick Actions</h2>
+                    <div class="quick-stats-list">
+                        <a href="{{ route('hmmc.manage-users') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-calendar-plus"></i></div>
+                                <div class="quick-stat-label">View User</div>
+                            </div>
+                            <span class="quick-stat-badge primary">View Now</span>
+                        </a>
+                        <a href="{{ route('hmmc.manage-milk-records') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-box"></i></div>
+                                <div class="quick-stat-label">milk records</div>
+                            </div>
+                            <span class="quick-stat-badge primary">View Milk Record Now</span>
+                        </a>
+                        <a href="{{ route('hmmc.list-of-infants') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-list"></i></div>
+                                <div class="quick-stat-label">View Infant Receipient</div>
+                            </div>
+                            <span class="quick-stat-badge primary">View Infant Now</span>
+                        </a>
+                        <a href="{{ route('profile.edit') }}" class="quick-stat-item" style="text-decoration: none;">
+                            <div class="quick-stat-info">
+                                <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
+                                <div class="quick-stat-label">Update Profile</div>
+                            </div>
+                            <span class="quick-stat-badge primary">Edit</span>
+                        </a>
                     </div>
-                    <span class="quick-stat-badge positive">+10</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">12</div>
-                        <div class="quick-stat-label">Milk Requests</div>
                     </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">10</div>
-                        <div class="quick-stat-label">Pending Approvals</div>
-                    </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
-                <div class="quick-stat-item">
-                    <div class="quick-stat-info">
-                        <div class="quick-stat-value">10</div>
-                        <div class="quick-stat-label">Active Campaigns</div>
-                    </div>
-                    <span class="quick-stat-badge positive">+12</span>
-                </div>
-            </div>
         </div>
     </div>
 

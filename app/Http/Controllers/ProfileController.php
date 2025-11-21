@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules;
 
 class ProfileController extends Controller
 {
@@ -173,7 +174,7 @@ class ProfileController extends Controller
         // Password change validation (optional)
         if ($request->filled('current_password')) {
             $rules['current_password'] = 'required|string';
-            $rules['new_password'] = 'required|string|min:6|confirmed';
+            $rules['new_password'] = 'required|string|min:8|confirmed';
         }
 
         $validated = $request->validate($rules);
@@ -188,11 +189,25 @@ class ProfileController extends Controller
                     ->where($config['id_field'], $user->role_id)
                     ->first();
 
+                if (!$currentUser) {
+                    return back()->withErrors(['current_password' => 'User not found']);
+                }
+
+                // Verify current password
                 if (!Hash::check($request->current_password, $currentUser->{"{$prefix}_Password"})) {
                     return back()->withErrors(['current_password' => 'Current password is incorrect']);
                 }
 
+                // Update password in both tables
                 $updateData["{$prefix}_Password"] = Hash::make($request->new_password);
+                
+                // Also update users table password
+                DB::table('users')
+                    ->where('id', $user->id)
+                    ->update([
+                        'password' => Hash::make($request->new_password),
+                        'updated_at' => now()
+                    ]);
             }
 
             // Update the profile

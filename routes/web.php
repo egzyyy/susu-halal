@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\DonorScreeningController;
@@ -17,15 +18,21 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/first-time-password', [NewPasswordController::class, 'createFirstTime'])->name('password.first-time');
     Route::post('/first-time-password', [NewPasswordController::class, 'storeFirstTime'])->name('password.set.first-time');
 });
+Route::middleware(['auth'])->group(function () {
+    // Forgot Password Routes
+    Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+        ->name('password.request');
+    
+    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+        ->name('password.email');
 
-// Keep existing password reset routes
-Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
-    ->middleware('guest')
-    ->name('password.reset');
+    // Reset Password Routes - Actually set new password
+    Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+        ->name('password.reset');
 
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-    ->middleware('guest')
-    ->name('password.store');
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])
+        ->name('password.update');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -123,7 +130,7 @@ Route::get('/test-email', function() {
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

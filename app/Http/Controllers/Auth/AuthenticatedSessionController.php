@@ -17,6 +17,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
+        // Clear all session data
+        session()->flush();
+        
+        // Regenerate session ID for security
+        session()->regenerate();
+        
         return view('auth.login');
     }
 

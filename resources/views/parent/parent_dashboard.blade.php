@@ -10,17 +10,9 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="header-content">
-            <h1>Welcome, {{ session('auth_user')->pr_Name ?? 'Parent' }}</h1>
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-file-export"></i>
-                    Export Records
-                </button>
-                <a href="{{ route('parent.my-infant-request') }}" class="btn-primary">
-                    <i class="fas fa-baby"></i>
-                    New Milk Request
-                </a>
-            </div>
+            <h1>Welcome, {{ auth()->user()->name }}<br>
+            <p class="muted">Shariah-compliant Human Milk Bank • Parent Dashboard</p>
+            </h1>
         </div>
     </div>
 
@@ -89,7 +81,7 @@
         <div class="card donations-card">
             <div class="card-header">
                 <h2>Milk Request History</h2>
-                <a href="{{ route('parent.my-infant-request') }}" class="view-report">
+                <a href="{{ route('parent.my-infant-request') }}" class="view-report" style="text-decoration: none;">
                     View All Requests
                     <i class="fas fa-arrow-right"></i>
                 </a>
@@ -103,28 +95,28 @@
         <div class="card quick-stats-card">
             <h2>Quick Actions</h2>
             <div class="quick-stats-list">
-                <a href="{{ route('parent.my-infant-request') }}" class="quick-stat-item">
+                <a href="{{ route('parent.my-infant-request') }}" class="quick-stat-item" style="text-decoration: none;"">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-baby"></i></div>
                         <div class="quick-stat-label">Request Milk</div>
                     </div>
                     <span class="quick-stat-badge primary">New Request</span>
                 </a>
-                <a href="{{ route('profile.show') }}" class="quick-stat-item">
+                <a href="{{ route('profile.show') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-user"></i></div>
                         <div class="quick-stat-label">View Profile</div>
                     </div>
                     <span class="quick-stat-badge primary">View</span>
                 </a>
-                <a href="{{ route('profile.edit') }}" class="quick-stat-item">
+                <a href="{{ route('profile.edit') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-user-edit"></i></div>
                         <div class="quick-stat-label">Update Profile</div>
                     </div>
                     <span class="quick-stat-badge primary">Edit</span>
                 </a>
-                <a href="{{ route('parent.my-infant-request') }}" class="quick-stat-item">
+                <a href="{{ route('parent.my-infant-request') }}" class="quick-stat-item" style="text-decoration: none;">
                     <div class="quick-stat-info">
                         <div class="quick-stat-value"><i class="fas fa-history"></i></div>
                         <div class="quick-stat-label">Request History</div>

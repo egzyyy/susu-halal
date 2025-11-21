@@ -41,7 +41,7 @@
                         <div class="avatar-circle">{{ strtoupper(substr($profile->name ?? 'D', 0, 2)) }}</div>
                     </div>
                     <h2 class="profile-name">{{ $profile->name ?? 'Donor' }}</h2>
-                    <p class="profile-role">Milk Donor</p>
+                    <p class="profile-role">{{ auth()->user()->role }}</p>
                     <p class="profile-registered">
                         Registered since {{ $profile->created_at ? \Carbon\Carbon::parse($profile->created_at)->format('F Y') : 'N/A' }}
                     </p>
@@ -143,10 +143,6 @@
                             <p>{{ $profile->contact ?? 'Not provided' }}</p>
                         </div>
                         <div class="info-item">
-                            <label>DATE OF BIRTH</label>
-                            <p>{{ $profile->dob ? \Carbon\Carbon::parse($profile->dob)->format('F d, Y') : 'Not provided' }}</p>
-                        </div>
-                        <div class="info-item">
                             <label>ADDRESS</label>
                             <p>{{ $profile->address ?? 'Not provided' }}</p>
                         </div>
@@ -222,69 +218,6 @@
                         @endif
                     </div>
                 </div>
-
-                <!-- Recent Donations -->
-                @if(isset($recentDonations) && $recentDonations->count() > 0)
-                <div class="profile-section">
-                    <div class="section-header">
-                        <h3>Recent Donations</h3>
-                        <div class="section-actions">
-                            <a href="{{ route('donor.donations') }}" class="btn-view-all">View All</a>
-                        </div>
-                    </div>
-
-                    <div class="tabs">
-                        <button class="tab active">All Donations <span class="badge">{{ $totalDonations ?? 0 }}</span></button>
-                        <button class="tab">This Month <span class="badge">{{ $monthDonations ?? 0 }}</span></button>
-                        <button class="tab">Pending <span class="badge">{{ $pendingDonations ?? 0 }}</span></button>
-                    </div>
-
-                    <table class="records-table">
-                        <thead>
-                            <tr>
-                                <th>DATE & TIME</th>
-                                <th>AMOUNT</th>
-                                <th>STATUS</th>
-                                <th>LOCATION</th>
-                                <th>ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($recentDonations as $donation)
-                            <tr>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($donation->date)->format('M d, Y') }}<br>
-                                    <small>{{ \Carbon\Carbon::parse($donation->time)->format('h:i A') }}</small>
-                                </td>
-                                <td>{{ $donation->amount }}ml</td>
-                                <td>
-                                    <span class="status-badge {{ strtolower($donation->status) }}">
-                                        {{ ucfirst($donation->status) }}
-                                    </span>
-                                </td>
-                                <td>{{ $donation->location ?? 'Main Center' }}</td>
-                                <td class="actions">
-                                    <button class="btn-view" title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                @else
-                <div class="profile-section">
-                    <div class="section-header">
-                        <h3>Recent Donations</h3>
-                    </div>
-                    <div class="empty-state">
-                        <i class="fas fa-droplet"></i>
-                        <p>No donation records yet</p>
-                        <a href="#" class="btn-primary">Make Your First Donation</a>
-                    </div>
-                </div>
-                @endif
             </div>
         </div>
     </div>
