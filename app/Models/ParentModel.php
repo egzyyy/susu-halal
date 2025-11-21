@@ -26,6 +26,7 @@ class ParentModel extends Model
         'pr_BabyCurrentWeight',
         'pr_Password',
         'pr_Username',
+        'user_id',
     ];
 
     /**
@@ -44,6 +45,10 @@ class ParentModel extends Model
         return '#P' . $this->pr_ID;
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     // Example Usage
 
     /*
