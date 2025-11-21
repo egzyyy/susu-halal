@@ -6,11 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\NewPasswordController;
-<<<<<<< HEAD
 use App\Http\Controllers\MilkController;
-=======
 use App\Http\Controllers\Auth\DonorScreeningController;
->>>>>>> c57e8620d6179e7b18c2b226acda806cc162b0f5
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
