@@ -128,7 +128,7 @@
     </div>
 
     <!-- Bottom Grid -->
-    <div class="bottom-grid">
+    <div class="quick-stats-card">
         <!-- Recent Milk Requests -->
         <div class="card users-card">
             <div class="card-header">
@@ -224,53 +224,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="card activity-card">
-            <h2>Recent Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon blue">
-                        <i class="fas fa-hand-holding-medical"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Milk Request Submitted</div>
-                        <div class="activity-description">500ml request for your infant</div>
-                        <div class="activity-time">2 days ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon green">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Request Approved</div>
-                        <div class="activity-description">Your milk request has been approved</div>
-                        <div class="activity-time">3 days ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Milk Delivery</div>
-                        <div class="activity-description">750ml milk ready for pickup</div>
-                        <div class="activity-time">1 week ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon red">
-                        <i class="fas fa-user-edit"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Profile Updated</div>
-                        <div class="activity-description">You updated your contact information</div>
-                        <div class="activity-time">2 weeks ago</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

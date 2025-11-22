@@ -119,7 +119,7 @@
                     <div class="space-y-2">
                         <label for="username" class="flex items-center space-x-2 text-sm font-medium text-gray-700">
                             <i class="fas fa-user text-blue-500 text-sm"></i>
-                            <span>IC</span>
+                            <span>IC / Username</span>
                         </label>
                         <div class="relative">
                             <input 

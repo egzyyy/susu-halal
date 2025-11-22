@@ -12,9 +12,6 @@
             <div class="header-top">
                 <h1>User Management</h1>
                 <div class="header-actions">
-                    <button class="btn-export" onclick="exportUsers()">
-                        <i class="fas fa-download"></i> Export
-                    </button>
                     <button class="btn-add-user" onclick="openRoleModal()">
                         <i class="fas fa-plus"></i> Add New User
                     </button>
@@ -145,7 +142,7 @@
                                         <div>
                                             <div class="user-name">{{ $user->name ?? 'N/A' }}</div>
                                             <div class="user-email">{{ $user->email ?? 'N/A' }}</div>
-                                            <div class="user-username">@{{ $user->username ?? 'N/A' }}</div>
+                                            <div class="user-username">{{ $user->username ?? 'N/A' }}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -804,7 +801,9 @@
                 body: JSON.stringify({
                     donor_id: currentDonorId,
                     donor_name: currentDonorData.name,
-                    donor_email: currentDonorData.email,
+                    donor_email: (currentDonorData.email && currentDonorData.email !== 'N/A') 
+             ? currentDonorData.email 
+             : null,
                     donor_contact: currentDonorData.contact
                 })
             })
@@ -866,46 +865,6 @@
                 
                 document.getElementById('errorMessage').textContent = errorMessage;
             });
-        }
-
-        function sendCredentials(donorId, donorName, donorEmail, donorContact) {
-            currentDonorId = donorId;
-            currentDonorData = {
-                name: donorName,
-                email: donorEmail,
-                contact: donorContact
-            };
-
-            // Show confirmation modal
-            const modal = document.getElementById('credentialModal');
-            const donorInfo = document.getElementById('donorInfo');
-            
-            let infoHtml = `
-                <div class="donor-avatar-large">
-                    <div class="avatar-initials">${donorName.charAt(0).toUpperCase()}</div>
-                </div>
-                <div class="donor-details">
-                    <h3>${donorName}</h3>
-                    <div class="donor-contact-info">
-            `;
-            
-            if (donorEmail && donorEmail !== 'N/A') {
-                infoHtml += `<div class="contact-item"><i class="fas fa-envelope"></i> ${donorEmail}</div>`;
-            }
-            
-            if (donorContact && donorContact !== 'N/A') {
-                infoHtml += `<div class="contact-item"><i class="fas fa-phone"></i> ${donorContact}</div>`;
-            }
-            
-            infoHtml += `</div></div>`;
-            donorInfo.innerHTML = infoHtml;
-            
-            // Reset states
-            document.getElementById('credentialLoading').style.display = 'none';
-            document.getElementById('credentialSuccess').style.display = 'none';
-            document.getElementById('credentialError').style.display = 'none';
-            
-            modal.style.display = 'flex';
         }
 
         function cancelSendCredentials() {

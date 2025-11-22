@@ -129,7 +129,7 @@
     </div>
 
     <!-- Bottom Grid -->
-    <div class="bottom-grid">
+    <div class="quick-stats-card">
         <!-- Recent User Registrations -->
         <div class="card users-card">
             <div class="card-header">
@@ -229,53 +229,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="card activity-card">
-            <h2>Recent Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon blue">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">New User Registration</div>
-                        <div class="activity-description">Sarah Ahmad registered as a donor</div>
-                        <div class="activity-time">3 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon green">
-                        <i class="fas fa-hand-holding-heart"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Milk Donation Processed</div>
-                        <div class="activity-description">250ml donation from Fatima Khan</div>
-                        <div class="activity-time">4 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon red">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">System Alert</div>
-                        <div class="activity-description">Email service is currently offline</div>
-                        <div class="activity-time">6 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-sync"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">System Update</div>
-                        <div class="activity-description">Security patch applied successfully</div>
-                        <div class="activity-time">1 day ago</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

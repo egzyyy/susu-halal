@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <!-- Stats Cards -->
+      <!-- Stats Cards -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-header">
@@ -128,7 +128,7 @@
     </div>
 
     <!-- Bottom Grid -->
-    <div class="bottom-grid">
+    <div class="quick-stats-card">
         <!-- Today's Appointments -->
         <div class="card users-card">
             <div class="card-header">
@@ -227,52 +227,6 @@
             </div>
         </div>
 
-        <!-- Recent Nursing Activity -->
-        <div class="card activity-card">
-            <h2>Recent Nursing Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon blue">
-                        <i class="fas fa-hand-holding-heart"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Donation Processed</div>
-                        <div class="activity-description">300ml donation from Sarah Ahmad</div>
-                        <div class="activity-time">1 hour ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon green">
-                        <i class="fas fa-baby"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Infant Weight Recorded</div>
-                        <div class="activity-description">Baby girl - 4.2kg at checkup</div>
-                        <div class="activity-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-syringe"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Health Screening</div>
-                        <div class="activity-description">New donor screening completed</div>
-                        <div class="activity-time">3 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon red">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Urgent Request</div>
-                        <div class="activity-description">Priority milk request for NICU</div>
-                        <div class="activity-time">4 hours ago</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </div>

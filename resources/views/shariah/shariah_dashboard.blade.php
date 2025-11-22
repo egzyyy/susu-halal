@@ -36,7 +36,7 @@
             <div class="stat-header">
                 <span class="stat-label">Milk Kinship Cases</span>
                 <div class="stat-icon green">
-                    <i class="fa-solid fa-file-user"></i>
+                    <i class="fa-solid fa-user"></i>
                 </div>
             </div>
             <div class="stat-value">{{ $kinshipCases ?? 42 }}</div>
@@ -128,7 +128,7 @@
     </div>
 
     <!-- Bottom Grid -->
-    <div class="bottom-grid">
+    <div class="quick-stats-card">
         <!-- Pending Approvals -->
         <div class="card users-card">
             <div class="card-header">
@@ -229,53 +229,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <!-- Recent Shariah Activity -->
-        <div class="card activity-card">
-            <h2>Recent Shariah Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon blue">
-                        <i class="fas fa-gavel"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Fatwa Issued</div>
-                        <div class="activity-description">New ruling on milk kinship guidelines</div>
-                        <div class="activity-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon green">
-                        <i class="fas fa-check-double"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Case Approved</div>
-                        <div class="activity-description">Milk kinship case #MK-2024-012 approved</div>
-                        <div class="activity-time">1 day ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-scale-balanced"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Compliance Review</div>
-                        <div class="activity-description">Monthly compliance audit completed</div>
-                        <div class="activity-time">2 days ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon red">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Attention Required</div>
-                        <div class="activity-description">Urgent review needed for case #DR-2024-038</div>
-                        <div class="activity-time">3 days ago</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

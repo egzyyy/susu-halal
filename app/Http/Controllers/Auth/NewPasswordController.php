@@ -120,5 +120,60 @@ class NewPasswordController extends Controller
         }
     }
 
-    // ... keep your existing first-time password methods ...
+        /**
+     * Display the first-time password reset view for donors.
+     */
+    public function createFirstTime(Request $request): View
+    {
+        return view('auth.reset-password-firsttime', [
+            'nric' => session('donor_nric') ?? $request->old('nric')
+        ]);
+    }
+
+        /**
+     * Handle first-time password reset for donors.
+     */
+    public function storeFirstTime(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'nric' => ['required', 'string'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        // Find the donor by NRIC
+        $donor = Donor::where('dn_NRIC', $request->nric)->first();
+
+        if (!$donor) {
+            return back()->withInput($request->only('nric'))
+                        ->withErrors(['nric' => 'Donor not found with this NRIC.']);
+        }
+
+        // ✅ CRITICAL: Update password AND set first_login to false
+        $donor->update([
+            'dn_Password' => Hash::make($request->password),
+            'first_login' => 0 // This prevents future first-time login prompts
+        ]);
+
+        // Update or create user record using donor's email
+        $user = User::updateOrCreate(
+            ['email' => $donor->dn_Email],
+            [
+                'name' => $donor->dn_FullName,
+                'password' => Hash::make($request->password),
+                'role' => 'donor',
+                'role_id' => $donor->dn_ID
+            ]
+        );
+
+        // Log in the user
+        auth()->login($user);
+        // Set session role
+        session(['auth_role' => $user->role]);
+
+        // Clear first-time session data
+        session()->forget(['first_time_donor', 'donor_nric', 'donor_email', 'donor_id', 'donor_name']);
+
+        return redirect()->route('donor.dashboard')
+                    ->with('success', 'Password set successfully! Welcome to your dashboard.');
+    }
 }
