@@ -282,3 +282,30 @@ Route::put('/donor/appointments/cancel/pk/{id}', [DonorAppointmentController::cl
 
 
 
+//Controller
+Route::post('/donor/milk/store', [DonorAppointmentController::class, 'storeMilkAppointment'])
+    ->name('donor.store-milk-appointment');
+
+Route::get('/donor/appointments', [DonorAppointmentController::class, 'showAppointment'])
+    ->name('donor.appointments');
+
+Route::put('/donor/appointments/update/milk/{id}', [DonorAppointmentController::class, 'updateMilkAppointment'])
+    ->name('donor.update-milk');
+
+Route::put('/donor/appointments/update/pk/{id}', [DonorAppointmentController::class, 'updatePumpingKitAppointment'])
+    ->name('donor.update-pumping');
+
+
+Route::post('/donor/pk/store', [DonorAppointmentController::class, 'storePumpingKitAppointment'])
+    ->name('donor.store-pk-appointment');
+
+Route::put('/donor/appointments/cancel/milk/{id}', [DonorAppointmentController::class, 'cancelMilk'])
+    ->name('donor.cancel-milk');
+
+Route::put('/donor/appointments/cancel/pk/{id}', [DonorAppointmentController::class, 'cancelPumpingKit'])
+    ->name('donor.cancel-pk');
+
+
+
+
+
