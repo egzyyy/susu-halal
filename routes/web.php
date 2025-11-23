@@ -49,6 +49,7 @@ Route::get('/', fn() => view('welcome'))->name('home');
 Route::middleware('auth')->group(function () {
 
 
+    // Profile
     Route::get('/labtech/dashboard', function () {
         return view('labtech.dashboard');
     })->name('labtech.dashboard');
