@@ -72,6 +72,159 @@ class MilkController extends Controller
             ->with('success', 'Milk record created successfully! Screening has begun.');
     }
 
+    public function processMilk(Milk $milk)
+    {
+        // Load donor + any related data
+        $milk->load('donor');
 
+        return view('labtech.labtech_process-milk', compact('milk'));
+    }
+
+    public function updateProcess(Request $request, Milk $milk)
+    {
+        $stage = $request->stage;
+
+        // Validate only fields relevant to the submitted stage (match form input names)
+        if ($stage == 1) {
+            $request->validate([
+                'milk_stage1StartDate' => 'required|date',
+                'milk_stage1StartTime' => 'required',
+                'milk_stage1EndDate'   => 'required|date|after_or_equal:milk_stage1StartDate',
+                'milk_stage1EndTime'   => 'required',
+            ]);
+        } elseif ($stage == 2) {
+            $request->validate([
+                'milk_stage2StartDate' => 'required|date',
+                'milk_stage2StartTime' => 'required',
+                'milk_stage2EndDate'   => 'required|date|after_or_equal:milk_stage2StartDate',
+                'milk_stage2EndTime'   => 'required',
+            ]);
+        } elseif ($stage == 3) {
+            $request->validate([
+                'milk_stage3StartDate' => 'required|date',
+                'milk_stage3StartTime' => 'required',
+                'milk_stage3EndDate'   => 'required|date|after_or_equal:milk_stage3StartDate',
+                'milk_stage3EndTime'   => 'required',
+            ]);
+        }
+
+        $data = [];
+        if ($stage == 1) {
+            $data = [
+                'milk_stage1StartDate' => $request->milk_stage1StartDate ?: now()->format('Y-m-d'),
+                'milk_stage1StartTime' => $request->milk_stage1StartTime ?: now()->format('H:i'),
+                'milk_stage1EndDate'   => $request->milk_stage1EndDate   ?: now()->format('Y-m-d'),
+                'milk_stage1EndTime'   => $request->milk_stage1EndTime   ?: now()->format('H:i'),
+                'milk_Status' => 'Screening'
+            ];
+        } elseif ($stage == 2) {
+            $data = [
+                'milk_stage2StartDate' => $request->milk_stage2StartDate ?: now()->format('Y-m-d'),
+                'milk_stage2StartTime' => $request->milk_stage2StartTime ?: now()->format('H:i'),
+                'milk_stage2EndDate'   => $request->milk_stage2EndDate   ?: now()->format('Y-m-d'),
+                'milk_stage2EndTime'   => $request->milk_stage2EndTime   ?: now()->format('H:i'),
+                'milk_Status' => 'Labelling'
+            ];
+        } elseif ($stage == 3) {
+            $data = [
+                'milk_stage3StartDate' => $request->milk_stage3StartDate ?: now()->format('Y-m-d'),
+                'milk_stage3StartTime' => $request->milk_stage3StartTime ?: now()->format('H:i'),
+                'milk_stage3EndDate'   => $request->milk_stage3EndDate   ?: now()->format('Y-m-d'),
+                'milk_stage3EndTime'   => $request->milk_stage3EndTime   ?: now()->format('H:i'),
+                'milk_Status' => 'Distributing'
+            ];
+        }
+
+        $milk->update($data);
+
+        return redirect()->back()->with('success', 'Stage completed successfully!');
+    }
+
+    public function saveScreeningResults(Request $request, Milk $milk)
+    {
+        $request->validate([
+            'results' => 'required|array|min:1',
+            'results.*.contents' => 'required|string',
+            'results.*.tolerance' => 'required|string|in:Passed,Failed,Pending'
+        ]);
+
+        $milk->update([
+            'milk_stage1Result' => json_encode($request->results),
+            'milk_Status' => 'Screening Completed'
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    // AJAX endpoint to mark labelling complete
+    public function markLabellingComplete(Request $request, Milk $milk)
+    {
+        $milk->update(['milk_Status' => 'Labelling Completed']);
+        return response()->json(['success' => true]);
+    }
+
+    // AJAX endpoint to mark distributing complete
+    public function markDistributingComplete(Request $request, Milk $milk)
+    {
+        $milk->update(['milk_Status' => 'Distributing Completed']);
+        return response()->json(['success' => true]);
+    }
+
+    // AJAX endpoint to mark labelling in-progress (stage 2 started but not completed)
+    public function markLabellingInProgress(Request $request, Milk $milk)
+    {
+        $milk->update(['milk_Status' => 'Labelling']);
+        return response()->json(['success' => true]);
+    }
+
+    // AJAX endpoint to mark distributing in-progress (stage 3 started but not completed)
+    public function markDistributingInProgress(Request $request, Milk $milk)
+    {
+        $milk->update(['milk_Status' => 'Distributing']);
+        return response()->json(['success' => true]);
+    }
+
+    // JSON endpoint: return minimal status list for polling in manage view
+    public function milkStatuses()
+    {
+        // Return minimal fields plus stage2 and stage3 datetimes so the manage page
+        // can compute remaining durations without visiting each record page.
+        $rows = Milk::select(
+            'milk_ID',
+            'milk_Status',
+            // stage 1 (screening)
+            'milk_stage1StartDate', 'milk_stage1StartTime', 'milk_stage1EndDate', 'milk_stage1EndTime', 'milk_stage1Result',
+            // stage 2 (labelling)
+            'milk_stage2StartDate', 'milk_stage2StartTime', 'milk_stage2EndDate', 'milk_stage2EndTime',
+            // stage 3 (distributing)
+            'milk_stage3StartDate', 'milk_stage3StartTime', 'milk_stage3EndDate', 'milk_stage3EndTime'
+        )->get();
+
+        return response()->json($rows);
+    }
+
+    /**
+     * Delete a milk record.
+     * Accepts DELETE requests. Returns JSON for AJAX calls.
+     */
+    public function destroy(Request $request, Milk $milk)
+    {
+        try {
+            $milk->delete();
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['success' => true]);
+            }
+
+            return redirect()->route('labtech.labtech_manage-milk-records')
+                ->with('success', 'Milk record deleted successfully.');
+        } catch (\Exception $e) {
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Delete failed'], 500);
+            }
+
+            return redirect()->back()->with('error', 'Failed to delete milk record.');
+        }
+    }
 
 }

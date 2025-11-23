@@ -99,7 +99,7 @@
         <div class="card quick-stats-card">
             <h2>Quick Actions</h2>
                     <div class="quick-stats-list">
-                        <a href="{{ route('labtech.manage-milk-records') }}" class="quick-stat-item" style="text-decoration: none;">
+                        <a href="{{ route('labtech.labtech_manage-milk-records') }}" class="quick-stat-item" style="text-decoration: none;">
                             <div class="quick-stat-info">
                                 <div class="quick-stat-value"><i class="fas fa-calendar-plus"></i></div>
                                 <div class="quick-stat-label">Milk Record</div>
