@@ -6,6 +6,15 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MilkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\MilkController;
+use App\Http\Controllers\Auth\DonorScreeningController;
+use App\Http\Controllers\DonorAppointmentController;
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -45,7 +54,76 @@ Route::get('/', fn() => view('welcome'))->name('home');
 
 Route::middleware('auth')->group(function () {
 
+<<<<<<< Updated upstream
     // Profile
+=======
+    Route::get('/labtech/dashboard', function () {
+        return view('labtech.dashboard');
+    })->name('labtech.dashboard');
+
+    Route::get('/shariah/dashboard', function () {
+        return view('shariah.dashboard');
+    })->name('shariah.dashboard');
+
+    Route::get('/parent/dashboard', function () {
+        return view('parent.dashboard');
+    })->name('parent.dashboard');
+
+    Route::get('/donor/dashboard', function () {
+        return view('donor.dashboard');
+    })->name('donor.dashboard');
+});
+
+
+// User Management Module
+
+Route::get('/hmmc/dashboard', function () {
+    return view('hmmc.hmmc_dashboard');
+})->name('hmmc.dashboard');
+
+// In your routes file
+Route::middleware(['auth'])->group(function () {
+    Route::get('/hmmc/manage-users', [UserController::class, 'index'])->name('hmmc.manage-users');
+    Route::get('/hmmc/create-new-user/{role}', [UserController::class, 'create'])->name('hmmc.create-new-user');
+    Route::post('/hmmc/store-new-user', [UserController::class, 'store'])->name('hmmc.store-user');
+    
+    // User CRUD routes
+    Route::get('/hmmc/users/{role}/{id}', [UserController::class, 'show'])->name('hmmc.users.show');
+    Route::get('/hmmc/users/{role}/{id}/edit', [UserController::class, 'edit'])->name('hmmc.users.edit');
+    Route::put('/hmmc/users/{role}/{id}', [UserController::class, 'update'])->name('hmmc.users.update');
+    Route::delete('/hmmc/users/{role}/{id}', [UserController::class, 'destroy'])->name('hmmc.users.destroy');
+    
+    // Credential sending route
+    Route::post('/hmmc/send-credentials', [UserController::class, 'sendCredentials'])
+        ->name('hmmc.send-credentials')
+        ->middleware(['auth']); // Only auth middleware
+});
+
+Route::post('/hmmc/validate-user-field', [UserController::class, 'validateField'])
+    ->name('hmmc.validate-user-field')
+    ->middleware('auth');
+
+// In your routes file
+Route::get('/test-email', function() {
+    try {
+        Mail::send('hmmc.hmmc_donor-credential', [
+            'fullname' => 'Test Donor',
+            'username' => 'testuser',
+            'password' => 'testpass123',
+            'loginUrl' => route('login')
+        ], function ($message) {
+            $message->to('ariffnorjihan@gmail.com')
+                    ->subject('🎉 Test Email from HMMC');
+        });
+        
+        return "Email sent successfully!";
+    } catch (\Exception $e) {
+        return "Email failed: " . $e->getMessage();
+    }
+});
+
+Route::middleware(['auth'])->group(function () {
+>>>>>>> Stashed changes
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -178,8 +256,38 @@ Route::get('/test-email', function () {
                     ->subject('Test Email from HMMC – Your Login Credentials');
         });
 
+<<<<<<< Updated upstream
         return "<h2 style='color:green'>Email sent successfully!</h2>";
     } catch (Exception $e) {
         return "<h2 style='color:red'>Email failed:</h2><pre>" . $e->getMessage() . "</pre>";
     }
 })->name('test.email');
+=======
+//Controller
+Route::post('/donor/milk/store', [DonorAppointmentController::class, 'storeMilkAppointment'])
+    ->name('donor.store-milk-appointment');
+
+Route::get('/donor/appointments', [DonorAppointmentController::class, 'showAppointment'])
+    ->name('donor.appointments');
+
+Route::put('/donor/appointments/update/milk/{id}', [DonorAppointmentController::class, 'updateMilkAppointment'])
+    ->name('donor.update-milk');
+
+Route::put('/donor/appointments/update/pk/{id}', [DonorAppointmentController::class, 'updatePumpingKitAppointment'])
+    ->name('donor.update-pumping');
+
+
+Route::post('/donor/pk/store', [DonorAppointmentController::class, 'storePumpingKitAppointment'])
+    ->name('donor.store-pk-appointment');
+
+Route::put('/donor/appointments/cancel/milk/{id}', [DonorAppointmentController::class, 'cancelMilk'])
+    ->name('donor.cancel-milk');
+
+Route::put('/donor/appointments/cancel/pk/{id}', [DonorAppointmentController::class, 'cancelPumpingKit'])
+    ->name('donor.cancel-pk');
+
+
+
+
+
+>>>>>>> Stashed changes

@@ -44,6 +44,14 @@ class AuthenticatedSessionController extends Controller
 
         $role = Auth::user()->role;
 
+        if ($role === 'donor') {
+            $donor = Donor::where('dn_Email', Auth::user()->email)->first();
+
+            if ($donor) {
+                session(['donor_id' => $donor->dn_ID]);
+            }
+        }
+
         // Redirect user based on role
         switch ($role) {
             case 'hmmc_admin':
