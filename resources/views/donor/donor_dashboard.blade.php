@@ -128,7 +128,7 @@
     </div>
 
     <!-- Bottom Grid -->
-    <div class="bottom-grid">
+    <div class="quick-stats-card">
         <!-- Upcoming Appointments -->
         <div class="card users-card">
             <div class="card-header">
@@ -206,53 +206,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <!-- Recent Donation Activity -->
-        <div class="card activity-card">
-            <h2>Recent Donation Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon blue">
-                        <i class="fas fa-hand-holding-heart"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Milk Donation Completed</div>
-                        <div class="activity-description">250ml donated at Main Center</div>
-                        <div class="activity-time">2 days ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon green">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Appointment Scheduled</div>
-                        <div class="activity-description">Health screening on May 25</div>
-                        <div class="activity-time">3 days ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Pumping Kit Requested</div>
-                        <div class="activity-description">Kit pickup scheduled for June 1</div>
-                        <div class="activity-time">1 week ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon red">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Milestone Reached</div>
-                        <div class="activity-description">Helped 12 babies in total</div>
-                        <div class="activity-time">2 weeks ago</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

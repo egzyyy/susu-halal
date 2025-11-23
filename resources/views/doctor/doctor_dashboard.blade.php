@@ -36,7 +36,7 @@
 
         <div class="stat-card">
             <div class="stat-header">
-                <span class="stat-label">Active Prescriptions</span>
+                <span class="stat-label">Active Donor</span>
                 <div class="stat-icon green">
                     <i class="fas fa-file-medical"></i>
                 </div>
@@ -52,7 +52,7 @@
             <div class="stat-header">
                 <span class="stat-label">Pending Milk Requests</span>
                 <div class="stat-icon orange">
-                    <i class="fas fa-baby-bottle"></i>
+                    <i class="fas fa-baby"></i>
                 </div>
             </div>
             <div class="stat-value">{{ $pendingRequests ?? 8 }}</div>
@@ -65,7 +65,7 @@
         <div class="stat-card">
             <div class="stat-header">
                 <span class="stat-label">Appointments Today</span>
-                <div class="stat-icon purple">
+                <div class="stat-icon red">
                     <i class="fas fa-calendar-check"></i>
                 </div>
             </div>
@@ -130,11 +130,11 @@
         </div>
 
     <!-- Bottom Grid -->
-    <div class="bottom-grid">
+    <div class="quick-stats-card">
         <!-- Recent Prescriptions -->
         <div class="card users-card">
             <div class="card-header">
-                <h2>Recent Prescriptions</h2>
+                <h2>Milk Record</h2>
                 <a href="#" class="view-all">
                     View All
                     <i class="fas fa-arrow-right"></i>
@@ -193,42 +193,7 @@
             </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="card activity-card">
-            <h2>Recent Activity</h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon green">
-                        <i class="fas fa-prescription-bottle-medical"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">New Prescription</div>
-                        <div class="activity-description">Issued for Baby Adam (250ml)</div>
-                        <div class="activity-time">2 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon orange">
-                        <i class="fas fa-baby"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Milk Request Submitted</div>
-                        <div class="activity-description">Patient: Fatimah Ali</div>
-                        <div class="activity-time">4 hours ago</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon blue">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Appointment Completed</div>
-                        <div class="activity-description">Consultation with Dr. Rahman</div>
-                        <div class="activity-time">Yesterday</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 
