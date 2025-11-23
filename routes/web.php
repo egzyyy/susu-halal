@@ -1,20 +1,14 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\MilkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-<<<<<<< Updated upstream
-=======
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\MilkController;
 use App\Http\Controllers\Auth\DonorScreeningController;
 use App\Http\Controllers\DonorAppointmentController;
->>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -54,9 +48,7 @@ Route::get('/', fn() => view('welcome'))->name('home');
 
 Route::middleware('auth')->group(function () {
 
-<<<<<<< Updated upstream
     // Profile
-=======
     Route::get('/labtech/dashboard', function () {
         return view('labtech.dashboard');
     })->name('labtech.dashboard');
@@ -123,7 +115,6 @@ Route::get('/test-email', function() {
 });
 
 Route::middleware(['auth'])->group(function () {
->>>>>>> Stashed changes
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -256,13 +247,11 @@ Route::get('/test-email', function () {
                     ->subject('Test Email from HMMC – Your Login Credentials');
         });
 
-<<<<<<< Updated upstream
         return "<h2 style='color:green'>Email sent successfully!</h2>";
     } catch (Exception $e) {
         return "<h2 style='color:red'>Email failed:</h2><pre>" . $e->getMessage() . "</pre>";
     }
 })->name('test.email');
-=======
 //Controller
 Route::post('/donor/milk/store', [DonorAppointmentController::class, 'storeMilkAppointment'])
     ->name('donor.store-milk-appointment');
@@ -290,4 +279,3 @@ Route::put('/donor/appointments/cancel/pk/{id}', [DonorAppointmentController::cl
 
 
 
->>>>>>> Stashed changes
