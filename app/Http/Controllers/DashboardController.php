@@ -70,6 +70,13 @@ class DashboardController extends Controller
     ));
     }
 
+    // ============================
+    // NURSE DASHBOARD
+    // ============================   
+    public function nurse()
+    {
+        return view('nurse.nurse_dashboard');
+    }
 
     // ============================
     // LABTECH DASHBOARD
@@ -106,7 +113,7 @@ class DashboardController extends Controller
     // ============================
     // ADMIN DASHBOARD
     // ============================
-    public function admin()
+    public function hmmc()
     {
         return view('hmmc.hmmc_dashboard');
     }

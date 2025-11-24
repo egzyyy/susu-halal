@@ -156,13 +156,13 @@
 
                 
                     <li>
-                        <a href="{{ route('register') }}" 
+                        <a href="/register" 
                         style="text-decoration: none; color: var(--secondary); font-weight: 600; padding: 8px 16px; border-radius: 4px; transition: var(--transition);">
                         Become A Donor
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('login') }}" 
+                        <a href="/login" 
                         style="text-decoration: none; color: var(--primary); font-weight: 600; padding: 8px 16px; border-radius: 4px; transition: var(--transition);">
                         Login
                         </a>

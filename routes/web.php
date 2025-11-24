@@ -14,13 +14,42 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
 // Load Laravel Breeze/Fortify auth routes (login, logout, password reset, etc.)
+// Only guests can access login/register
+// Only guests can access login/register
+// Guest routes (login/register)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+});
+
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register-donor', [RegisteredUserController::class, 'store'])->name('register.donor.store');
+// home page
+Route::get('/', function () {
+    if(auth()->check()){
+        $role = auth()->user()->role;
+        return match($role) {
+            'hmmc_admin' => redirect()->route('hmmc.dashboard'),
+            'nurse' => redirect()->route('nurse.dashboard'),
+            'doctor' => redirect()->route('doctor.dashboard'),
+            'lab_technician' => redirect()->route('labtech.dashboard'),
+            'shariah_advisor' => redirect()->route('shariah.dashboard'),
+            'parent' => redirect()->route('parent.dashboard'),
+            'donor' => redirect()->route('donor.dashboard'),
+            default => redirect('/'),
+        };
+    }
+    return view('welcome');
+})->name('home');
+// Include the default auth routes provided by Laravel Breeze/Fortify
 require __DIR__.'/auth.php';
 
 // ====================================================================
 // CUSTOM GUEST ROUTES
 // ====================================================================
 
-Route::middleware('guest')->group(function () {
+
 
     // Custom: First-time password setup for new donors
     Route::get('/first-time-password', [NewPasswordController::class, 'createFirstTime'])
@@ -28,48 +57,23 @@ Route::middleware('guest')->group(function () {
     Route::post('/first-time-password', [NewPasswordController::class, 'storeFirstTime'])
         ->name('password.set.first-time');
 
-    // Custom Register Page
-    Route::get('/register', [RegisteredUserController::class, 'create'])
-        ->name('register');
-    Route::post('/register', [RegisteredUserController::class, 'store'])
-        ->name('register.donor.store');
-});
-
-// Override default login page (show your beautiful custom login)
-Route::get('/login', fn() => view('auth.login'))
-    ->middleware('guest')
-    ->name('login');
-
-// Home
-Route::get('/', fn() => view('welcome'))->name('home');
 
 // ====================================================================
 // AUTHENTICATED ROUTES
 // ====================================================================
 
+// Authenticated routes
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-
-    Route::get('/donor/dashboard', [DashboardController::class, 'donor'])
-        ->name('donor.dashboard');
-
-    Route::get('/labtech/dashboard', [DashboardController::class, 'labtech'])
-        ->name('labtech.dashboard');
-
-    Route::get('/doctor/dashboard', [DashboardController::class, 'doctor'])
-        ->name('doctor.dashboard');
-
-    Route::get('/nurse/dashboard', [DashboardController::class, 'nurse'])
-        ->name('nurse.dashboard');
-
-    Route::get('/shariah/dashboard', [DashboardController::class, 'shariah'])
-        ->name('shariah.dashboard');
-
-    Route::get('/parent/dashboard', [DashboardController::class, 'parent'])
-        ->name('parent.dashboard');
-
-    Route::get('/hmmc/dashboard', [DashboardController::class, 'hmmc'])
-        ->name('hmmc.dashboard');
+    // Dashboard routes
+    Route::get('/donor/dashboard', [DashboardController::class, 'donor'])->name('donor.dashboard');
+    Route::get('/labtech/dashboard', [DashboardController::class, 'labtech'])->name('labtech.dashboard');
+    Route::get('/doctor/dashboard', [DashboardController::class, 'doctor'])->name('doctor.dashboard');
+    Route::get('/nurse/dashboard', [DashboardController::class, 'nurse'])->name('nurse.dashboard');
+    Route::get('/shariah/dashboard', [DashboardController::class, 'shariah'])->name('shariah.dashboard');
+    Route::get('/parent/dashboard', [DashboardController::class, 'parent'])->name('parent.dashboard');
+    Route::get('/hmmc/dashboard', [DashboardController::class, 'hmmc'])->name('hmmc.dashboard');
 });
 
 
@@ -95,24 +99,6 @@ Route::post('/hmmc/validate-user-field', [UserController::class, 'validateField'
     ->name('hmmc.validate-user-field')
     ->middleware('auth');
 
-// In your routes file
-Route::get('/test-email', function() {
-    try {
-        Mail::send('hmmc.hmmc_donor-credential', [
-            'fullname' => 'Test Donor',
-            'username' => 'testuser',
-            'password' => 'testpass123',
-            'loginUrl' => route('login')
-        ], function ($message) {
-            $message->to('ariffnorjihan@gmail.com')
-                    ->subject('🎉 Test Email from HMMC');
-        });
-        
-        return "Email sent successfully!";
-    } catch (\Exception $e) {
-        return "Email failed: " . $e->getMessage();
-    }
-});
 
 Route::middleware(['auth'])->group(function () {
 
