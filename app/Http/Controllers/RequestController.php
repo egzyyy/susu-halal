@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ParentModel;
 use App\Models\Request as MilkRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Model\Doctor;
 
 class RequestController extends Controller
 {
@@ -16,6 +18,8 @@ class RequestController extends Controller
 
     public function store(Request $request)
     {
+        $doctor = \App\Models\Doctor::where('user_id', auth()->id())->first();
+
         $request->validate([
             'pr_ID'             => 'required|exists:parent,pr_ID',
             'weight'            => 'required|numeric|min:0.1',
@@ -27,7 +31,7 @@ class RequestController extends Controller
         ]);
 
         MilkRequest::create([
-            'dr_ID'              => auth()->user()->doctor->dr_ID, // doctor logged in
+            'dr_ID'              => $doctor->dr_ID, // doctor logged in
             'pr_ID'              => $request->pr_ID,
             'current_weight'     => $request->weight,
             'recommended_volume' => $request->entered_volume,

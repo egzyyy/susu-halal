@@ -26,6 +26,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('/register-donor', [RegisteredUserController::class, 'store'])->name('register.donor.store');
+
 // home page
 Route::get('/', function () {
     if(auth()->check()){
@@ -43,6 +44,7 @@ Route::get('/', function () {
     }
     return view('welcome');
 })->name('home');
+
 // Include the default auth routes provided by Laravel Breeze/Fortify
 require __DIR__.'/auth.php';
 
