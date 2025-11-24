@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\MilkAppointment;
 use App\Models\PumpingKitAppointment;
 use App\Models\User;
+use App\Models\Milk;
+use App\Models\DonorToBe;
+use App\Models\Donor;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -83,7 +86,57 @@ class DashboardController extends Controller
     // ============================
     public function labtech()
     {
-        return view('labtech.labtech_dashboard');
+        // Total milk samples
+        $totalSamples = Milk::count();
+
+        // Processed samples (Screening completed)
+        $processedSamples = Milk::whereNotNull('milk_stage1Result')->count();
+
+        // Pending pasteurization (Stage 1 completed but Stage 2 not started)
+        $pendingPasteurization = Milk::whereNotNull('milk_stage1Result')
+                                    ->whereNull('milk_stage2StartDate')
+                                    ->count();
+
+        // Storage used (example, replace with actual calculation if needed)
+        $storageUsed = '78%';
+
+        // Chart data for the last 12 months
+        $months = [];
+        $processedMonthly = [];
+        $dispatchedMonthly = [];
+        $currentYear = date('Y');
+
+        for ($i = 0; $i < 12; $i++) {
+            $month = Carbon::now()->subMonths(11 - $i);
+            $months[] = $month->format('M'); // Short month name
+
+            // Processed: Stage 1 completed
+            $processedMonthly[] = Milk::whereYear('milk_stage1EndDate', $month->year)
+                                    ->whereMonth('milk_stage1EndDate', $month->month)
+                                    ->count();
+
+            // Dispatched: Stage 3 completed
+            $dispatchedMonthly[] = Milk::whereYear('milk_stage3EndDate', $month->year)
+                                    ->whereMonth('milk_stage3EndDate', $month->month)
+                                    ->count();
+        }
+
+            // Fetch milk records for the table
+            $milks = Milk::with('donor')
+                ->orderByDesc('created_at')
+                ->take(10) // optional: limit number shown on dashboard
+                ->get();
+
+        return view('labtech.labtech_dashboard', compact(
+            'totalSamples',
+            'processedSamples',
+            'pendingPasteurization',
+            'storageUsed',
+            'months',
+            'processedMonthly',
+            'dispatchedMonthly',
+            'milks'
+        ));
     }
 
     // ============================
@@ -113,8 +166,63 @@ class DashboardController extends Controller
     // ============================
     // ADMIN DASHBOARD
     // ============================
-    public function hmmc()
-    {
-        return view('hmmc.hmmc_dashboard');
+public function hmmc()
+{
+    // -----------------------
+    // Stats Cards
+    // -----------------------
+    $totalUsers = User::count(); // Total registered users
+    $activeDonors = DonorToBe::where('dtb_ScreeningStatus', 'passed')->count(); // Active donors
+    $totalDonations = MilkAppointment::sum('milk_amount'); // Total donations
+    $systemAlerts = DonorToBe::where('dtb_ScreeningStatus', 'pending')->count();
+
+    // -----------------------
+    // Chart Data: Donor Registrations & Active Donors
+    // -----------------------
+    $months = [];
+    $registeredDonors = [];
+    $activeDonorsMonthly = [];
+
+    for ($i = 6; $i >= 0; $i--) {
+        $month = Carbon::now()->subMonths($i);
+        $months[] = $month->format('M');
+
+        $registeredDonors[] = DonorToBe::whereYear('created_at', $month->year)
+                                       ->whereMonth('created_at', $month->month)
+                                       ->count();
+
+        $activeDonorsMonthly[] = DonorToBe::where('dtb_ScreeningStatus', 'passed')
+                                          ->whereDate('created_at', '<=', $month->endOfMonth())
+                                          ->count();
     }
+
+    // -----------------------
+    // Recent Donors Table
+    // -----------------------
+    $recentDonors = DonorToBe::with('donor')
+        ->latest()
+        ->take(10)
+        ->get()
+        ->map(function ($donorToBe) {
+            return (object)[
+                'id' => $donorToBe->dn_ID,
+                'name' => $donorToBe->donor?->dn_FullName ?? 'Unknown', // get full name from Donor
+                'email' => $donorToBe->donor?->dn_Email ?? null,
+                'role' => 'donor',
+                'screeningStatus' => $donorToBe->dtb_ScreeningStatus ?? 'passed',
+                'created_at' => $donorToBe->created_at,
+            ];
+        });
+
+    return view('hmmc.hmmc_dashboard', compact(
+        'totalUsers',
+        'activeDonors',
+        'totalDonations',
+        'systemAlerts',
+        'months',
+        'registeredDonors',
+        'activeDonorsMonthly',
+        'recentDonors'
+    ));
+}
 }
