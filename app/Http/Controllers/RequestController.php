@@ -13,12 +13,18 @@ class RequestController extends Controller
     public function create()
     {
         $parents = ParentModel::all();
-        return view('doctor.doctor_milk-request-form', compact('parents'));
+        return view('doctor.doctor_milk-request', compact('parents'));
+    }
+
+    public function view()
+    {
+        $requests = MilkRequest::all();
+        return view('doctor.doctor_milk-request', compact('requests'));
     }
 
     public function store(Request $request)
     {
-        $doctor = \App\Models\Doctor::where('user_id', auth()->id())->first();
+        $doctor = \App\Models\Doctor::where('dr_ID', auth()->id())->first();
 
         $request->validate([
             'pr_ID'             => 'required|exists:parent,pr_ID',

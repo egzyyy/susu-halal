@@ -183,7 +183,9 @@ Route::middleware(['auth'])->group(function () {
     // ====================================================================
     // OTHER MODULES (Milk Request, Appointment, etc.)
     // ====================================================================
-    Route::view('/doctor/milk-request', 'doctor.doctor_milk-request')->name('doctor.list-milk-request');
+    // Route::view('/doctor/milk-request', 'doctor.doctor_milk-request')->name('doctor.list-milk-request');
+    Route::get('/doctor/milk-request', [RequestController::class, 'view'])->name('doctor.doctor_milk-request');
+    
     Route::view('/nurse/milk-request', 'nurse.nurse_milk-request')->name('nurse.list-milk-request');
 
     // Route::view('/doctor/milk-request/create', 'doctor.doctor_milk-request-form')->name('doctor.milk-request-form');
