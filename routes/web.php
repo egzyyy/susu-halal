@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetOTPController;
 use App\Http\Controllers\MilkController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ProfileController;
@@ -23,10 +24,13 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 });
-    Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
-    ->name('password.request');
-    Route::get('/forgot-password', [PasswordResetLinkController::class, 'store'])
-    ->name('password.email');
+    // Forgot Password + OTP
+    Route::get('/forgot-password', [PasswordResetOTPController::class, 'showRequestForm'])->name('password.request');
+    Route::post('/forgot-password/send-otp', [PasswordResetOTPController::class, 'sendOTP'])->name('password.send.otp');
+    Route::post('/forgot-password/verify-otp', [PasswordResetOTPController::class, 'verifyOTP'])->name('password.verify.otp');
+    Route::get('/forgot-password/reset/{user_table}/{user_id}', [PasswordResetOTPController::class, 'showResetForm'])->name('password.reset.firsttime');
+    Route::post('/forgot-password/reset/{user_table}/{user_id}', [PasswordResetOTPController::class, 'resetPassword'])->name('password.reset.submit');
+
 
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('/register-donor', [RegisteredUserController::class, 'store'])->name('register.donor.store');

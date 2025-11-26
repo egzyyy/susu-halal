@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('pr_NRIC')->unique();
             $table->string('pr_Address');
             $table->string('pr_Contact');
-            $table->string('pr_Email')->unique();
+            $table->string('pr_Email')->unique()->nullable();
             $table->string('pr_BabyName');
             $table->date('pr_BabyDOB');
             $table->string('pr_BabyGender');
