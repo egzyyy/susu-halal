@@ -7,6 +7,9 @@ use App\Models\ParentModel;
 use App\Models\Request as MilkRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Doctor;
+use App\Models\Milk;
+use App\Models\Allocation;
+use Carbon\Carbon;
 
 class RequestController extends Controller
 {
@@ -17,11 +20,24 @@ class RequestController extends Controller
         return view('doctor.doctor_milk-request-form', compact('parents'));
     }
 
-    public function view()
+    public function viewRequestDoctor()
     {
         $requests = MilkRequest::with(['parent', 'doctor'])->latest()->get();
-
         return view('doctor.doctor_milk-request', compact('requests'));
+    }
+
+    public function viewRequestNurse()
+    {
+        // Milk Requests
+        $requests = MilkRequest::with(['parent', 'doctor'])
+                    ->latest()
+                    ->get();
+
+        // Only NON-EXPIRED milk
+        $milks = Milk::whereDate('milk_expiryDate', '>=', Carbon::today())
+                    ->get();
+
+        return view('nurse.nurse_milk-request-list', compact('requests', 'milks'));
     }
 
     public function store(Request $request)
@@ -29,13 +45,13 @@ class RequestController extends Controller
         $doctor = \App\Models\Doctor::where('dr_ID', auth()->id())->first();
 
         $request->validate([
-            'pr_ID'             => 'required|exists:parent,pr_ID',
-            'weight'            => 'required|numeric|min:0.1',
-            'entered_volume'    => 'required|numeric|min:1',
+            'pr_ID'             => 'required',
+            'weight'            => 'required|numeric',
+            'entered_volume'    => 'required|numeric',
             'feeding_date'      => 'required|date',
             'start_time'        => 'required',
-            'feeds_per_day'     => 'required|integer|min:1',
-            'interval_hours'    => 'required|integer|min:1',
+            'feeds_per_day'     => 'required|integer',
+            'interval_hours'    => 'required|integer',
         ]);
 
         MilkRequest::create([
@@ -53,6 +69,33 @@ class RequestController extends Controller
             'success' => true,
             'message' => 'Milk Request submitted successfully!'
         ]);
+    }
+    
+    public function allocateMilk(Request $request)
+    {
+        $request->validate([
+            'request_id'      => 'required|exists:request,request_ID',
+            'selected_milk'   => 'required|array',
+            'allocation_times'=> 'required|array',
+            'total_volume'    => 'required',
+            'storage_location'=> 'required'
+        ]);
+
+        foreach ($request->selected_milk as $milk) {
+
+            Allocation::create([
+                'request_ID'             => $request->request_id,
+                'milk_ID'                => $milk['id'],
+                'total_selected_milk'    => $request->total_volume,
+                'storage_location'       => $request->storage_location,
+                'allocation_milk_date_time' => json_encode([
+                    'milk_id' => $milk['id'],
+                    'datetime' => $request->allocation_times[$milk['id']] ?? null
+                ])
+            ]);
+        }
+
+        return response()->json(['success' => true]);
     }
 
     public function delete($id)

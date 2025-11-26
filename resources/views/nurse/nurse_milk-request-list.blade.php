@@ -33,37 +33,44 @@
               <th>Date Time to Give</th>
               <th>Request Status</th>
               <th>Milk Selection</th>
-              <th>Actions</th>
+              <!-- <th>Actions</th> -->
             </tr>
           </thead>
           <tbody>
-            @foreach ([
-              ['id' => 'P001', 'name' => 'Sarah Ahmad Binti Fauzi', 'nicu' => 'A101', 'date_requested' => 'Jan 12, 2024', 'date_give' => 'Jan 14, 2024', 'status' => 'Approved'],
-              ['id' => 'P002', 'name' => 'Ahmad Jebon Bin Arif', 'nicu' => 'A102', 'date_requested' => 'Jan 12, 2024', 'date_give' => 'Jan 15, 2024', 'status' => 'Waiting']
-            ] as $milk)
+            @foreach($requests as $req)
               <tr>
                 <td>
                   <div class="patient-info">
                     <i class="fas fa-bottle-droplet milk-icon"></i>
                     <div>
-                      <strong>{{ $milk['id'] }}</strong><br>
-                      <span>{{ $milk['name'] }}</span>
+                      <strong>{{ $req->parent->formattedID ?? 'N/A' }}</strong><br>
+                      <span>{{ $req->parent->pr_BabyName ?? 'Unknown Baby' }}</span>
                     </div>
                   </div>
                 </td>
-                <td>{{ $milk['nicu'] }}</td>
-                <td>{{ $milk['date_requested'] }}</td>
-                <td>{{ $milk['date_give'] }}</td>
+                <td>{{ $req->parent->pr_NICU ?? '-' }}</td>
+                <td>{{ $req->created_at->format('M d, Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($req->feeding_start_date)->format('M d, Y') }}
+                    •
+                    {{ \Carbon\Carbon::parse($req->feeding_start_time)->format('h:i A') }}</td>
                 <td>
-                  <span class="status {{ strtolower($milk['status']) }}">{{ $milk['status'] }}</span>
+                  <span class="status 
+                        @if($req->status == 'Approved') approved
+                        @elseif($req->status == 'Rejected') rejected
+                        @elseif($req->status == 'Allocated') allocated
+                        @else waiting
+                        @endif
+                    ">
+                        {{ $req->status ?? 'Waiting' }}
+                  </span>
                 </td>
                 <td>
-                    <button type="button" class="select-text" onclick="openMilkModal()">SELECT MILK</button>
+                    <button type="button" class="select-text" onclick="openMilkModal({{ $req->request_ID }})">SELECT MILK</button>
                 </td>
-                <td class="actions">
+                <!-- <td class="actions">
                   <button class="btn-edit" title="Edit"><i class="fas fa-pen"></i></button>
                   <button class="btn-view" title="View"><i class="fas fa-list"></i></button>
-                </td>
+                </td> -->
               </tr>
             @endforeach
           </tbody>
@@ -88,8 +95,8 @@
              <i class="fas fa-user fa-lg"></i>
         </div>
         <div>
-            <h3 style="margin: 0; color: #0c4a6e; font-size: 16px;">Patient: P001</h3>
-            <span style="font-size: 13px; color: #64748b;">Sarah Ahmad Binti Fauzi</span>
+            <h3 style="margin: 0; color: #0c4a6e; font-size: 16px;">Patient: {{ $req->parent->formattedID }}</h3>
+            <span style="font-size: 13px; color: #64748b;">{{ $req->parent->pr_Name }}</span>
         </div>
       </div>
 
@@ -99,7 +106,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div>
                     <label>Medical Record Number</label>
-                    <input type="text" class="form-control" value="MRN-2024-001" readonly>
+                    <input type="text" class="form-control" value="{{ $req->parent->pr_NICU ?? '-' }}" readonly>
                 </div>
                 <div>
                     <label>Date of Birth</label>
@@ -125,7 +132,7 @@
           <label>Milk Unit ID (Select Multiple)</label>
 
           <div id="milkList" class="milk-list">
-            <div class="milk-item" data-id="MU-2024-001" data-volume="50">
+            <!-- <div class="milk-item" data-id="MU-2024-001" data-volume="50">
               <strong>MU-2024-001</strong> — 50ml <br> <span style="font-size: 12px; color: #666;">Expires Jan 20, 2024</span>
             </div>
             <div class="milk-item" data-id="MU-2024-002" data-volume="45">
@@ -136,7 +143,20 @@
             </div>
              <div class="milk-item" data-id="MU-2024-004" data-volume="50">
                <strong>MU-2024-004</strong> — 50ml <br> <span style="font-size: 12px; color: #666;">Expires Jan 20, 2024</span>
-            </div>
+            </div> -->
+            @foreach($milks as $milk)
+              <div class="milk-item" data-id="{{ $milk->milk_ID }}" data-volume="{{ $milk->milk_volume }}">
+                  <strong>{{ $milk->formattedID }}</strong> — {{ $milk->milk_volume }} ml <br>
+                  <span style="font-size: 12px; color: #666;">
+                      Expires {{ \Carbon\Carbon::parse($milk->milk_expiryDate)->format('M d, Y') }}
+                  </span>
+
+                  <div style="margin-top: 8px;">
+                      <label style="font-size: 12px;">Allocation Time:</label>
+                      <input type="datetime-local" class="milk-datetime" data-datetime-id="{{ $milk->milk_ID }}">
+                  </div>
+              </div>
+            @endforeach
           </div>
 
           <p class="total-volume-display" style="text-align: right; margin-top: 10px; font-size: 14px;">
@@ -216,6 +236,44 @@ document.getElementById('milkAllocationForm').addEventListener('submit', functio
   alert('Milk units allocated successfully!');
   closeMilkModal();
 });
+
+document.getElementById('milkAllocationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (selectedMilkUnits.length === 0) {
+        alert('Please select at least one Milk Unit.');
+        return;
+    }
+
+    // Collect allocation date/time for each milk
+    let allocationDateTimes = {};
+    selectedMilkUnits.forEach(milk => {
+        let input = document.querySelector(`.milk-datetime[data-datetime-id="${milk.id}"]`);
+        allocationDateTimes[milk.id] = input ? input.value : null;
+    });
+
+    // Send data to backend
+    fetch("{{ route('nurse.allocate.milk') }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify({
+            request_id: selectedRequestId,      // YOU MUST SET THIS WHEN OPENING THE MODAL
+            selected_milk: selectedMilkUnits,
+            allocation_times: allocationDateTimes,
+            total_volume: document.getElementById("totalVolume").textContent,
+            storage_location: "NICU Storage Room A"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Milk allocated successfully!");
+        closeMilkModal();
+    });
+});
+
 </script>
 
 @endsection
