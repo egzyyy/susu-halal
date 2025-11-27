@@ -880,7 +880,8 @@ document.getElementById('saveResultsBtn')?.addEventListener('click', function() 
         .then(r => r.json())
         .then(data => {
             if (data.success) {
-                Swal.fire('Saved!', 'Screening results saved successfully.', 'success');
+                // Swal.fire('Saved!', 'Screening results saved successfully.', 'success');
+                location.reload();
             } else {
                 Swal.fire('Error', data.message || 'Failed to save', 'error');
             }
