@@ -25,6 +25,7 @@ return new class extends Migration
             $table->time('feeding_start_time');
             $table->integer('feeding_perday');
             $table->integer('feeding_interval');
+            $table->string('status')->nullable();
             $table->timestamps();
 
             // Define Foreign Key Relationships

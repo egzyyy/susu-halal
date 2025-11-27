@@ -192,7 +192,7 @@ Route::middleware(['auth'])->group(function () {
     // OTHER MODULES (Milk Request, Appointment, etc.)
     // ====================================================================
     // Route::view('/doctor/milk-request', 'doctor.doctor_milk-request')->name('doctor.list-milk-request');
-    Route::get('/doctor/milk-request', [RequestController::class, 'view'])->name('doctor.doctor_milk-request');
+    Route::get('/doctor/milk-request', [RequestController::class, 'viewRequestDoctor'])->name('doctor.doctor_milk-request');
     
     Route::view('/nurse/milk-request', 'nurse.nurse_milk-request')->name('nurse.list-milk-request');
 
@@ -202,7 +202,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/doctor/milk-request/{id}/delete', [RequestController::class, 'delete'])->name('doctor.milk-request-delete');
     
     Route::view('/nurse/allocate-milk', 'nurse.nurse_allocate-milk')->name('nurse.allocate-milk');
-    Route::view('/nurse/milk-request-list', 'nurse.nurse_milk-request-list')->name('nurse.milk-request-list');
+    Route::post('/nurse/allocate/delete', [RequestController::class, 'deleteAllocation'])->name('nurse.allocate.delete');
+
+    // Route::view('/nurse/milk-request-list', 'nurse.nurse_milk-request-list')->name('nurse.milk-request-list');
+    Route::get('/nurse/milk-request-list', [RequestController::class, 'viewRequestNurse'])->name('nurse.nurse_milk-request-list');
+    Route::post('/nurse/milk-request-list/store', [RequestController::class, 'allocateMilk'])->name('nurse.allocate.milk');
 
     // Route::view('/nurse/set-infant-weight', 'nurse.nurse_set-infant-weight')->name('nurse.set-infant-weight');
     Route::get('/nurse/set-infant-weight', [RequestController::class, 'setInfantWeightNurse'])->name('nurse.nurse_set-infant-weight');

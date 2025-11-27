@@ -8,7 +8,7 @@
 <div class="request-page">
   <div class="form-header">
     <h1>🍼 New Milk Request</h1>
-    <p>Create donor milk feeding request for NICU patients</p>
+    <p>Create donor milk feeding request for NICU patients {{ auth()->user()->id }}</p>
   </div>
 
   <form class="milk-request-form" method="POST" action="{{ route('doctor.doctor_milk-request-store') }}">
@@ -136,7 +136,16 @@ document.querySelector(".milk-request-form").addEventListener("submit", function
             "Accept": "application/json"
         }
     })
-    .then(res => res.json())
+
+    .then(async res => {
+        let data = await res.json();
+
+        if (!res.ok) {
+            throw data;
+        }
+        return data;
+    })
+
     .then(data => {
         if (data.success) {
 
@@ -160,8 +169,8 @@ document.querySelector(".milk-request-form").addEventListener("submit", function
     .catch(err => {
         Swal.fire({
             icon: 'error',
-            title: 'Error',
-            text: 'Something went wrong.'
+            title: 'Validation Error',
+            text: err.message ?? 'Please check all required fields.'
         });
     });
 });

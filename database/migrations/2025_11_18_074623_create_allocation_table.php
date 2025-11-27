@@ -21,8 +21,9 @@ return new class extends Migration
             // Milk attributes
             $table->integer('total_selected_milk');
             $table->string('storage_location');
-            $table->date('allocation_date')->nullable();
-            $table->time('allocation_time')->nullable();
+            // $table->date('allocation_date')->nullable();
+            // $table->time('allocation_time')->nullable();
+            $table->string('allocation_milk_date_time')->nullable();
             $table->timestamps();
 
             // Define Foreign Key Relationships

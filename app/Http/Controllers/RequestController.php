@@ -7,6 +7,9 @@ use App\Models\ParentModel;
 use App\Models\Request as MilkRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Doctor;
+use App\Models\Milk;
+use App\Models\Allocation;
+use Carbon\Carbon;
 
 class RequestController extends Controller
 {
@@ -17,11 +20,45 @@ class RequestController extends Controller
         return view('doctor.doctor_milk-request-form', compact('parents'));
     }
 
-    public function view()
+    public function viewRequestDoctor()
     {
         $requests = MilkRequest::with(['parent', 'doctor'])->latest()->get();
-
         return view('doctor.doctor_milk-request', compact('requests'));
+    }
+
+    public function viewRequestNurse(Request $request)
+    {
+        $search = $request->input('search');
+        $status = $request->input('status'); // Get status from tabs
+
+        // 1. Start the query
+        $query = MilkRequest::with(['parent', 'doctor', 'allocation.milk']);
+
+        // 2. Apply Search Filter
+        if ($search) {
+            $query->whereHas('parent', function ($q) use ($search) {
+                $q->where('pr_BabyName', 'LIKE', "%{$search}%")
+                ->orWhere('pr_ID', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // 3. Apply Status Filter (Tabs)
+        if ($status && $status !== 'All') {
+            $query->where('status', $status);
+        }
+
+        // 4. Order and Paginate
+        $requests = $query->latest()->paginate(10);
+
+        // 5. Append query parameters so tabs + search + pagination work together
+        $requests->appends(['search' => $search, 'status' => $status]);
+
+        // Only NON-EXPIRED milk
+        $milks = Milk::whereDate('milk_expiryDate', '>=', Carbon::today())
+                    ->where('milk_Status', 'Distributing Completed')
+                    ->get();
+
+        return view('nurse.nurse_milk-request-list', compact('requests', 'milks'));
     }
 
     public function store(Request $request)
@@ -29,17 +66,18 @@ class RequestController extends Controller
         $doctor = \App\Models\Doctor::where('dr_ID', auth()->id())->first();
 
         $request->validate([
-            'pr_ID'             => 'required|exists:parent,pr_ID',
-            'weight'            => 'required|numeric|min:0.1',
-            'entered_volume'    => 'required|numeric|min:1',
+            'pr_ID'             => 'required',
+            'weight'            => 'required|numeric',
+            'entered_volume'    => 'required|numeric',
             'feeding_date'      => 'required|date',
             'start_time'        => 'required',
-            'feeds_per_day'     => 'required|integer|min:1',
-            'interval_hours'    => 'required|integer|min:1',
+            'feeds_per_day'     => 'required|integer',
+            'interval_hours'    => 'required|integer',
         ]);
 
         MilkRequest::create([
-            'dr_ID'              => $doctor->dr_ID, // doctor logged in
+            // 'dr_ID'              => auth()->user()->doctor->dr_ID, // Get dr_ID from logged-in user
+            'dr_ID'              => $doctor->dr_ID,
             'pr_ID'              => $request->pr_ID,
             'current_weight'     => $request->weight,
             'recommended_volume' => $request->entered_volume,
@@ -47,12 +85,47 @@ class RequestController extends Controller
             'feeding_start_time' => $request->start_time,
             'feeding_perday'     => $request->feeds_per_day,
             'feeding_interval'   => $request->interval_hours,
+            'status'             => "Waiting", // Default status
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Milk Request submitted successfully!'
         ]);
+    }
+    
+    public function allocateMilk(Request $request)
+    {
+        $request->validate([
+            'request_id'      => 'required|exists:request,request_ID',
+            'selected_milk'   => 'required|array',
+            'allocation_times'=> 'required|array',
+            'total_volume'    => 'required',
+            'storage_location'=> 'required'
+        ]);
+
+        foreach ($request->selected_milk as $milk) {
+            Allocation::create([
+                'request_ID'          => $request->request_id,
+                'milk_ID'             => $milk['id'],
+                'total_selected_milk' => $request->total_volume,
+                'storage_location'    => $request->storage_location,
+                
+                // REMOVE json_encode HERE. Pass the array directly.
+                // Eloquent will convert it to JSON because of the 'array' cast in Model.
+                'allocation_milk_date_time' => [
+                    'milk_id' => $milk['id'],
+                    'datetime' => $request->allocation_times[$milk['id']] ?? null
+                ]
+            ]);
+        }
+
+        // Update request status to approved
+        $milkRequest = MilkRequest::findOrFail($request->request_id);
+        $milkRequest->status = 'Approved';
+        $milkRequest->save();
+
+        return response()->json(['success' => true]);
     }
 
     public function delete($id)
@@ -63,6 +136,26 @@ class RequestController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Milk request deleted successfully.'
+        ]);
+    }
+
+    public function deleteAllocation(Request $request)
+    {
+        $request->validate([
+            'request_id' => 'required|exists:request,request_ID',
+        ]);
+
+        // 1. Delete all allocation records associated with this request ID
+        Allocation::where('request_ID', $request->request_id)->delete();
+
+        // 2. Find the Milk Request and revert status to 'Waiting'
+        $milkRequest = MilkRequest::findOrFail($request->request_id);
+        $milkRequest->status = 'Waiting';
+        $milkRequest->save();
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'Allocation reverted successfully.'
         ]);
     }
 
