@@ -265,19 +265,26 @@ class DonorAppointmentController extends Controller
 
     public function cancelMilk(Request $request, $id)
     {
+        
         $appointment = MilkAppointment::findOrFail($id);
 
         $now = now();
         $appointmentTime = \Carbon\Carbon::parse($appointment->appointment_datetime);
 
         $hoursDifference = $now->diffInHours($appointmentTime, false);
-
+        
         // Appointment is in the future AND less than 24 hours away
         if ($hoursDifference > 0 && $hoursDifference < 24) {
-            return redirect()->back()->with('error', 'You cannot cancel a Milk Donation appointment less than 24 hours before.');
+            return redirect()
+            ->route('donor.appointments')
+            ->with('too_close', true)
+            ->with('cantCancelRef', $appointment->reference_num);
         }
 
+        
         $appointment->update(['status' => 'Canceled']);
+
+        
 
         return redirect()
             ->route('donor.appointments')
@@ -288,6 +295,7 @@ class DonorAppointmentController extends Controller
 
     public function cancelPumpingKit(Request $request, $id)
     {
+        
         $appointment = PumpingKitAppointment::findOrFail($id);
 
         $now = now();
@@ -297,7 +305,10 @@ class DonorAppointmentController extends Controller
 
         // Appointment is in the future AND less than 24 hours away
         if ($hoursDifference > 0 && $hoursDifference < 24) {
-            return redirect()->back()->with('error', 'You cannot cancel a Pumping Kit appointment less than 24 hours before.');
+            return redirect()
+            ->route('donor.appointments')
+            ->with('too_close', true)
+            ->with('cantCancelRef', $appointment->reference_num);
         }
 
         $appointment->update(['status' => 'Canceled']);
