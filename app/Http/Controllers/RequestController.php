@@ -100,7 +100,7 @@ class RequestController extends Controller
 
     public function store(Request $request)
     {
-        $doctor = \App\Models\Doctor::where('dr_ID', auth()->id())->first();
+        // $doctor = \App\Models\Doctor::where('dr_ID', auth()->id())->first();
 
         $request->validate([
             'pr_ID'             => 'required',
@@ -113,8 +113,8 @@ class RequestController extends Controller
         ]);
 
         MilkRequest::create([
-            // 'dr_ID'              => auth()->user()->doctor->dr_ID, // Get dr_ID from logged-in user
-            'dr_ID'              => $doctor->dr_ID,
+            'dr_ID'              => auth()->user()->doctor->dr_ID, // Get dr_ID from logged-in user
+            // 'dr_ID'              => $doctor->dr_ID,
             'pr_ID'              => $request->pr_ID,
             'current_weight'     => $request->weight,
             'recommended_volume' => $request->entered_volume,
