@@ -1,54 +1,76 @@
-name: Deploy Laravel to Azure
+name: Build and deploy Laravel to Azure Web App - HMMC-Susu-Halal
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: read
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.3'
-        extensions: mbstring, pdo_mysql, mysqlnd, tokenizer, xml, ctype, json
-        
-    - name: Install dependencies
-      run: |
-        composer install --no-dev --optimize-autoloader --no-interaction
-        php artisan config:cache
-        php artisan route:cache
-        php artisan view:cache
-    
-    - name: Prepare for Azure (FIX FOR LARAVEL)
-      run: |
-        # Move public files to root for Azure
-        cp -r public/* .
-        cp public/.htaccess . 2>/dev/null || true
-        # Remove public folder so Azure sees index.php at root
-        rm -rf public
-        # Create .htaccess if not exists
-        if [ ! -f ".htaccess" ]; then
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_mysql, mysqlnd, tokenizer, xml, ctype, json
+
+      - name: Install dependencies
+        run: |
+          composer install --no-dev --optimize-autoloader --no-interaction
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+      - name: Fix Laravel structure for Azure
+        run: |
+          # Move public files to root (Azure requires index.php in root)
+          cp -r public/* .
+          cp public/.htaccess . 2>/dev/null || true
+          
+          # Create proper .htaccess for Azure
           echo '<IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^(.*)$ index.php [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [L]
 </IfModule>' > .htaccess
-        fi
-    
-    - name: Login to Azure
-      uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F44FBA9F5F584F8FB48CDF9B63CB6796 }}
-        tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2029E93A636D440FAF8866D97B8D5426 }}
-        subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7DBF4B0C007B46F19B1D3DB688FA4BC1 }}
 
-    - name: Deploy to Azure
-      uses: azure/webapps-deploy@v3
-      with:
-        app-name: 'HMMC-Susu-Halal'
-        package: .
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: laravel-app
+          path: .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: laravel-app
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F44FBA9F5F584F8FB48CDF9B63CB6796 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2029E93A636D440FAF8866D97B8D5426 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7DBF4B0C007B46F19B1D3DB688FA4BC1 }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'HMMC-Susu-Halal'
+          slot-name: 'Production'
+          package: .
